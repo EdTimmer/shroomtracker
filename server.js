@@ -24,6 +24,11 @@ const schema = makeExecutableSchema({
   resolvers
 });
 
+const { ObjectId } = mongoose.Types;
+ObjectId.prototype.valueOf = function () {
+  return this.toString();
+};
+
 //Connect to database 
 
 mongoose

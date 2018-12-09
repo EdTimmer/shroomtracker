@@ -1,12 +1,83 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReactDOM from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from 'react-router-dom';
 import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import ApolloClient from 'apollo-client';
+import { ApolloProvider } from 'react-apollo';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import App from './components/App';
+
+// const client = new ApolloClient({
+//   dataIdFromObject: o => o.id
+// });
+
+// Required for 2.0
+
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { createHttpLink } from "apollo-link-http";
+import { setContext } from 'apollo-link-context';
+
+// Connect front-end to back-end (using Apollo 2.0)
+
+const httpLink = createHttpLink({
+  //For Development
+  uri: "http://localhost:4444/graphql",
+  //For Deployment
+  // uri: "https://recipes-react-graphql.herokuapp.com/graphql"
+});
+
+// const authLink = setContext((_, { headers }) => {
+//   // get the authentication token from local storage if it exists
+//   const token = localStorage.getItem('token');
+//   // return the headers to the context so httpLink can read them
+//   return {
+//     headers: {
+//       ...headers,
+//       authorization: token
+//     }
+//   }
+// });
+
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+  onError: ({ networkError }) => {
+    if (networkError) {
+      localStorage.setItem('token', '');
+    }
+  }
+});
+
+const Root = ({ refetch }) => (
+  <Router>
+    <Fragment>
+      {/*<Navbar />*/}
+      <Switch>
+        <Route path="/" exact component={App} />
+        {/*<Route path="/search" exact component={Search} />
+        <Route path="/signin" render={() => <Signin refetch={refetch} />} />
+        <Route path="/signup" render={() => <Signup refetch={refetch} />} />
+        <Route path="/recipe/add" render={() => <AddRecipe session={session} />} />
+        <Route path="/recipes/:_id" component={RecipePage} />
+<Route path="/profile" render={() => <Profile session={session} /> } />*/}
+        <Redirect to="/" />
+      </Switch>
+    </Fragment>
+  </Router>
+);
+
+
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <Root />
+  </ApolloProvider>,
+  document.getElementById('root')
+);
+
+

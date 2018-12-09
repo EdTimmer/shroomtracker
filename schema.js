@@ -3,13 +3,13 @@
 exports.typeDefs = `
 
   type Location {
-    _id: ID
+    _id: ID!
     locationname: String!
     address: String!
   }
 
   type Mushroom {
-    _id: ID
+    _id: ID!
     commonname: String!
     latinname: String
     locationname: String!
