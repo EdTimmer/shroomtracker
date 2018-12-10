@@ -30,16 +30,16 @@ const MushroomPage = ({ match }) => {
                     <strong>{data.getMushroom.commonname}</strong>
                   </h2>
                   <h5>
-                    <i>{data.getMushroom.latinname}</i>
+                    <strong><i>{data.getMushroom.latinname}</i></strong>
                   </h5>
                   <h5>
-                    {data.getMushroom.locationname}
+                    <i>Location: </i> {data.getMushroom.locationname}
                   </h5>
                   <h5>
-                    {data.getMushroom.date}
+                    <i>Found Date: </i> {data.getMushroom.date}
                   </h5>
                   <h5>
-                    {data.getMushroom.coordinates}
+                    <i>Coordinates: </i> {data.getMushroom.coordinates}
                   </h5>
                 </div>
 
