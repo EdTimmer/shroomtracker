@@ -41,10 +41,9 @@ class AddMushroom extends React.Component {
   handleSubmit = (event, addMushroom) => {
     event.preventDefault();
     addMushroom().then(({ data }) => {
-      // console.log(data);
-      this.clearState();
+      // console.log(data); 
+      this.clearState();     
       this.props.history.push("/");
-
     });
   }
 
@@ -120,11 +119,13 @@ class AddMushroom extends React.Component {
                           {
                             <select
                               name="locationname"
-                              onChange={this.handleChange}                              
+                              onChange={this.handleChange}  
+
                             >
                             <option value="-1"> Select Location </option>
                               {
-                                data.getAllLocations.map(location => <option key={location._id} value={location.locationname}> {location.locationname} </option>)
+                                data.getAllLocations.map(location => 
+                                    <option key={location._id} value={location.locationname}> {location.locationname} </option>)
                               }
 
                             </select>

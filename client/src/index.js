@@ -13,6 +13,7 @@ import { ApolloProvider } from 'react-apollo';
 
 import App from './components/App';
 import LocationPage from './components/Location/LocationPage';
+import MushroomPage from './components/Mushroom/MushroomPage';
 import AddLocation from './components/Location/AddLocation';
 import AddMushroom from './components/Mushroom/AddMushroom';
 
@@ -64,6 +65,7 @@ const Root = ({ refetch }) => (
       <Switch>
         <Route path="/" exact component={App} />
         <Route path="/locations/:_id" component={LocationPage} />
+        <Route path="/mushrooms/:_id" component={MushroomPage} />
         <Route path="/mushroom/add" component={AddMushroom} />
         <Route path="/location/add" component={AddLocation} />
         {/*<Route path="/search" exact component={Search} />

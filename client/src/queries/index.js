@@ -37,6 +37,20 @@ export const GET_ALL_MUSHROOMS = gql`
   }
 `;
 
+export const GET_MUSHROOM = gql`
+  query($_id: ID!) {
+    getMushroom(_id: $_id) {
+      _id
+      commonname
+      latinname
+      imageUrl
+      locationname
+      date
+      coordinates
+    }
+  }  
+`;
+
 export const GET_LOCATION_MUSHROOMS = gql`
   query($locationname: String!) {
     getLocationMushrooms(locationname: $locationname) {
