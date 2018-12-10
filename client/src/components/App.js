@@ -45,7 +45,7 @@ class App extends Component {
             // console.log(data)
             // const { on } = this.state;
             return (
-              <div className="cards">
+              <div>
                 {
                   data.getAllLocations.map(location => (
                     <LocationItem key={location._id} {...location} />

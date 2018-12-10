@@ -12,6 +12,16 @@ export const GET_ALL_LOCATIONS = gql`
   }
 `;
 
+export const GET_LOCATION = gql`
+  query($_id: ID!) {
+    getLocation(_id: $_id) {
+      _id
+      locationname
+      address
+    }
+  }  
+`;
+
 /* Mushroom Queries */
 
 export const GET_ALL_MUSHROOMS = gql`

@@ -21,12 +21,17 @@ exports.typeDefs = `
   type Query {
 
     getAllLocations: [Location]
+
     getLocation(_id: ID!): Location
 
     getAllMushrooms: [Mushroom]
+
     getMushroom(_id: ID!): Mushroom
 
+    getLocationMushrooms(locationname: String!): [Mushroom]
+
     searchMushrooms(searchTerm: String): [Mushroom]
+
   }
 
   type Mutation {

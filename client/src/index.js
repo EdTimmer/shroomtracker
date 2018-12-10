@@ -12,6 +12,7 @@ import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 
 import App from './components/App';
+import LocationPage from './components/Location/LocationPage';
 
 // const client = new ApolloClient({
 //   dataIdFromObject: o => o.id
@@ -60,6 +61,8 @@ const Root = ({ refetch }) => (
       {/*<Navbar />*/}
       <Switch>
         <Route path="/" exact component={App} />
+        <Route path="/locations/:_id" component={LocationPage} />
+
         {/*<Route path="/search" exact component={Search} />
         <Route path="/signin" render={() => <Signin refetch={refetch} />} />
         <Route path="/signup" render={() => <Signup refetch={refetch} />} />

@@ -21,6 +21,11 @@ exports.resolvers = {
       const mushroom = await Mushroom.findOne({ _id });
       return mushroom;
     },
+
+    getLocationMushrooms: async (root, { locationname }, { Mushroom }) => {
+      const locationMushrooms = await Mushroom.find({ locationname }).sort({ commonname: 1 });
+      return locationMushrooms;
+    },
   },
 
   Mutation: {
