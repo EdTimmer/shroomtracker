@@ -13,6 +13,7 @@ import { ApolloProvider } from 'react-apollo';
 
 import App from './components/App';
 import LocationPage from './components/Location/LocationPage';
+import AddLocation from './components/Location/AddLocation';
 import AddMushroom from './components/Mushroom/AddMushroom';
 
 // const client = new ApolloClient({
@@ -63,12 +64,13 @@ const Root = ({ refetch }) => (
       <Switch>
         <Route path="/" exact component={App} />
         <Route path="/locations/:_id" component={LocationPage} />
-        <Route path="/mushroom/add" component={AddMushroom} />}
+        <Route path="/mushroom/add" component={AddMushroom} />
+        <Route path="/location/add" component={AddLocation} />
         {/*<Route path="/search" exact component={Search} />
         <Route path="/signin" render={() => <Signin refetch={refetch} />} />
         <Route path="/signup" render={() => <Signup refetch={refetch} />} />
         <Route path="/recipe/add" render={() => <AddRecipe session={session} />} />
-        <Route path="/recipes/:_id" component={RecipePage} />
+        <Route path="/recipes/:_id" component={RecipePage} /><Route path="/mushroom/add" component={AddMushroom} />
 <Route path="/profile" render={() => <Profile session={session} /> } />*/}
         <Redirect to="/" />
       </Switch>
