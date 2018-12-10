@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Query } from 'react-apollo';
-import { GET_LOCATION, GET_ALL_MUSHROOMS  } from '../../queries';
+import { GET_LOCATION, GET_ALL_MUSHROOMS, GET_LOCATION_MUSHROOMS } from '../../queries';
 import Spinner from '../Spinner';
 import MushroomItem from '../Mushroom/MushroomItem';
 
@@ -23,7 +23,7 @@ const LocationPage = ({ match }) => {
                 <h5>{data.getLocation.address}</h5>
               </div>
 
-              <Query query={GET_ALL_MUSHROOMS}>
+              <Query query={GET_LOCATION_MUSHROOMS} variables={{locationname: data.getLocation.locationname}}>
                 {({ data, loading, error }) => {
                   if (loading) return <Spinner />
                   if (error) return <div>Error</div>
@@ -33,7 +33,7 @@ const LocationPage = ({ match }) => {
                     <div className="cards"
                     >
                       {
-                        data.getAllMushrooms.map(mushroom => (
+                        data.getLocationMushrooms.map(mushroom => (
                           <MushroomItem key={mushroom._id} {...mushroom} />
                         ))
                       }

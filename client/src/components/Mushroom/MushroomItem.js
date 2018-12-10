@@ -7,12 +7,14 @@ import posed from 'react-pose';
 //   hidden: { opacity: 0 }
 // });
 
-export default ({ _id, commonname, latinname, imageUrl, date, coordinates }) => (
+export default ({ _id, commonname, imageUrl, date }) => (
   <div
+    style={{ background: `url(${imageUrl}) center center / cover no-repeat`}}
     className="card"
   >    
     <div className="card-text">
       <Link to={`/mushrooms/${_id}`}><h4>{commonname}</h4></Link>
+      <h6>{date}</h6>
     </div> 
     
   </div>

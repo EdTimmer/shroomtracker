@@ -37,6 +37,17 @@ export const GET_ALL_MUSHROOMS = gql`
   }
 `;
 
+export const GET_LOCATION_MUSHROOMS = gql`
+  query($locationname: String!) {
+    getLocationMushrooms(locationname: $locationname) {
+      _id
+      commonname
+      imageUrl
+      date
+    }
+  }
+`;
+
 /* Location Mutations */
 
 export const ADD_LOCATION = gql`

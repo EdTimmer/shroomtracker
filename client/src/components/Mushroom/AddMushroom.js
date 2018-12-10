@@ -1,9 +1,10 @@
 import React from 'react';
 // import { withRouter } from 'react-router-dom';
 // import CKEditor from 'react-ckeditor-component';
+import Spinner from '../Spinner';
 
-import { Mutation } from 'react-apollo';
-import { ADD_MUSHROOM, GET_ALL_MUSHROOMS } from '../../queries';
+import { Query, Mutation } from 'react-apollo';
+import { ADD_MUSHROOM, GET_ALL_MUSHROOMS, GET_ALL_LOCATIONS } from '../../queries';
 import Error from '../Error';
 // import withAuth from '../withAuth';
 
@@ -49,7 +50,7 @@ class AddMushroom extends React.Component {
 
   validateForm = () => {
     const { commonname, imageUrl, date } = this.state;
-    const isInvalid = !commononame || !imageUrl || !date;
+    const isInvalid = !commonname || !imageUrl || !date;
     return isInvalid;
   }
 
@@ -72,7 +73,7 @@ class AddMushroom extends React.Component {
         mutation={ADD_MUSHROOM}
         variables={{ commonname, latinname, locationname, imageUrl, date, coordinates }}
         refetchQueries={() => [
-          { query: GET_LOCATION_MUSHROOMS, variables: { locationname } }
+          { query: GET_ALL_MUSHROOMS }
         ]}
         update={this.updateCache}
       >
@@ -80,57 +81,75 @@ class AddMushroom extends React.Component {
           (addMushroom, { data, loading, error }) => {
             return (
               <div className="App">
-                <h2 className="App">Add Recipe</h2>
+                <h2 className="App">Add Mushroom</h2>
 
                 <form className="form" onSubmit={event => this.handleSubmit(event, addMushroom)}>
 
                   <input
                     type="text"
-                    name="name"
-                    placeholder="Recipe Name"
+                    name="commonname"
+                    placeholder="Common Name"
                     onChange={this.handleChange}
-                    value={name}
+                    value={commonname}
+                  />
+
+                  <input
+                    type="text"
+                    name="latinname"
+                    placeholder="Latin Name"
+                    onChange={this.handleChange}
+                    value={latinname}
                   />
 
                   <input
                     type="text"
                     name="imageUrl"
-                    placeholder="Recipe Image"
+                    placeholder="Mushroom Image"
                     onChange={this.handleChange}
                     value={imageUrl}
                   />
 
-                  <select
-                    name="category"
-                    onChange={this.handleChange}
-                    value={category}
-                  >
-                    <option value="Breakfast">Breakfast</option>
-                    <option value="Lunch">Lunch</option>
-                    <option value="Dinner">Dinner</option>
-                    <option value="Snack">Snack</option>
-                  </select>
+                  <Query query={GET_ALL_LOCATIONS}>
+                    {({ data, loading, error }) => {
+                      if (loading) return <Spinner />
+                      if (error) return <div>Error</div>
+                      // console.log(data)
+                      // const { on } = this.state;
+                      return (
+                        <div>                          
+                          {
+                            <select
+                              name="locationname"
+                              onChange={this.handleChange}                              
+                            >
+                            <option value="-1"> Select Location </option>
+                              {
+                                data.getAllLocations.map(location => <option key={location._id} value={location.locationname}> {location.locationname} </option>)
+                              }
+
+                            </select>
+
+                          }
+                        </div>
+                      )
+                    }}
+                  </Query>
 
                   <input
                     type="text"
-                    name="description"
-                    placeholder="Add description"
+                    name="date"
+                    placeholder="Add Date"
                     onChange={this.handleChange}
-                    value={description}
+                    value={date}
                   />
 
-                  <label htmlFor="instructions">Add Instructions</label>
-                  <CKEditor
-                    name="instructions"
-                    content={instructions}
-                    events={{ change: this.handleEditorChange }}
-                  />
-                  {/*<textarea
-                    name="instructions"
-                    placeholder="Add instructions"
+                  <input
+                    type="text"
+                    name="coordinates"
+                    placeholder="Add Coordinates"
                     onChange={this.handleChange}
-                    value={instructions}
-                  ></textarea>*/}
+                    value={coordinates}
+                  />
 
                   <button
                     disabled={loading || this.validateForm()}
@@ -149,4 +168,4 @@ class AddMushroom extends React.Component {
   }
 }
 
-export default withAuth(session => session && session.getCurrentUser)(withRouter(addMushroom));
+export default AddMushroom;
