@@ -12,14 +12,16 @@ import ApolloClient from 'apollo-client';
 import { ApolloProvider } from 'react-apollo';
 
 import App from './components/App';
+import Navbar from './components/Navbar';
+import Signin from "./components/Auth/Signin";
+import Signup from "./components/Auth/Signup";
+import withSession from "./components/withSession";
+import AllLocationsPage from '/components/Location/AllLocationsPage';
+import AllMushroomsPage from '/components/Mushroom/AllMushroomsPage';
 import LocationPage from './components/Location/LocationPage';
 import MushroomPage from './components/Mushroom/MushroomPage';
 import AddLocation from './components/Location/AddLocation';
 import AddMushroom from './components/Mushroom/AddMushroom';
-
-// const client = new ApolloClient({
-//   dataIdFromObject: o => o.id
-// });
 
 // Required for 2.0
 
@@ -36,20 +38,20 @@ const httpLink = createHttpLink({
   // uri: "https://recipes-react-graphql.herokuapp.com/graphql"
 });
 
-// const authLink = setContext((_, { headers }) => {
-//   // get the authentication token from local storage if it exists
-//   const token = localStorage.getItem('token');
-//   // return the headers to the context so httpLink can read them
-//   return {
-//     headers: {
-//       ...headers,
-//       authorization: token
-//     }
-//   }
-// });
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const token = localStorage.getItem('token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token
+    }
+  }
+});
 
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
   onError: ({ networkError }) => {
     if (networkError) {
@@ -58,21 +60,25 @@ const client = new ApolloClient({
   }
 });
 
-const Root = ({ refetch }) => (
+const Root = ({ refetch, session }) => (
   <Router>
     <Fragment>
-      {/*<Navbar />*/}
+      <Navbar session={session} />
       <Switch>
         <Route path="/" exact component={App} />
-        <Route path="/locations/:_id" component={LocationPage} />
-        <Route path="/mushrooms/:_id" component={MushroomPage} />
-        <Route path="/mushroom/add" component={AddMushroom} />
-        <Route path="/location/add" component={AddLocation} />
-        {/*<Route path="/search" exact component={Search} />
+        
+        <Route path="/locations/:_id" render={() => {<LocationPage session={session} />}} />
+        <Route path="/mushrooms/:_id" render={() => {<MushroomPage session={session} />}} />
+        <Route path="/mushroom/add" render={() => {<AddMushroom session={session} />}} />
+        <Route path="/location/add" render={() => {<AddLocation session={session} />}} />
+        <Route path="/locations" render={() => {<AllLocationsPage session={session} />}} />
+        <Route path="/mushrooms" render={() => {<AllMushroomsPage session={session} />}} />
+        {/*<Route path="/search" exact component={Search} />*/}
         <Route path="/signin" render={() => <Signin refetch={refetch} />} />
         <Route path="/signup" render={() => <Signup refetch={refetch} />} />
-        <Route path="/recipe/add" render={() => <AddRecipe session={session} />} />
-        <Route path="/recipes/:_id" component={RecipePage} /><Route path="/mushroom/add" component={AddMushroom} />
+        {/*<Route path="/recipe/add" render={() => <AddRecipe session={session} />} />
+        <Route path="/recipes/:_id" component={RecipePage} />
+        <Route path="/mushroom/add" component={AddMushroom} />
 <Route path="/profile" render={() => <Profile session={session} /> } />*/}
         <Redirect to="/" />
       </Switch>
@@ -80,10 +86,11 @@ const Root = ({ refetch }) => (
   </Router>
 );
 
+const RootWithSession = withSession(Root);
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Root />
+    <RootWithSession />
   </ApolloProvider>,
   document.getElementById('root')
 );

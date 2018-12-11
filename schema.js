@@ -2,10 +2,19 @@
 
 exports.typeDefs = `
 
+  type User {
+    _id: ID
+    username: String! @unique 
+    password: String!
+    email: String!
+    joinDate: String
+  }
+
   type Location {
     _id: ID!
     locationname: String!
     address: String!
+    username: String!
   }
 
   type Mushroom {
@@ -16,6 +25,7 @@ exports.typeDefs = `
     imageUrl: String!
     date: String!
     coordinates: String
+    username: String!
   }
 
   type Query {
@@ -32,23 +42,41 @@ exports.typeDefs = `
 
     searchMushrooms(searchTerm: String): [Mushroom]
 
+    getCurrentUser: User
+
+  }
+
+  type Token {
+    token: String!
   }
 
   type Mutation {
 
     addLocation(
-      locationname: String!
-      address: String!
+      locationname: String!,
+      address: String!,
+      username: String!
     ): Location
 
     addMushroom(
-      commonname: String!
-      latinname: String
-      locationname: String!
-      imageUrl: String!
-      date: String!
-      coordinates: String
+      commonname: String!,
+      latinname: String,
+      locationname: String!,
+      imageUrl: String!,
+      date: String!,
+      coordinates: String,
+      username: String!
     ): Mushroom
-  }
 
+    singupUser(
+      username: String!,
+      email: String!,
+      password: String!
+    ) : Token
+
+    signinUser(
+      username: String!,
+      password: String!
+    ) : Token
+  }
 `;

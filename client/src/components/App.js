@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 // import posed from 'react-pose';
 
-import { Query } from 'react-apollo';
-import { GET_ALL_LOCATIONS, GET_ALL_MUSHROOMS } from '../queries';
+// import { Query } from 'react-apollo';
+// import { GET_ALL_LOCATIONS, GET_ALL_MUSHROOMS } from '../queries';
 
-import LocationItem from './Location/LocationItem';
-import Spinner from './Spinner';
+// import LocationItem from './Location/LocationItem';
+// import Spinner from './Spinner';
 
 // const LocationList = posed.ul({
 //   shown: {
@@ -38,23 +38,7 @@ class App extends Component {
         <h1 className="main-title">
           Track Your <strong>Shrooms</strong>
         </h1>
-        <Query query={GET_ALL_LOCATIONS}>
-          {({ data, loading, error }) => {
-            if (loading) return <Spinner />
-            if (error) return <div>Error</div>
-            // console.log(data)
-            // const { on } = this.state;
-            return (
-              <div>
-                {
-                  data.getAllLocations.map(location => (
-                    <LocationItem key={location._id} {...location} />
-                  ))
-                }
-              </div>
-            )
-          }}
-        </Query>
+        
       </div>
     )
   }
