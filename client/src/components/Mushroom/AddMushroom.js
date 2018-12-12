@@ -1,12 +1,11 @@
 import React from 'react';
-// import { withRouter } from 'react-router-dom';
-// import CKEditor from 'react-ckeditor-component';
+import { withRouter } from 'react-router-dom';
+import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
 import { Query, Mutation } from 'react-apollo';
 import { ADD_MUSHROOM, GET_ALL_MUSHROOMS, GET_ALL_LOCATIONS } from '../../queries';
 import Error from '../Error';
-// import withAuth from '../withAuth';
 
 const initialState = {
   commonname: '',
@@ -14,7 +13,8 @@ const initialState = {
   locationname: '',
   imageUrl: '',
   date: '',
-  coordinates: ''
+  coordinates: '',
+  username: ''
 }
 
 class AddMushroom extends React.Component {
@@ -24,11 +24,11 @@ class AddMushroom extends React.Component {
     this.setState({ ...initialState });
   }
 
-  // componentDidMount() {
-  //   this.setState({
-  //     username: this.props.session.getCurrentUser.username
-  //   });
-  // }
+  componentDidMount() {
+    this.setState({
+      username: this.props.session.getCurrentUser.username
+    });
+  }
 
   handleChange = event => {
     const { name, value } = event.target;
@@ -65,14 +65,14 @@ class AddMushroom extends React.Component {
   }
 
   render() {
-    const { commonname, latinname, locationname, imageUrl, date, coordinates } = this.state;
+    const { commonname, latinname, locationname, imageUrl, date, coordinates, username } = this.state;
 
     return (
       <Mutation
         mutation={ADD_MUSHROOM}
-        variables={{ commonname, latinname, locationname, imageUrl, date, coordinates }}
+        variables={{ commonname, latinname, locationname, imageUrl, date, coordinates, username }}
         refetchQueries={() => [
-          { query: GET_ALL_MUSHROOMS }
+          { query: GET_ALL_MUSHROOMS, variables: { username } }
         ]}
         update={this.updateCache}
       >
@@ -169,4 +169,4 @@ class AddMushroom extends React.Component {
   }
 }
 
-export default AddMushroom;
+export default withAuth(session => session && session.getCurrentUser)(withRouter(AddMushroom));

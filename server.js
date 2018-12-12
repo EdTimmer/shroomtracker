@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 require('dotenv').config({ path: 'variables.env' });
 
+const User = require('./models/User');
 const Location = require('./models/Location');
 const Mushroom = require('./models/Mushroom');
 
@@ -42,18 +43,38 @@ const app = express();
 
 app.use(cors('*'));
 
+// Set up JWT authentication middleware
+
+app.use(async (req, res, next) => {
+  const token = req.headers['authorization'];
+  
+  if (token !== "null") {
+    try {
+      const currentUser = await jwt.verify(token, process.env.SECRET);
+      req.currentUser = currentUser;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+  next();
+});
+
 // Create GraphiQL application 
 
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
+//Connect schemas with GraphQL
+
 app.use(
   '/graphql',
   bodyParser.json(),
-  graphqlExpress(() => ({
+  graphqlExpress(({ currentUser }) => ({
     schema,
     context: {
+      User,
       Location,
-      Mushroom
+      Mushroom,
+      currentUser
     }
   }))
 );

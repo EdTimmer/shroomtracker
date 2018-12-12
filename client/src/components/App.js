@@ -36,7 +36,7 @@ class App extends Component {
     return (
       <div className="App">
         <h1 className="main-title">
-          Track Your <strong>Shrooms</strong>
+          <strong>Mushroom Tracker</strong>
         </h1>
         
       </div>

@@ -15,11 +15,12 @@ export const GET_CURRENT_USER = gql`
 /* Location Queries */
 
 export const GET_ALL_LOCATIONS = gql`
-  query {
-    getAllLocations {
+  query($username: String!) {
+    getAllLocations(username: $username) {
       _id
       locationname
       address
+      username
     }
   }
 `;
@@ -30,6 +31,7 @@ export const GET_LOCATION = gql`
       _id
       locationname
       address
+      username
     }
   }  
 `;
@@ -37,14 +39,15 @@ export const GET_LOCATION = gql`
 /* Mushroom Queries */
 
 export const GET_ALL_MUSHROOMS = gql`
-  query {
-    getAllMushrooms {
+  query($username: String!) {
+    getAllMushrooms(username: $username) {
       _id
       commonname
       latinname
       imageUrl
       date
       coordinates
+      username
     }
   }
 `;
@@ -59,6 +62,7 @@ export const GET_MUSHROOM = gql`
       locationname
       date
       coordinates
+      username
     }
   }  
 `;
@@ -70,6 +74,7 @@ export const GET_LOCATION_MUSHROOMS = gql`
       commonname
       imageUrl
       date
+      username
     }
   }
 `;
@@ -79,15 +84,18 @@ export const GET_LOCATION_MUSHROOMS = gql`
 export const ADD_LOCATION = gql`
   mutation(
     $locationname: String!,
-    $address: String!
+    $address: String!,
+    $username: String!
   ) {
     addLocation(
       locationname: $locationname,
       address: $address,
+      username: $username
     ) {
       _id
       locationname
       address
+      username
     }
   }
 `;
@@ -101,7 +109,8 @@ export const ADD_MUSHROOM = gql`
     $locationname: String!,
     $imageUrl: String!,
     $date: String!,
-    $coordinates: String
+    $coordinates: String,
+    $username: String!
   ) {
     addMushroom(
       commonname: $commonname,
@@ -109,7 +118,8 @@ export const ADD_MUSHROOM = gql`
       locationname: $locationname,
       imageUrl: $imageUrl,
       date: $date,
-      coordinates: $coordinates
+      coordinates: $coordinates,
+      username: $username
     ) {
       _id
       commonname,
@@ -118,6 +128,7 @@ export const ADD_MUSHROOM = gql`
       imageUrl,
       date,
       coordinates
+      username
     }
   }
 `;

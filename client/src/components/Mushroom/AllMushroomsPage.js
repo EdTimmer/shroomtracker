@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import withAuth from '../withAuth';
 import '../App.css';
 
 import { Query } from 'react-apollo';
-import { GET_ALL_MUSHROOMS } from '../queries';
+import { GET_ALL_MUSHROOMS } from '../../queries';
 
 import MushroomItem from './MushroomItem';
 import Spinner from '../Spinner';
@@ -36,4 +38,4 @@ class AllMushroomsPage extends Component {
   }
 }
 
-export default App;
+export default withAuth(session => session && session.getCurrentUser)(withRouter(AllMushroomsPage));

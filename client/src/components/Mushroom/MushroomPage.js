@@ -1,5 +1,6 @@
 import React from 'react';
-// import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import withAuth from '../withAuth';
 
 import { Query } from 'react-apollo';
 import { GET_MUSHROOM } from '../../queries';
@@ -53,4 +54,4 @@ const MushroomPage = ({ match }) => {
   )
 };
 
-export default MushroomPage;
+export default withAuth(session => session && session.getCurrentUser)(withRouter(MushroomPage));

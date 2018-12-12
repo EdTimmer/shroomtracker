@@ -23,6 +23,10 @@ const MushroomSchema = new Schema({
   },
   coordinates: {
     type: String
+  },
+  username: {
+    type: String,
+    required: true
   }  
 })
 

@@ -1,14 +1,18 @@
 import React from 'react';
-import Spinner from '../Spinner';
-
+import { withRouter } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
+import withAuth from '../withAuth';
+
 import { ADD_LOCATION, GET_ALL_LOCATIONS } from '../../queries';
+
+import Spinner from '../Spinner';
 import Error from '../Error';
-// import withAuth from '../withAuth';
+
 
 const initialState = {
   locationname: '',
-  address: ''
+  address: '',
+  username: ''
 }
 
 class AddLocation extends React.Component {
@@ -18,11 +22,11 @@ class AddLocation extends React.Component {
     this.setState({ ...initialState });
   }
 
-  // componentDidMount() {
-  //   this.setState({
-  //     username: this.props.session.getCurrentUser.username
-  //   });
-  // }
+  componentDidMount() {
+    this.setState({
+      username: this.props.session.getCurrentUser.username
+    });
+  }
 
   handleChange = event => {
     const { name, value } = event.target;
@@ -48,26 +52,26 @@ class AddLocation extends React.Component {
     return isInvalid;
   }
 
-  updateCache = (cache, { data: { addLocation } }) => {
-    const { getAllLocations } = cache.readQuery({ query: GET_ALL_LOCATIONS });
+  // updateCache = (cache, { data: { addLocation } }) => {
+  //   const { getAllLocations } = cache.readQuery({ query: GET_ALL_LOCATIONS });
 
-    cache.writeQuery({
-      query: GET_ALL_LOCATIONS,
-      data: {
-        getAllLocations: [addLocation, ...getAllLocations]
-      }
-    })
-  }
+  //   cache.writeQuery({
+  //     query: GET_ALL_LOCATIONS,
+  //     data: {
+  //       getAllLocations: [addLocation, ...getAllLocations]
+  //     }
+  //   })
+  // }
 
   render() {
-    const { locationname, address } = this.state;
+    const { locationname, address, username } = this.state;
 
     return (
       <Mutation
         mutation={ADD_LOCATION}
-        variables={{ locationname, address }}
+        variables={{ locationname, address, username }}
         refetchQueries={() => [
-          { query: GET_ALL_LOCATIONS }
+          { query: GET_ALL_LOCATIONS, variables: { username } }
         ]}
         update={this.updateCache}
       >
@@ -114,4 +118,4 @@ class AddLocation extends React.Component {
   }
 }
 
-export default AddLocation;
+export default withAuth(session => session && session.getCurrentUser)(withRouter(AddLocation));

@@ -13,11 +13,11 @@ import { ApolloProvider } from 'react-apollo';
 
 import App from './components/App';
 import Navbar from './components/Navbar';
-import Signin from "./components/Auth/Signin";
-import Signup from "./components/Auth/Signup";
+import Signin from './components/Auth/Signin';
+import Signup from './components/Auth/Signup';
 import withSession from "./components/withSession";
-import AllLocationsPage from '/components/Location/AllLocationsPage';
-import AllMushroomsPage from '/components/Mushroom/AllMushroomsPage';
+import AllLocationsPage from './components/Location/AllLocationsPage';
+import AllMushroomsPage from './components/Mushroom/AllMushroomsPage';
 import LocationPage from './components/Location/LocationPage';
 import MushroomPage from './components/Mushroom/MushroomPage';
 import AddLocation from './components/Location/AddLocation';
@@ -67,12 +67,12 @@ const Root = ({ refetch, session }) => (
       <Switch>
         <Route path="/" exact component={App} />
         
-        <Route path="/locations/:_id" render={() => {<LocationPage session={session} />}} />
-        <Route path="/mushrooms/:_id" render={() => {<MushroomPage session={session} />}} />
-        <Route path="/mushroom/add" render={() => {<AddMushroom session={session} />}} />
-        <Route path="/location/add" render={() => {<AddLocation session={session} />}} />
-        <Route path="/locations" render={() => {<AllLocationsPage session={session} />}} />
-        <Route path="/mushrooms" render={() => {<AllMushroomsPage session={session} />}} />
+        <Route path="/locations/:_id" render={() => <LocationPage session={session} />} />
+        <Route path="/mushrooms/:_id" render={() => <MushroomPage session={session} />} />
+        <Route path="/mushroom/add" render={() => <AddMushroom session={session} />} />
+        <Route path="/location/add" render={() => <AddLocation session={session} />} />
+        <Route path="/locations" render={() => <AllLocationsPage session={session} />} />
+        <Route path="/mushrooms" render={() => <AllMushroomsPage session={session} />} />
         {/*<Route path="/search" exact component={Search} />*/}
         <Route path="/signin" render={() => <Signin refetch={refetch} />} />
         <Route path="/signup" render={() => <Signup refetch={refetch} />} />

@@ -1,21 +1,35 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import '../App.css';
 
 import { Query } from 'react-apollo';
-import { GET_ALL_LOCATIONS } from '../queries';
+import { GET_ALL_LOCATIONS } from '../../queries';
 
+import withAuth from '../withAuth';
 import LocationItem from './LocationItem';
 import Spinner from '../Spinner';
 
 class AllLocationsPage extends Component {
 
+  state = {
+    username: ''
+  }
+
+  componentDidMount() {
+    this.setState({
+      username: this.props.session.getCurrentUser.username
+    });
+  }
+
   render() {
+    const { username } = this.state;
+
     return (
       <div className="App">
         <h1 className="main-title">
           My <strong>Shrooms</strong> Locations
         </h1>
-        <Query query={GET_ALL_LOCATIONS}>
+        <Query query={GET_ALL_LOCATIONS} variables={{username}}>
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
             if (error) return <div>Error</div>
@@ -36,4 +50,4 @@ class AllLocationsPage extends Component {
   }
 }
 
-export default AllLocationsPage;
+export default withAuth(session => session && session.getCurrentUser)(withRouter(AllLocationsPage));

@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import withAuth from '../withAuth';
 
 import { Query } from 'react-apollo';
 import { GET_LOCATION, GET_ALL_MUSHROOMS, GET_LOCATION_MUSHROOMS } from '../../queries';
@@ -50,4 +52,4 @@ const LocationPage = ({ match }) => {
   )
 }
 
-export default LocationPage;
+export default withAuth(session => session && session.getCurrentUser)(withRouter(LocationPage));

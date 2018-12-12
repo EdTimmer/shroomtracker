@@ -4,7 +4,7 @@ exports.typeDefs = `
 
   type User {
     _id: ID
-    username: String! @unique 
+    username: String!
     password: String!
     email: String!
     joinDate: String
@@ -30,11 +30,11 @@ exports.typeDefs = `
 
   type Query {
 
-    getAllLocations: [Location]
+    getAllLocations(username: String!): [Location]
 
     getLocation(_id: ID!): Location
 
-    getAllMushrooms: [Mushroom]
+    getAllMushrooms(username: String!): [Mushroom]
 
     getMushroom(_id: ID!): Mushroom
 
@@ -68,7 +68,7 @@ exports.typeDefs = `
       username: String!
     ): Mushroom
 
-    singupUser(
+    signupUser(
       username: String!,
       email: String!,
       password: String!
