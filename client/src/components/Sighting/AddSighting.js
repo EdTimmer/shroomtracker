@@ -1,10 +1,12 @@
+//HAVE TO EDIT FROM ADD MUSHROOM TO ADD SIGHTING
+
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
-import { Mutation } from 'react-apollo';
-import { ADD_MUSHROOM, GET_ALL_MUSHROOMS } from '../../queries';
+import { Query, Mutation } from 'react-apollo';
+import { ADD_MUSHROOM, GET_ALL_MUSHROOMS, GET_ALL_LOCATIONS } from '../../queries';
 import Error from '../Error';
 
 const initialState = {
@@ -104,6 +106,50 @@ class AddMushroom extends React.Component {
                     placeholder="Mushroom Image"
                     onChange={this.handleChange}
                     value={imageUrl}
+                  />
+
+                  <Query query={GET_ALL_LOCATIONS}>
+                    {({ data, loading, error }) => {
+                      if (loading) return <Spinner />
+                      if (error) return <div>Error</div>
+                      // console.log(data)
+                      // const { on } = this.state;
+                      return (
+                        <div>                          
+                          {
+                            <select
+                              name="locationname"
+                              onChange={this.handleChange}  
+
+                            >
+                            <option value="-1"> Select Location </option>
+                              {
+                                data.getAllLocations.map(location => 
+                                    <option key={location._id} value={location.locationname}> {location.locationname} </option>)
+                              }
+
+                            </select>
+
+                          }
+                        </div>
+                      )
+                    }}
+                  </Query>
+
+                  <input
+                    type="text"
+                    name="date"
+                    placeholder="Add Date"
+                    onChange={this.handleChange}
+                    value={date}
+                  />
+
+                  <input
+                    type="text"
+                    name="coordinates"
+                    placeholder="Add Coordinates"
+                    onChange={this.handleChange}
+                    value={coordinates}
                   />
 
                   <button

@@ -45,8 +45,6 @@ export const GET_ALL_MUSHROOMS = gql`
       commonname
       latinname
       imageUrl
-      date
-      coordinates
       username
     }
   }
@@ -59,9 +57,6 @@ export const GET_MUSHROOM = gql`
       commonname
       latinname
       imageUrl
-      locationname
-      date
-      coordinates
       username
     }
   }  
@@ -73,7 +68,6 @@ export const GET_LOCATION_MUSHROOMS = gql`
       _id
       commonname
       imageUrl
-      date
       username
     }
   }
@@ -106,28 +100,19 @@ export const ADD_MUSHROOM = gql`
   mutation(
     $commonname: String!,
     $latinname: String,
-    $locationname: String!,
     $imageUrl: String!,
-    $date: String!,
-    $coordinates: String,
     $username: String!
   ) {
     addMushroom(
       commonname: $commonname,
       latinname: $latinname,
-      locationname: $locationname,
       imageUrl: $imageUrl,
-      date: $date,
-      coordinates: $coordinates,
       username: $username
     ) {
       _id
       commonname,
       latinname,
-      locationname,
       imageUrl,
-      date,
-      coordinates
       username
     }
   }
