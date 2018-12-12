@@ -9,6 +9,7 @@ require('dotenv').config({ path: 'variables.env' });
 const User = require('./models/User');
 const Location = require('./models/Location');
 const Mushroom = require('./models/Mushroom');
+const Sighting = require('./models/Sighting');
 
 // Bring in GraphQL-Express middlewarequire
 
@@ -74,6 +75,7 @@ app.use(
       User,
       Location,
       Mushroom,
+      Sighting,
       currentUser
     }
   }))

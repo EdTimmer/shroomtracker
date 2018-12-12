@@ -13,17 +13,6 @@ const MushroomSchema = new Schema({
     type: String,
     required: true
   },
-  date: {
-    type: String,
-    required: true
-  },
-  locationname: {
-    type: String,
-    required: true
-  },
-  coordinates: {
-    type: String
-  },
   username: {
     type: String,
     required: true

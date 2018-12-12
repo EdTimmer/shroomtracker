@@ -21,11 +21,18 @@ exports.typeDefs = `
     _id: ID!
     commonname: String!
     latinname: String
-    locationname: String!
     imageUrl: String!
-    date: String!
-    coordinates: String
     username: String!
+  }
+
+  type Sighting {
+    _id: ID!
+    commonname: String!
+    locationname: String!
+    username: String!
+    date: String!
+    latitude: String
+    longitude: String
   }
 
   type Query {
@@ -39,6 +46,10 @@ exports.typeDefs = `
     getMushroom(_id: ID!): Mushroom
 
     getLocationMushrooms(locationname: String!): [Mushroom]
+
+    getAllMushroomSightings(commonname: String!): [Sighting]
+
+    getLocationMushroomSightings(locationname: String! commonname: String!): [Sighting]
 
     searchMushrooms(searchTerm: String): [Mushroom]
 
@@ -61,12 +72,18 @@ exports.typeDefs = `
     addMushroom(
       commonname: String!,
       latinname: String,
-      locationname: String!,
       imageUrl: String!,
-      date: String!,
-      coordinates: String,
       username: String!
     ): Mushroom
+
+    addSighting(
+      commonname: String!
+      locationname: String!
+      username: String!
+      date: String!
+      latitude: String
+      longitude: String
+    ): Sighting
 
     signupUser(
       username: String!,

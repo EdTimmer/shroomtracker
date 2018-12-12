@@ -52,16 +52,17 @@ class AddLocation extends React.Component {
     return isInvalid;
   }
 
-  // updateCache = (cache, { data: { addLocation } }) => {
-  //   const { getAllLocations } = cache.readQuery({ query: GET_ALL_LOCATIONS });
+  updateCache = (cache, { data: { addLocation, username } }) => {
+    const { getAllLocations } = cache.readQuery({ query: GET_ALL_LOCATIONS, variables: {username} });
 
-  //   cache.writeQuery({
-  //     query: GET_ALL_LOCATIONS,
-  //     data: {
-  //       getAllLocations: [addLocation, ...getAllLocations]
-  //     }
-  //   })
-  // }
+    cache.writeQuery({
+      query: GET_ALL_LOCATIONS,
+      variables: {username},
+      data: {
+        getAllLocations: [addLocation, ...getAllLocations]
+      }
+    })
+  }
 
   render() {
     const { locationname, address, username } = this.state;

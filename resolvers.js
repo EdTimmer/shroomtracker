@@ -42,6 +42,17 @@ exports.resolvers = {
       const locationMushrooms = await Mushroom.find({ locationname }).sort({ commonname: 1 });
       return locationMushrooms;
     },
+
+    getAllMushroomSightings: async (root, { commonname }, { Sighting }) => {
+      const allMushroomSightings = await Sighting.find({ commonname }); //add sort later
+      return allMushroomSightings;
+    },
+
+    getLocationMushroomSightings: async (root, { commonname, locationname }, { Sighting }) => {
+      const locationMushroomSightings = await Sighting.find({ commonname, locationname }); //add sort later
+      return locationMushroomSightings;
+    },
+
   },
 
   Mutation: {
@@ -55,17 +66,26 @@ exports.resolvers = {
       return newLocation;
     },
 
-    addMushroom: async (root, { commonname, latinname, locationname, imageUrl, date, coordinates, username }, { Mushroom }) => {
+    addMushroom: async (root, { commonname, latinname, imageUrl, username }, { Mushroom }) => {
       const newMushroom = await new Mushroom({
         commonname, 
         latinname, 
-        locationname, 
         imageUrl, 
-        date, 
-        coordinates,
         username
       }).save();
       return newMushroom;
+    },
+
+    addSighting: async (root, { commonname, locationname, username, date, latitude, longitude }, { Sighting }) => {
+      const newSighting = await new Sighting({
+        commonname,
+        locationname, 
+        username, 
+        date, 
+        latitude, 
+        longitude
+      }).save();
+      return newSighting;
     },
 
     signupUser: async (root, { username, email, password }, { User }) => {
