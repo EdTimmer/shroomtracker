@@ -17,7 +17,7 @@ const SightingSchema = new Schema({
   date: {
     type: String,
     required: true
-  },  
+  },
   latitude: {
     type: String
   },

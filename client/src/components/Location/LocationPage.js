@@ -9,14 +9,14 @@ import MushroomItem from '../Mushroom/MushroomItem';
 
 const LocationPage = ({ match }) => {
   const { _id } = match.params;
-
+  
   return (
     <Query query={GET_LOCATION} variables={{ _id }}>
       {
         ({ data, loading, error }) => {
           if (loading) return <Spinner />
           if (error) return <div>Error</div>
-          
+          // console.log(data.getLocation.username);
           return (
             
             <div className="App">
@@ -25,7 +25,7 @@ const LocationPage = ({ match }) => {
                 <h5>{data.getLocation.address}</h5>
               </div>
 
-              <Query query={GET_LOCATION_MUSHROOMS} variables={{locationname: data.getLocation.locationname}}>
+              <Query query={GET_LOCATION_MUSHROOMS} variables={{locationname: data.getLocation.locationname, username: data.getLocation.username}}>
                 {({ data, loading, error }) => {
                   if (loading) return <Spinner />
                   if (error) return <div>Error</div>

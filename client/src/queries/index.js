@@ -63,8 +63,8 @@ export const GET_MUSHROOM = gql`
 `;
 
 export const GET_LOCATION_MUSHROOMS = gql`
-  query($locationname: String!) {
-    getLocationMushrooms(locationname: $locationname) {
+  query($locationname: String!, $username: String!) {
+    getLocationMushrooms(locationname: $locationname, username: $username) {
       _id
       commonname
       imageUrl
@@ -72,6 +72,22 @@ export const GET_LOCATION_MUSHROOMS = gql`
     }
   }
 `;
+
+/* Sighting Queries */
+
+export const GET_ALL_LOCATION_MUSHROOM_SIGHTINGS = gql`
+  query($locationname: String!, $commonname: String!, $username: String!) {
+    getAllLocationMushroomSightings(locationname: $locationname, commonname: $commonname, username: $username) {
+      _id
+
+    }
+  }
+`;
+
+
+
+// GET_ALL_MUSHROOM_SIGHTINGS,
+
 
 /* Location Mutations */
 
@@ -109,11 +125,39 @@ export const ADD_MUSHROOM = gql`
       imageUrl: $imageUrl,
       username: $username
     ) {
-      _id
+      _id,
       commonname,
       latinname,
       imageUrl,
       username
+    }
+  }
+`;
+
+/* Sighting Mutations */
+
+export const ADD_SIGHTING = gql`
+  mutation(
+    $commonname: String!,
+    $locationname: String!,
+    $username: String!,
+    $date: String!,
+    $latitude: String!,
+    $longitude: String!
+  ) {
+    addSighting(
+      commonname: $commonname,
+      locationname: $locationname,
+      username: $username,
+      date: $date,
+      latitude: $latitude,
+      longitude: $longitude
+    ) {
+      _id,
+      locationname,
+      date,
+      latitude,
+      longitude
     }
   }
 `;

@@ -45,11 +45,11 @@ exports.typeDefs = `
 
     getMushroom(_id: ID!): Mushroom
 
-    getLocationMushrooms(locationname: String!): [Mushroom]
+    getLocationMushrooms(locationname: String!, username: String!): [Mushroom]
 
-    getAllMushroomSightings(commonname: String!): [Sighting]
+    getAllMushroomSightings(commonname: String!, username: String!): [Sighting]
 
-    getLocationMushroomSightings(locationname: String! commonname: String!): [Sighting]
+    getAllLocationMushroomSightings(locationname: String! commonname: String!, username: String!): [Sighting]
 
     searchMushrooms(searchTerm: String): [Mushroom]
 

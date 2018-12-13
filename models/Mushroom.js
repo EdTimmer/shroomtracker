@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const MushroomSchema = new Schema({
   commonname: {
     type: String,
-    required: true 
+    required: true
   },
   latinname: {
     type: String

@@ -38,19 +38,19 @@ exports.resolvers = {
       return mushroom;
     },
 
-    getLocationMushrooms: async (root, { locationname }, { Mushroom }) => {
-      const locationMushrooms = await Mushroom.find({ locationname }).sort({ commonname: 1 });
+    getLocationMushrooms: async (root, { locationname, username }, { Mushroom }) => {
+      const locationMushrooms = await Mushroom.find({ locationname, username }).sort({ commonname: 1 });
       return locationMushrooms;
     },
 
-    getAllMushroomSightings: async (root, { commonname }, { Sighting }) => {
-      const allMushroomSightings = await Sighting.find({ commonname }); //add sort later
+    getAllMushroomSightings: async (root, { commonname, username }, { Sighting }) => {
+      const allMushroomSightings = await Sighting.find({ commonname, username }); //add sort later
       return allMushroomSightings;
     },
 
-    getLocationMushroomSightings: async (root, { commonname, locationname }, { Sighting }) => {
-      const locationMushroomSightings = await Sighting.find({ commonname, locationname }); //add sort later
-      return locationMushroomSightings;
+    getAllLocationMushroomSightings: async (root, { commonname, locationname, username }, { Sighting }) => {
+      const allLocationMushroomSightings = await Sighting.find({ commonname, locationname, username }); //add sort later
+      return allLocationMushroomSightings;
     },
 
   },
@@ -68,9 +68,9 @@ exports.resolvers = {
 
     addMushroom: async (root, { commonname, latinname, imageUrl, username }, { Mushroom }) => {
       const newMushroom = await new Mushroom({
-        commonname, 
-        latinname, 
-        imageUrl, 
+        commonname,
+        latinname,
+        imageUrl,
         username
       }).save();
       return newMushroom;
@@ -79,10 +79,10 @@ exports.resolvers = {
     addSighting: async (root, { commonname, locationname, username, date, latitude, longitude }, { Sighting }) => {
       const newSighting = await new Sighting({
         commonname,
-        locationname, 
-        username, 
-        date, 
-        latitude, 
+        locationname,
+        username,
+        date,
+        latitude,
         longitude
       }).save();
       return newSighting;
@@ -103,7 +103,7 @@ exports.resolvers = {
 
     signinUser: async (root, { username, password }, { User }) => {
       const user = await User.findOne({ username });
-      if(!user) {
+      if (!user) {
         throw new Error('User not found');
       }
       const isValidPassword = await bcrypt.compare(password, user.password);

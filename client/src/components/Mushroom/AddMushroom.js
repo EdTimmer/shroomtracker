@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import withAuth from '../withAuth';
 import Spinner from '../Spinner';
+import AddSighting from '../Sighting/AddSighting';
 
 import { Mutation } from 'react-apollo';
 import { ADD_MUSHROOM, GET_ALL_MUSHROOMS } from '../../queries';
@@ -106,6 +107,8 @@ class AddMushroom extends React.Component {
                     value={imageUrl}
                   />
 
+                  
+
                   <button
                     disabled={loading || this.validateForm()}
                     type="submit" className="botton-primary"
@@ -114,6 +117,7 @@ class AddMushroom extends React.Component {
                 </button>
                   {error && <Error error={error} />}
                 </form>
+                <AddSighting commonname={commonname} username={this.props.session.getCurrentUser.username} />
               </div>
             )
           }

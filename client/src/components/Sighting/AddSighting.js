@@ -1,33 +1,42 @@
-//HAVE TO EDIT FROM ADD MUSHROOM TO ADD SIGHTING
-
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
 import { Query, Mutation } from 'react-apollo';
-import { ADD_MUSHROOM, GET_ALL_MUSHROOMS, GET_ALL_LOCATIONS } from '../../queries';
+import { ADD_SIGHTING, GET_ALL_LOCATION_MUSHROOM_SIGHTINGS, GET_ALL_MUSHROOM_SIGHTINGS, GET_ALL_LOCATIONS } from '../../queries';
 import Error from '../Error';
 
-const initialState = {
-  commonname: '',
-  latinname: '',
-  imageUrl: '',
-  username: ''
-}
+// const initialState = {
+//   commonname: this.props.commonname,
+//   username: this.props.username,
+//   locationname: '',
+//   date: '',
+//   latitude: '',
+//   longitude: ''
 
-class AddMushroom extends React.Component {
-  state = { ...initialState };
+// }
 
-  clearState = () => {
-    this.setState({ ...initialState });
+class AddSighting extends React.Component {
+  // state = { ...initialState };
+  state = {
+    commonname: this.props.commonname,
+    username: this.props.username,
+    locationname: '',
+    date: '',
+    latitude: '',
+    longitude: ''
   }
 
-  componentDidMount() {
-    this.setState({
-      username: this.props.session.getCurrentUser.username
-    });
-  }
+  // clearState = () => {
+  //   this.setState({ ...initialState });
+  // }
+
+  // componentDidMount() {
+  //   this.setState({
+  //     username: this.props.session.getCurrentUser.username
+  //   });
+  // }
 
   handleChange = event => {
     const { name, value } = event.target;
@@ -37,82 +46,83 @@ class AddMushroom extends React.Component {
   }
 
 
-  handleSubmit = (event, addMushroom) => {
+  handleSubmit = (event, addSighting) => {
     event.preventDefault();
-    addMushroom().then(({ data }) => {
+    addSighting().then(({ data }) => {
       // console.log(data); 
-      this.clearState();     
+      // this.clearState();     
       this.props.history.push("/");
     });
   }
 
   validateForm = () => {
-    const { commonname, imageUrl } = this.state;
-    const isInvalid = !commonname || !imageUrl;
+    const { locationname, date } = this.state;
+    const isInvalid = !locationname || !date;
     return isInvalid;
   }
 
-  updateCache = (cache, { data: { addMushroom, username } }) => {
-    const { getAllMushrooms } = cache.readQuery({ query: GET_ALL_MUSHROOMS, variables: { username } });
+  // updateCache = (cache, { data: { addMushroom, username } }) => {
+  //   const { getAllMushrooms } = cache.readQuery({ query: GET_ALL_LOCATION_MUSHROOM_SIGHTINGS, variables: { username } });
 
-    cache.writeQuery({
-      query: GET_ALL_MUSHROOMS,
-      variables: {username},
-      data: {
-        getAllMushrooms: [addMushroom, ...getAllMushrooms]
-      }
-    })
-  }
+  //   cache.writeQuery({
+  //     query: GET_ALL_LOCATION_MUSHROOM_SIGHTINGS,
+  //     variables: {username},
+  //     data: {
+  //       getAllMushrooms: [addMushroom, ...getAllMushrooms]
+  //     }
+  //   })
+  // }
 
   render() {
-    const { commonname, latinname, imageUrl, username } = this.state;
-
+    const { commonname, username, locationname, date, latitude, longitude } = this.state;
+    console.log('first username is', username)
     return (
       <Mutation
-        mutation={ADD_MUSHROOM}
-        variables={{ commonname, latinname, imageUrl, username }}
+        mutation={ADD_SIGHTING}
+        variables={{ commonname, username, locationname, date, latitude, longitude }}
         refetchQueries={() => [
-          { query: GET_ALL_MUSHROOMS, variables: { username } }
+          { query: GET_ALL_LOCATIONS, variables: { username } }
         ]}
         update={this.updateCache}
       >
         {
-          (addMushroom, { data, loading, error }) => {
+          (addSighting, { data, loading, error }) => {
             return (
               <div className="App">
-                <h2 className="App">Add Mushroom</h2>
+                <h2 className="App">Add Sighting</h2>
 
-                <form className="form" onSubmit={event => this.handleSubmit(event, addMushroom)}>
+                <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>
 
                   <input
                     type="text"
-                    name="commonname"
-                    placeholder="Common Name"
+                    name="date"
+                    placeholder="Date"
                     onChange={this.handleChange}
-                    value={commonname}
+                    value={date}
                   />
 
                   <input
                     type="text"
-                    name="latinname"
-                    placeholder="Latin Name"
+                    name="latitude"
+                    placeholder="Latitude"
                     onChange={this.handleChange}
-                    value={latinname}
+                    value={latitude}
                   />
 
                   <input
                     type="text"
-                    name="imageUrl"
-                    placeholder="Mushroom Image"
+                    name="longitude"
+                    placeholder="Longitude"
                     onChange={this.handleChange}
-                    value={imageUrl}
+                    value={longitude}
                   />
 
-                  <Query query={GET_ALL_LOCATIONS}>
+
+                  <Query query={GET_ALL_LOCATIONS} variables={{username}}>
                     {({ data, loading, error }) => {
                       if (loading) return <Spinner />
                       if (error) return <div>Error</div>
-                      // console.log(data)
+                      console.log('username is', username)
                       // const { on } = this.state;
                       return (
                         <div>                          
@@ -129,28 +139,12 @@ class AddMushroom extends React.Component {
                               }
 
                             </select>
-
                           }
                         </div>
                       )
                     }}
                   </Query>
 
-                  <input
-                    type="text"
-                    name="date"
-                    placeholder="Add Date"
-                    onChange={this.handleChange}
-                    value={date}
-                  />
-
-                  <input
-                    type="text"
-                    name="coordinates"
-                    placeholder="Add Coordinates"
-                    onChange={this.handleChange}
-                    value={coordinates}
-                  />
 
                   <button
                     disabled={loading || this.validateForm()}
@@ -169,4 +163,4 @@ class AddMushroom extends React.Component {
   }
 }
 
-export default withAuth(session => session && session.getCurrentUser)(withRouter(AddMushroom));
+export default withAuth(session => session && session.getCurrentUser)(withRouter(AddSighting));
