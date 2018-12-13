@@ -40,8 +40,8 @@ class AddMushroom extends React.Component {
     event.preventDefault();
     addMushroom().then(({ data }) => {
       // console.log(data); 
-      this.clearState();     
-      this.props.history.push("/");
+      // this.clearState();     
+      // this.props.history.push("/");
     });
   }
 
