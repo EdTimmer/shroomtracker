@@ -74,7 +74,7 @@ class AddLocation extends React.Component {
         refetchQueries={() => [
           { query: GET_ALL_LOCATIONS, variables: { username } }
         ]}
-        update={this.updateCache}
+        // update={this.updateCache}
       >
         {
           (addLocation, { data, loading, error }) => {

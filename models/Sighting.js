@@ -17,6 +17,9 @@ const SightingSchema = new Schema({
   latinname: {
     type: String
   },
+  imageUrl: {
+    type: String
+  },
   date: {
     type: String,
     required: true

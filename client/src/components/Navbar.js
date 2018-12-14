@@ -24,13 +24,13 @@ const NavbarAuth = ({ session }) => (
                 <NavLink to="/locations">My Locations</NavLink>
             </li>
             <li>
-                <NavLink to="/mushrooms">My Mushrooms</NavLink>
+                <NavLink to="/sightings">My Mushrooms</NavLink>
             </li>
             <li>
                 <NavLink to="/location/add">Add Location</NavLink>
             </li>
             <li>
-                <NavLink to="/mushroom/add">Add Mushroom</NavLink>
+                <NavLink to="/sighting/add">Add Sighting</NavLink>
             </li>
             <li>
                 <NavLink to="/profile">Profile</NavLink>
