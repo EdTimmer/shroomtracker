@@ -33,7 +33,7 @@ class AllLocationsPage extends Component {
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
             if (error) return <div>Error</div>
-
+              console.log(data)
             return (
               <div>
                 {

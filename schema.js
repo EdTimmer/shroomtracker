@@ -17,22 +17,25 @@ exports.typeDefs = `
     username: String!
   }
 
-  type Mushroom {
-    _id: ID!
-    commonname: String!
-    latinname: String
-    imageUrl: String!
-    username: String!
-  }
-
   type Sighting {
     _id: ID!
-    commonname: String!
-    locationname: String!
     username: String!
+    locationname: String!
+    commonname: String!
+    latinname: String
+    imageUrl: String    
     date: String!
     latitude: String
     longitude: String
+    createdDate: String
+  }
+
+  type Mushroom {
+    _id: ID!
+    username: String!
+    commonname: String!
+    latinname: String!
+    imageUrl: String
   }
 
   type Query {
@@ -41,17 +44,19 @@ exports.typeDefs = `
 
     getLocation(_id: ID!): Location
 
-    getAllMushrooms(username: String!): [Mushroom]
+    getSighting(_id: ID!): Sighting
+
+    getAllSightings(username: String!): [Sighting]
+
+    getLocationSightings(locationname: String!, username: String!): [Sighting]
+
+    getLocationMushroomSightings(locationname: String!, username: String!, commonname: String!): [Sighting]
+
+    searchSightings(searchTerm: String): [Sighting]
 
     getMushroom(_id: ID!): Mushroom
 
-    getLocationMushrooms(locationname: String!, username: String!): [Mushroom]
-
-    getAllMushroomSightings(commonname: String!, username: String!): [Sighting]
-
-    getAllLocationMushroomSightings(locationname: String! commonname: String!, username: String!): [Sighting]
-
-    searchMushrooms(searchTerm: String): [Mushroom]
+    getAllMushrooms(username: String!): [Mushroom]
 
     getCurrentUser: User
 
@@ -69,21 +74,23 @@ exports.typeDefs = `
       username: String!
     ): Location
 
-    addMushroom(
-      commonname: String!,
-      latinname: String,
-      imageUrl: String!,
-      username: String!
-    ): Mushroom
-
     addSighting(
-      commonname: String!
-      locationname: String!
       username: String!
+      locationname: String!
+      commonname: String!
+      latinname: String,
+      imageUrl: String,
       date: String!
       latitude: String
       longitude: String
     ): Sighting
+
+    addMushroom(
+      username: String!
+      commonname: String!
+      latinname: String,
+      imageUrl: String,
+    ): Mushroom
 
     signupUser(
       username: String!,

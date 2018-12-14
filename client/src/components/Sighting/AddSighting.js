@@ -4,39 +4,32 @@ import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
 import { Query, Mutation } from 'react-apollo';
-import { ADD_SIGHTING, GET_ALL_LOCATION_MUSHROOM_SIGHTINGS, GET_ALL_MUSHROOM_SIGHTINGS, GET_ALL_LOCATIONS } from '../../queries';
+import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_ALL_LOCATIONS } from '../../queries';
 import Error from '../Error';
 
-// const initialState = {
-//   commonname: this.props.commonname,
-//   username: this.props.username,
-//   locationname: '',
-//   date: '',
-//   latitude: '',
-//   longitude: ''
-
-// }
+const initialState = {
+  username: '',
+  locationname: '',
+  commonname: '',
+  latinname: '',
+  imageUrl: '',
+  date: '',
+  latitude: '',
+  longitude: ''
+}
 
 class AddSighting extends React.Component {
-  // state = { ...initialState };
-  state = {
-    commonname: this.props.commonname,
-    username: this.props.username,
-    locationname: '',
-    date: '',
-    latitude: '',
-    longitude: ''
+  state = { ...initialState };
+
+  clearState = () => {
+    this.setState({ ...initialState });
   }
 
-  // clearState = () => {
-  //   this.setState({ ...initialState });
-  // }
-
-  // componentDidMount() {
-  //   this.setState({
-  //     username: this.props.session.getCurrentUser.username
-  //   });
-  // }
+  componentDidMount() {
+    this.setState({
+      username: this.props.session.getCurrentUser.username
+    });
+  }
 
   handleChange = event => {
     const { name, value } = event.target;
@@ -50,36 +43,36 @@ class AddSighting extends React.Component {
     event.preventDefault();
     addSighting().then(({ data }) => {
       // console.log(data); 
-      // this.clearState();     
+      this.clearState();     
       this.props.history.push("/");
     });
   }
 
   validateForm = () => {
-    const { locationname, date } = this.state;
-    const isInvalid = !locationname || !date;
+    const { locationname, commonname, date } = this.state;
+    const isInvalid = !locationname || !commonname || !date;
     return isInvalid;
   }
 
-  // updateCache = (cache, { data: { addMushroom, username } }) => {
-  //   const { getAllMushrooms } = cache.readQuery({ query: GET_ALL_LOCATION_MUSHROOM_SIGHTINGS, variables: { username } });
+  updateCache = (cache, { data: { addSighting, username } }) => {
+    const { getAllSightings } = cache.readQuery({ query: GET_ALL_SIGHTINGS, variables: { username } });
 
-  //   cache.writeQuery({
-  //     query: GET_ALL_LOCATION_MUSHROOM_SIGHTINGS,
-  //     variables: {username},
-  //     data: {
-  //       getAllMushrooms: [addMushroom, ...getAllMushrooms]
-  //     }
-  //   })
-  // }
+    cache.writeQuery({
+      query: GET_ALL_SIGHTINGS,
+      variables: {username},
+      data: {
+        getAllMushrooms: [addSighting, ...getAllSightings]
+      }
+    })
+  }
 
   render() {
-    const { commonname, username, locationname, date, latitude, longitude } = this.state;
-    console.log('first username is', username)
+    const { username, locationname, commonname, latinname, imageUrl, date, latitude, longitude } = this.state;
+    // console.log('first username is', username)
     return (
       <Mutation
         mutation={ADD_SIGHTING}
-        variables={{ commonname, username, locationname, date, latitude, longitude }}
+        variables={{ username, locationname, commonname, latinname, imageUrl, date, latitude, longitude }}
         refetchQueries={() => [
           { query: GET_ALL_LOCATIONS, variables: { username } }
         ]}
@@ -92,31 +85,6 @@ class AddSighting extends React.Component {
                 <h2 className="App">Add Sighting</h2>
 
                 <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>
-
-                  <input
-                    type="text"
-                    name="date"
-                    placeholder="Date"
-                    onChange={this.handleChange}
-                    value={date}
-                  />
-
-                  <input
-                    type="text"
-                    name="latitude"
-                    placeholder="Latitude"
-                    onChange={this.handleChange}
-                    value={latitude}
-                  />
-
-                  <input
-                    type="text"
-                    name="longitude"
-                    placeholder="Longitude"
-                    onChange={this.handleChange}
-                    value={longitude}
-                  />
-
 
                   <Query query={GET_ALL_LOCATIONS} variables={{username}}>
                     {({ data, loading, error }) => {
@@ -145,6 +113,53 @@ class AddSighting extends React.Component {
                     }}
                   </Query>
 
+                  <input
+                    type="text"
+                    name="commonname"
+                    placeholder="Common Name"
+                    onChange={this.handleChange}
+                    value={commonname}
+                  />
+
+                  <input
+                    type="text"
+                    name="latinname"
+                    placeholder="Latin Name"
+                    onChange={this.handleChange}
+                    value={latinname}
+                  />
+
+                  <input
+                    type="text"
+                    name="imageUrl"
+                    placeholder="Mushroom Image"
+                    onChange={this.handleChange}
+                    value={imageUrl}
+                  />
+
+                  <input
+                    type="text"
+                    name="date"
+                    placeholder="Date"
+                    onChange={this.handleChange}
+                    value={date}
+                  />
+
+                  <input
+                    type="text"
+                    name="latitude"
+                    placeholder="Latitude"
+                    onChange={this.handleChange}
+                    value={latitude}
+                  />
+
+                  <input
+                    type="text"
+                    name="longitude"
+                    placeholder="Longitude"
+                    onChange={this.handleChange}
+                    value={longitude}
+                  />
 
                   <button
                     disabled={loading || this.validateForm()}

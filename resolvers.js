@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 const createToken = (user, secret, expiresIn) => {
   const { username, email } = user;
-  return jwt.sign({ username, email }, secret, { expiresIn })
+  return jwt.sign({ username, email }, secret, { expiresIn });
 };
 
 exports.resolvers = {
@@ -28,31 +28,30 @@ exports.resolvers = {
       return location;
     },
 
+    getSighting: async (root, { _id }, { Sighting }) => {
+      const sighting = await Sighting.findOne({ _id });
+      return sighting;
+    },
+
+    getAllSightings: async (root, { username }, { Sighting }) => {
+      const allSightings = await Sighting.find({ username }).sort({createdDate: 'desc'});
+      return allSightings;
+    },
+
+    getLocationSightings: async (root, { locationname, username }, { Sighting }) => {
+      const locationSightings = await Sighting.find({ locationname, username }).sort({ createdDate: 'desc' });
+      return locationSightings;
+    },
+
+    getLocationMushroomSightings: async (root, { commonname, locationname, username }, { Sighting }) => {
+      const locationMushroomSightings = await Sighting.find({ commonname, locationname, username }).sort({ createdDate: 'desc'});
+      return locationMushroomSightings;
+    },
+
     getAllMushrooms: async (root, { username }, { Mushroom }) => {
       const allMushrooms = await Mushroom.find({ username }).sort({ commonname: 1 });
       return allMushrooms;
-    },
-
-    getMushroom: async (root, { _id }, { Mushroom }) => {
-      const mushroom = await Mushroom.findOne({ _id });
-      return mushroom;
-    },
-
-    getLocationMushrooms: async (root, { locationname, username }, { Mushroom }) => {
-      const locationMushrooms = await Mushroom.find({ locationname, username }).sort({ commonname: 1 });
-      return locationMushrooms;
-    },
-
-    getAllMushroomSightings: async (root, { commonname, username }, { Sighting }) => {
-      const allMushroomSightings = await Sighting.find({ commonname, username }); //add sort later
-      return allMushroomSightings;
-    },
-
-    getAllLocationMushroomSightings: async (root, { commonname, locationname, username }, { Sighting }) => {
-      const allLocationMushroomSightings = await Sighting.find({ commonname, locationname, username }); //add sort later
-      return allLocationMushroomSightings;
-    },
-
+    }
   },
 
   Mutation: {
@@ -66,26 +65,28 @@ exports.resolvers = {
       return newLocation;
     },
 
-    addMushroom: async (root, { commonname, latinname, imageUrl, username }, { Mushroom }) => {
-      const newMushroom = await new Mushroom({
+    addSighting: async (root, { username, locationname, commonname, latinname, imageUrl, date, latitude, longitude }, { Sighting }) => {
+      const newSighting = await new Sighting({
+        username,
+        locationname,
         commonname,
         latinname,
         imageUrl,
-        username
-      }).save();
-      return newMushroom;
-    },
-
-    addSighting: async (root, { commonname, locationname, username, date, latitude, longitude }, { Sighting }) => {
-      const newSighting = await new Sighting({
-        commonname,
-        locationname,
-        username,
         date,
         latitude,
         longitude
       }).save();
       return newSighting;
+    },
+
+    addMushroom: async (root, { username, commonname, latinname, imageUrl }, { Mushroom }) => {
+      const newMushroom = await new Mushroom({
+        username,
+        commonname,
+        latinname,
+        imageUrl
+      }).save();
+      return newMushroom;
     },
 
     signupUser: async (root, { username, email, password }, { User }) => {
@@ -110,7 +111,7 @@ exports.resolvers = {
       if (!isValidPassword) {
         throw new Error('Invalid password');
       }
-      return { token: createToken(user, process.env.SECRET, '1hr')}
+      return { token: createToken(user, process.env.SECRET, '1hr')};
     },
   }
-}
+};

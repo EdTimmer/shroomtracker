@@ -8,8 +8,8 @@ require('dotenv').config({ path: 'variables.env' });
 
 const User = require('./models/User');
 const Location = require('./models/Location');
-const Mushroom = require('./models/Mushroom');
 const Sighting = require('./models/Sighting');
+const Mushroom = require('./models/Mushroom');
 
 // Bring in GraphQL-Express middlewarequire
 
@@ -60,7 +60,7 @@ app.use(async (req, res, next) => {
   next();
 });
 
-// Create GraphiQL application 
+// Create GraphiQL application
 
 app.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
 
@@ -74,8 +74,8 @@ app.use(
     context: {
       User,
       Location,
-      Mushroom,
       Sighting,
+      Mushroom,
       currentUser
     }
   }))

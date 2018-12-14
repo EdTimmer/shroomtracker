@@ -10,9 +10,9 @@ import Error from '../Error';
 
 
 const initialState = {
+  username: '',
   locationname: '',
-  address: '',
-  username: ''
+  address: ''  
 }
 
 class AddLocation extends React.Component {
@@ -41,7 +41,7 @@ class AddLocation extends React.Component {
     addLocation().then(({ data }) => {
       // console.log(data);
       this.clearState();
-      this.props.history.push("/");
+      this.props.history.push("/locations");
 
     });
   }

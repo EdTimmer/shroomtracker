@@ -2,17 +2,20 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const SightingSchema = new Schema({
-  commonname: {
+  username: {
     type: String,
-    required: true,
+    required: true
   },
   locationname: {
     type: String,
     required: true
   },
-  username: {
+  commonname: {
     type: String,
-    required: true
+    required: true,
+  },
+  latinname: {
+    type: String
   },
   date: {
     type: String,
@@ -23,6 +26,10 @@ const SightingSchema = new Schema({
   },
   longitude: {
     type: String
+  },
+  createdDate: {
+    type: Date,
+    default: Date.now
   }
 })
 

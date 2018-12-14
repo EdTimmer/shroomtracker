@@ -17,12 +17,12 @@ import Signin from './components/Auth/Signin';
 import Signup from './components/Auth/Signup';
 import withSession from "./components/withSession";
 import AllLocationsPage from './components/Location/AllLocationsPage';
-import AllMushroomsPage from './components/Mushroom/AllMushroomsPage';
+// import AllMushroomsPage from './components/Mushroom/AllMushroomsPage';
 import LocationPage from './components/Location/LocationPage';
-import MushroomPage from './components/Mushroom/MushroomPage';
+// import MushroomPage from './components/Mushroom/MushroomPage';
 import AddLocation from './components/Location/AddLocation';
-import AddMushroom from './components/Mushroom/AddMushroom';
-// import AddSighting from './components/Sighting/AddSighting';
+// import AddMushroom from './components/Mushroom/AddMushroom';
+import AddSighting from './components/Sighting/AddSighting';
 
 // Required for 2.0
 
@@ -69,13 +69,13 @@ const Root = ({ refetch, session }) => (
         <Route path="/" exact component={App} />
         
         <Route path="/locations/:_id" render={() => <LocationPage session={session} />} />
-        <Route path="/mushrooms/:_id" render={() => <MushroomPage session={session} />} />
-        <Route path="/mushroom/add" render={() => <AddMushroom session={session} />} />
+        {/*<Route path="/mushrooms/:_id" render={() => <MushroomPage session={session} />} />
+<Route path="/mushroom/add" render={() => <AddMushroom session={session} />} />*/}
         <Route path="/location/add" render={() => <AddLocation session={session} />} />
         {/*<Route path="/sighting/add" render={() => <AddSighting session={session} />} />*/}
         <Route path="/locations" render={() => <AllLocationsPage session={session} />} />
-        <Route path="/mushrooms" render={() => <AllMushroomsPage session={session} />} />
-        {/*<Route path="/search" exact component={Search} />*/}
+        {/*<Route path="/mushrooms" render={() => <AllMushroomsPage session={session} />} />
+        <Route path="/search" exact component={Search} />*/}
         <Route path="/signin" render={() => <Signin refetch={refetch} />} />
         <Route path="/signup" render={() => <Signup refetch={refetch} />} />
         {/*<Route path="/recipe/add" render={() => <AddRecipe session={session} />} />
