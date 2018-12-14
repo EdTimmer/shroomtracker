@@ -17,13 +17,14 @@ import Signin from './components/Auth/Signin';
 import Signup from './components/Auth/Signup';
 import withSession from "./components/withSession";
 import AllLocationsPage from './components/Location/AllLocationsPage';
-// import AllMushroomsPage from './components/Mushroom/AllMushroomsPage';
+import AllSightingsPage from './components/Sighting/AllSightingsPage';
 import LocationPage from './components/Location/LocationPage';
 // import MushroomPage from './components/Mushroom/MushroomPage';
 import AddLocation from './components/Location/AddLocation';
 // import AddMushroom from './components/Mushroom/AddMushroom';
 import AddSighting from './components/Sighting/AddSighting';
 import SightingPage from './components/Sighting/SightingPage';
+import Profile from './components/Profile/Profile';
 
 // Required for 2.0
 
@@ -76,14 +77,14 @@ const Root = ({ refetch, session }) => (
         <Route path="/location/add" render={() => <AddLocation session={session} />} />
         <Route path="/sighting/add" render={() => <AddSighting session={session} />} />
         <Route path="/locations" render={() => <AllLocationsPage session={session} />} />
-        {/*<Route path="/mushrooms" render={() => <AllMushroomsPage session={session} />} />
-        <Route path="/search" exact component={Search} />*/}
+        <Route path="/sightings" render={() => <AllSightingsPage session={session} />} />
+        {/*<Route path="/search" exact component={Search} />*/}
         <Route path="/signin" render={() => <Signin refetch={refetch} />} />
         <Route path="/signup" render={() => <Signup refetch={refetch} />} />
         {/*<Route path="/recipe/add" render={() => <AddRecipe session={session} />} />
         <Route path="/recipes/:_id" component={RecipePage} />
-        <Route path="/mushroom/add" component={AddMushroom} />
-<Route path="/profile" render={() => <Profile session={session} /> } />*/}
+        <Route path="/mushroom/add" component={AddMushroom} />*/}
+        <Route path="/profile" render={() => <Profile session={session} /> } />
         <Redirect to="/" />
       </Switch>
     </Fragment>

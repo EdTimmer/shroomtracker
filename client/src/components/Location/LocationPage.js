@@ -25,11 +25,11 @@ const LocationPage = ({ match }) => {
                 <h5>{data.getLocation.address}</h5>
               </div>
 
-              <Query query={GET_LOCATION_SIGHTINGS} variables={{locationname: data.getLocationSightings.locationname, username: data.getLocationSightings.username}}>
+              <Query query={GET_LOCATION_SIGHTINGS} variables={{locationname: data.getLocation.locationname, username: data.getLocation.username}}>
                 {({ data, loading, error }) => {
                   if (loading) return <Spinner />
                   if (error) return <div>Error</div>
-                  // console.log(data)
+                  console.log(data)
                   // const { on } = this.state;
                   return (
                     <div className="cards"
