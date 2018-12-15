@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import withAuth from '../withAuth';
 
-import { ADD_LOCATION, GET_ALL_LOCATIONS } from '../../queries';
+import { ADD_LOCATION, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
 
 import Spinner from '../Spinner';
 import Error from '../Error';
@@ -41,7 +41,7 @@ class AddLocation extends React.Component {
     addLocation().then(({ data }) => {
       // console.log(data);
       this.clearState();
-      this.props.history.push("/locations");
+      this.props.history.push("/sighting/add");
 
     });
   }
@@ -52,17 +52,17 @@ class AddLocation extends React.Component {
     return isInvalid;
   }
 
-  updateCache = (cache, { data: { addLocation, username } }) => {
-    const { getAllLocations } = cache.readQuery({ query: GET_ALL_LOCATIONS, variables: {username} });
+  // updateCache = (cache, { data: { addLocation, username } }) => {
+  //   const { getAllLocations } = cache.readQuery({ query: GET_ALL_LOCATIONS, variables: {username} });
 
-    cache.writeQuery({
-      query: GET_ALL_LOCATIONS,
-      variables: {username},
-      data: {
-        getAllLocations: [addLocation, ...getAllLocations]
-      }
-    })
-  }
+  //   cache.writeQuery({
+  //     query: GET_ALL_LOCATIONS,
+  //     variables: {username},
+  //     data: {
+  //       getAllLocations: [addLocation, ...getAllLocations]
+  //     }
+  //   })
+  // }
 
   render() {
     const { locationname, address, username } = this.state;
@@ -72,7 +72,8 @@ class AddLocation extends React.Component {
         mutation={ADD_LOCATION}
         variables={{ locationname, address, username }}
         refetchQueries={() => [
-          { query: GET_ALL_LOCATIONS, variables: { username } }
+          { query: GET_CURRENT_USER },
+          { query: GET_ALL_LOCATIONS, variables: { username } }          
         ]}
         // update={this.updateCache}
       >

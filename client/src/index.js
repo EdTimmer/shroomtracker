@@ -16,6 +16,8 @@ import Navbar from './components/Navbar';
 import Signin from './components/Auth/Signin';
 import Signup from './components/Auth/Signup';
 import withSession from "./components/withSession";
+import AddPage from "./components/AddPage";
+import AddPageTwo from "./components/AddPageTwo";
 import AllLocationsPage from './components/Location/AllLocationsPage';
 import AllSightingsPage from './components/Sighting/AllSightingsPage';
 import LocationPage from './components/Location/LocationPage';
@@ -69,7 +71,8 @@ const Root = ({ refetch, session }) => (
       <Navbar session={session} />
       <Switch>
         <Route path="/" exact component={App} />
-        
+        <Route path="/addpage" render={() => <AddPage session={session} /> } />
+        <Route path="/addpagetwo" render={() => <AddPageTwo session={session} /> } />
         <Route path="/locations/:_id" render={() => <LocationPage session={session} />} />
         <Route path="/sightings/:_id" render={() => <SightingPage session={session} />} />
         {/*<Route path="/mushrooms/:_id" render={() => <MushroomPage session={session} />} />
@@ -85,6 +88,7 @@ const Root = ({ refetch, session }) => (
         <Route path="/recipes/:_id" component={RecipePage} />
         <Route path="/mushroom/add" component={AddMushroom} />*/}
         <Route path="/profile" render={() => <Profile session={session} /> } />
+        
         <Redirect to="/" />
       </Switch>
     </Fragment>

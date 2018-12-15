@@ -4,7 +4,7 @@ import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
 import { Query, Mutation } from 'react-apollo';
-import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_ALL_LOCATIONS } from '../../queries';
+import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
 import Error from '../Error';
 
 const initialState = {
@@ -42,9 +42,9 @@ class AddSighting extends React.Component {
   handleSubmit = (event, addSighting) => {
     event.preventDefault();
     addSighting().then(({ data }) => {
-      // console.log(data); 
+      console.log(data); 
       this.clearState();     
-      this.props.history.push("/");
+      this.props.history.push(`/sightings/${data.addSighting._id}`);
     });
   }
 
@@ -54,17 +54,17 @@ class AddSighting extends React.Component {
     return isInvalid;
   }
 
-  updateCache = (cache, { data: { addSighting, username } }) => {
-    const { getAllSightings } = cache.readQuery({ query: GET_ALL_SIGHTINGS, variables: { username } });
+  // updateCache = (cache, { data: { addSighting, username } }) => {
+  //   const { getAllSightings } = cache.readQuery({ query: GET_ALL_SIGHTINGS, variables: { username } });
 
-    cache.writeQuery({
-      query: GET_ALL_SIGHTINGS,
-      variables: {username},
-      data: {
-        getAllMushrooms: [addSighting, ...getAllSightings]
-      }
-    })
-  }
+  //   cache.writeQuery({
+  //     query: GET_ALL_SIGHTINGS,
+  //     variables: {username},
+  //     data: {
+  //       getAllMushrooms: [addSighting, ...getAllSightings]
+  //     }
+  //   })
+  // }
 
   render() {
     const { username, locationname, commonname, latinname, imageUrl, date, latitude, longitude } = this.state;
@@ -74,9 +74,11 @@ class AddSighting extends React.Component {
         mutation={ADD_SIGHTING}
         variables={{ username, locationname, commonname, latinname, imageUrl, date, latitude, longitude }}
         refetchQueries={() => [
-          { query: GET_ALL_LOCATIONS, variables: { username } }
+          { query: GET_CURRENT_USER },
+          { query: GET_ALL_LOCATIONS, variables: { username } },
+          { query: GET_ALL_SIGHTINGS, variables: { username } }
         ]}
-        update={this.updateCache}
+        // update={this.updateCache}
       >
         {
           (addSighting, { data, loading, error }) => {

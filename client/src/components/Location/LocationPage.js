@@ -29,7 +29,7 @@ const LocationPage = ({ match }) => {
                 {({ data, loading, error }) => {
                   if (loading) return <Spinner />
                   if (error) return <div>Error</div>
-                  console.log(data)
+                  // console.log(data)
                   // const { on } = this.state;
                   return (
                     <div className="cards"
