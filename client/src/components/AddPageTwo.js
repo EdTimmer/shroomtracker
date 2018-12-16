@@ -13,17 +13,22 @@ import Error from './Error';
 class AddPageTwo extends React.Component {
   state = {
     username: '',
-    locationname: '',
+    locationname: this.props.location.state.passedlocationname,
     commonname: ''
   }
 
   clearState = () => {
     this.setState({ 
       username: '',
-      locationname: ''
+      locationname: this.props.location.state.passedlocationname
     });
   }
 
+  componentDidMount() {
+    this.setState({
+      username: this.props.session.getCurrentUser.username
+    });
+  }
   // componentWillReceiveProps(nextProps) {
   //   if (nextProps) {
   //     this.setState({
@@ -35,19 +40,24 @@ class AddPageTwo extends React.Component {
   render() {
     const { username, locationname, commonname } = this.state;
 
-    const {passedlocationname} = this.props.location.state
+    // const {passedlocationname} = this.props.location.state
 
-    console.log(passedlocationname) // "bar"
+    // console.log(passedlocationname) // "bar"
 
     return (
       <div className="App">
         <h4 style={{marginTop: '20px'}}>Add A Mushroom Sighting</h4>
         <ul>
           <li>
-              <h3><NavLink to="/sighting/add" exact>For New Mushroom</NavLink></h3>
+              <h3>
+              <Link to={{ pathname: '/sighting/add', state: { passedlocationname: locationname } }}>
+                New Mushroom Not Previously Found Anywhere To Be Added To {locationname} 
+              </Link> 
+
+              </h3>
           </li>
           <li>
-              <h3><NavLink to="/sightingsavedmushroom/add">For A Saved Mushroom</NavLink></h3>
+              <h3>For A Saved Mushroom:</h3>
           </li>
         </ul>
 
@@ -67,22 +77,28 @@ class AddPageTwo extends React.Component {
 
             return (
               <div>                          
-                {
-                  <select
-                    // name="commonname"
-                    onChange={this.handleMushroomChange}  
-
-                  >
-                  <option value="-1"> Select Mushroom </option>
-                  
+                
+                  <ul>
                     {
 
                       filteredSightings.map(sighting => 
-                          <option key={sighting._id} value={[sighting.commonname, sighting.latinname, sighting.imageUrl]}> {sighting.commonname} </option>)                                    
-                    }
+                          <li key={sighting._id} value={[sighting.commonname, sighting.latinname, sighting.imageUrl]}
+                          > 
 
-                  </select>
-                }
+                          <Link to={{ pathname: '/sightingsavedmushroom/add', state: { passedcommonname: sighting.commonname, passedlatinname: sighting.latinname,
+                          passedimageUrl: sighting.imageUrl, passedlocationname: locationname } }}>
+                            {sighting.commonname}
+                          </Link> 
+                             
+
+
+                          </li>)                                    
+                    }
+                  </ul>
+
+                  
+                    
+
               </div>
             )
           }}

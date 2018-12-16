@@ -7,40 +7,22 @@ import { Query, Mutation } from 'react-apollo';
 import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
 import Error from '../Error';
 
-// const initialState = {
-//   username: '',
-//   locationname: this.props.location.state.passedlocationname,
-//   commonname: this.props.location.state.passedcommonname,
-//   latinname: this.props.location.state.passedlatinname,
-//   imageUrl: this.props.location.state.passedimageUrl,
-//   date: '',
-//   latitude: '',
-//   longitude: ''
-// }
+const initialState = {
+  username: '',
+  locationname: '',
+  commonname: '',
+  latinname: '',
+  imageUrl: '',
+  date: '',
+  latitude: '',
+  longitude: ''
+}
 
 class AddSightingSavedMushroom extends React.Component {
-  state = { 
-    username: '',
-    locationname: this.props.location.state.passedlocationname,
-    commonname: this.props.location.state.passedcommonname,
-    latinname: this.props.location.state.passedlatinname,
-    imageUrl: this.props.location.state.passedimageUrl,
-    date: '',
-    latitude: '',
-    longitude: ''
-  };
+  state = { ...initialState };
 
   clearState = () => {
-    this.setState({
-      username: '',
-      locationname: this.props.location.state.passedlocationname,
-      commonname: this.props.location.state.passedcommonname,
-      latinname: this.props.location.state.passedlatinname,
-      imageUrl: this.props.location.state.passedimageUrl,
-      date: '',
-      latitude: '',
-      longitude: ''
-    });
+    this.setState({ ...initialState });
   }
 
   componentDidMount() {
@@ -56,17 +38,17 @@ class AddSightingSavedMushroom extends React.Component {
     });
   }
 
-  // handleMushroomChange = event => {
+  handleMushroomChange = event => {
     
-  //   const { value } = event.target;
-  //   // console.log('value is', value);
-  //   const valueArray = value.split(",")
-  //   this.setState({
-  //     commonname: valueArray[0],
-  //     latinname: valueArray[1],
-  //     imageUrl: valueArray[2]
-  //   });
-  // }
+    const { value } = event.target;
+    // console.log('value is', value);
+    const valueArray = value.split(",")
+    this.setState({
+      commonname: valueArray[0],
+      latinname: valueArray[1],
+      imageUrl: valueArray[2]
+    });
+  }
 
 
   handleSubmit = (event, addSighting) => {
@@ -100,8 +82,7 @@ class AddSightingSavedMushroom extends React.Component {
     const { username, locationname, commonname, latinname, imageUrl, date, latitude, longitude } = this.state;
 
 
-    // console.log('state is:', this.state)
-
+    // console.log('first username is', username)
     return (
       <Mutation
         mutation={ADD_SIGHTING}
@@ -120,22 +101,70 @@ class AddSightingSavedMushroom extends React.Component {
                 <h2 className="App">Add Sighting</h2>
 
                 <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>
-                  <div>
-                    <img src={imageUrl} style={{width: '200px'}}/>                    
-                  </div>
-                  <div>
-                    <h4>Location: {locationname}</h4>
-                  </div>
 
-                  <div>
-                    <h4>Common Name: {commonname}</h4>
-                  </div>
+                  <Query query={GET_ALL_LOCATIONS} variables={{username}}>
+                    {({ data, loading, error }) => {
+                      if (loading) return <Spinner />
+                      if (error) return <div>Error</div>
+                      console.log('username is', username)
+                      // const { on } = this.state;
+                      return (
+                        <div>                          
+                          {
+                            <select
+                              name="locationname"
+                              onChange={this.handleChange}  
 
-                  <div>
-                    <h4>Latin Name: {latinname}</h4>
-                  </div>
+                            >
+                            <option value="-1"> Select Location </option>
+                              {
+                                data.getAllLocations.map(location => 
+                                    <option key={location._id} value={location.locationname}> {location.locationname} </option>)
+                              }
 
-                  
+                            </select>
+                          }
+                        </div>
+                      )
+                    }}
+                  </Query>
+
+                  <Query query={GET_ALL_SIGHTINGS} variables={{username}}>
+                    {({ data, loading, error }) => {
+                      if (loading) return <Spinner />
+                      if (error) return <div>Error</div>
+                      // console.log('username is', username)
+                      // const { on } = this.state;
+                      const filteredSightings = data.getAllSightings.filter(sighting => {
+                        if (data.getAllSightings[sighting.commonname]) {
+                            return false;
+                        }
+                        data.getAllSightings[sighting.commonname] = true;
+                        return true;
+                      });
+
+                      return (
+                        <div>                          
+                          {
+                            <select
+                              // name="commonname"
+                              onChange={this.handleMushroomChange}  
+
+                            >
+                            <option value="-1"> Select Mushroom </option>
+                            
+                              {
+
+                                filteredSightings.map(sighting => 
+                                    <option key={sighting._id} value={[sighting.commonname, sighting.latinname, sighting.imageUrl]}> {sighting.commonname} </option>)                                    
+                              }
+
+                            </select>
+                          }
+                        </div>
+                      )
+                    }}
+                  </Query>
 
                   <input
                     type="text"

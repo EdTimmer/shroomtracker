@@ -7,22 +7,40 @@ import { Query, Mutation } from 'react-apollo';
 import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
 import Error from '../Error';
 
-const initialState = {
-  username: '',
-  locationname: '',
-  commonname: '',
-  latinname: '',
-  imageUrl: '',
-  date: '',
-  latitude: '',
-  longitude: ''
-}
+// const initialState = {
+//   username: '',
+//   locationname: this.props.location.state.passedlocationname,
+//   commonname: '',
+//   latinname: '',
+//   imageUrl: '',
+//   date: '',
+//   latitude: '',
+//   longitude: ''
+// }
 
 class AddSighting extends React.Component {
-  state = { ...initialState };
+  state = {
+    username: '',
+    locationname: this.props.location.state.passedlocationname,
+    commonname: '',
+    latinname: '',
+    imageUrl: '',
+    date: '',
+    latitude: '',
+    longitude: ''
+  };
 
   clearState = () => {
-    this.setState({ ...initialState });
+    this.setState({
+      username: '',
+      locationname: this.props.location.state.passedlocationname,
+      commonname: '',
+      latinname: '',
+      imageUrl: '',
+      date: '',
+      latitude: '',
+      longitude: ''
+    });
   }
 
   componentDidMount() {
@@ -68,9 +86,9 @@ class AddSighting extends React.Component {
 
   render() {
     const { username, locationname, commonname, latinname, imageUrl, date, latitude, longitude } = this.state;
-    const {passedlocationname} = this.props.location.state
-    console.log('props are:', this.props)
-    console.log(passedlocationname) // "bar"
+    // const {passedlocationname} = this.props.location.state
+    // console.log('props are:', this.props)
+    // console.log(passedlocationname) // "bar"
     // console.log('first username is', username)
     return (
       <Mutation
@@ -91,32 +109,9 @@ class AddSighting extends React.Component {
 
                 <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>
 
-                  <Query query={GET_ALL_LOCATIONS} variables={{username}}>
-                    {({ data, loading, error }) => {
-                      if (loading) return <Spinner />
-                      if (error) return <div>Error</div>
-                      console.log('username is', username)
-                      // const { on } = this.state;
-                      return (
-                        <div>                          
-                          {
-                            <select
-                              name="locationname"
-                              onChange={this.handleChange}  
-
-                            >
-                            <option value="-1"> Select Location </option>
-                              {
-                                data.getAllLocations.map(location => 
-                                    <option key={location._id} value={location.locationname}> {location.locationname} </option>)
-                              }
-
-                            </select>
-                          }
-                        </div>
-                      )
-                    }}
-                  </Query>
+                  <div>
+                    <h4>Location: {locationname}</h4>
+                  </div>
 
                   <input
                     type="text"

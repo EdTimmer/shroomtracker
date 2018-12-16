@@ -41,7 +41,7 @@ class AddLocation extends React.Component {
     addLocation().then(({ data }) => {
       // console.log(data);
       this.clearState();
-      this.props.history.push("/addpagetwo");
+      this.props.history.push("/addpage");
 
     });
   }

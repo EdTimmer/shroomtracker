@@ -55,7 +55,7 @@ class AddPage extends React.Component {
               <h3><NavLink to="/location/add" exact>To A New Location</NavLink></h3>
           </li>
           <li>
-              <h3><NavLink to="/addpagetwo">To A Saved Location</NavLink></h3>
+              <h3>To A Saved Location:</h3>
           </li>
         </ul>
 
