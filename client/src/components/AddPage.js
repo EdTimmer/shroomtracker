@@ -1,5 +1,6 @@
 import React from 'react';
 import withAuth from './withAuth';
+import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
@@ -43,7 +44,7 @@ class AddPage extends React.Component {
   }
 
   render() {
-    const { locationname, username } = this.state;
+    const { username, locationname } = this.state;
     return (
       <div className="App">
 
@@ -77,7 +78,7 @@ class AddPage extends React.Component {
                       data.getAllLocations.map(location => 
                           <li key={location._id} value={location.locationname}> 
                           
-                            <Link to={{ pathname: '/addsecondpage', state: { passedlocationname: location.locationname} }}>
+                            <Link to={{ pathname: '/addpagetwo', state: { passedlocationname: location.locationname } }}>
                               {location.locationname} 
                             </Link>                          
                           
@@ -98,4 +99,4 @@ class AddPage extends React.Component {
   
 
 
-export default withAuth(session => session && session.getCurrentUser)(AddPage);
+export default withAuth(session => session && session.getCurrentUser)(withRouter(AddPage));

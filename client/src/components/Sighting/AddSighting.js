@@ -68,9 +68,9 @@ class AddSighting extends React.Component {
 
   render() {
     const { username, locationname, commonname, latinname, imageUrl, date, latitude, longitude } = this.state;
-    // const {passedlocationname} = this.props.location.state
-
-    // console.log(passedlocationname) // "bar"
+    const {passedlocationname} = this.props.location.state
+    console.log('props are:', this.props)
+    console.log(passedlocationname) // "bar"
     // console.log('first username is', username)
     return (
       <Mutation
