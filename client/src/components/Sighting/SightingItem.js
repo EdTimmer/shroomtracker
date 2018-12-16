@@ -7,11 +7,12 @@ import { Link } from 'react-router-dom';
 //   hidden: { opacity: 0 }
 // });
 
-export default ({ _id, commonname, date }) => (
+export default ({ _id, commonname, date, imageUrl }) => (
   <div
+    style={{ background: `url(${imageUrl}) center center / cover no-repeat`}}
     className="card"
   >
-   
+
     <div className="card-text">
       <Link to={`/sightings/${_id}`}><h4>{commonname} on {date}</h4></Link>
     </div> 
