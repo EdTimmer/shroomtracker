@@ -80,6 +80,8 @@ class AddSightingSavedMushroom extends React.Component {
 
   render() {
     const { username, locationname, commonname, latinname, imageUrl, date, latitude, longitude } = this.state;
+
+
     // console.log('first username is', username)
     return (
       <Mutation
@@ -133,6 +135,14 @@ class AddSightingSavedMushroom extends React.Component {
                       if (error) return <div>Error</div>
                       // console.log('username is', username)
                       // const { on } = this.state;
+                      const filteredSightings = data.getAllSightings.filter(sighting => {
+                        if (data.getAllSightings[sighting.commonname]) {
+                            return false;
+                        }
+                        data.getAllSightings[sighting.commonname] = true;
+                        return true;
+                      });
+
                       return (
                         <div>                          
                           {
@@ -142,8 +152,10 @@ class AddSightingSavedMushroom extends React.Component {
 
                             >
                             <option value="-1"> Select Mushroom </option>
+                            
                               {
-                                data.getAllSightings.map(sighting => 
+
+                                filteredSightings.map(sighting => 
                                     <option key={sighting._id} value={[sighting.commonname, sighting.latinname, sighting.imageUrl]}> {sighting.commonname} </option>)                                    
                               }
 

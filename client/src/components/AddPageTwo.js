@@ -1,7 +1,13 @@
 import React from 'react';
 import withAuth from './withAuth';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+
+import Spinner from './Spinner';
+
+import { Query } from 'react-apollo';
+import { GET_ALL_MUSHROOMS } from '../queries';
+import Error from './Error';
 
 const AddPageTwo = ({ session }) => (
   <div className="App">
