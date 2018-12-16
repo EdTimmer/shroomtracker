@@ -13,6 +13,8 @@ const UserInfo = ({ session }) => (
     <p>Username: {session.getCurrentUser.username}</p>
     <p>Email: {session.getCurrentUser.email}</p>
     <p>Join Date: {formatDate(session.getCurrentUser.joinDate)}</p>
+    {/*<p>Join Date: {session.getCurrentUser.joinDate}</p>*/}
+    
   </div>
 );
 

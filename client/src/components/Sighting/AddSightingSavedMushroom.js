@@ -42,10 +42,11 @@ class AddSightingSavedMushroom extends React.Component {
     
     const { value } = event.target;
     // console.log('value is', value);
+    const valueArray = value.split(",")
     this.setState({
-      commonname: value.split(",")[0],
-      latinname: value.split(",")[1],
-      imageUrl: value.split(",")[2]
+      commonname: valueArray[0],
+      latinname: valueArray[1],
+      imageUrl: valueArray[2]
     });
   }
 
@@ -178,7 +179,7 @@ class AddSightingSavedMushroom extends React.Component {
                   />
 
                   <button
-                    // disabled={loading || this.validateForm()}
+                    disabled={loading || this.validateForm()}
                     type="submit" className="botton-primary"
                   >
                     Submit

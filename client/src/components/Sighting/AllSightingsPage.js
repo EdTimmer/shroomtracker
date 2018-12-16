@@ -17,7 +17,7 @@ class AllSightingsPage extends Component {
     return (
       <div className="App">
         <h1 className="main-title">
-          My <strong>Myshrooms</strong>
+          My <strong>Mushroom</strong> Sightings 
         </h1>
         <Query query={GET_ALL_SIGHTINGS} variables={{username}}>
           {({ data, loading, error }) => {
