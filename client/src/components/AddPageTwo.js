@@ -13,15 +13,7 @@ import Error from './Error';
 class AddPageTwo extends React.Component {
   state = {
     username: '',
-    locationname: this.props.location.state.passedlocationname,
-    commonname: ''
-  }
-
-  clearState = () => {
-    this.setState({ 
-      username: '',
-      locationname: this.props.location.state.passedlocationname
-    });
+    locationname: this.props.location.state.passedlocationname
   }
 
   componentDidMount() {
@@ -29,29 +21,18 @@ class AddPageTwo extends React.Component {
       username: this.props.session.getCurrentUser.username
     });
   }
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps) {
-  //     this.setState({
-  //       locationname: nextProps.location.state.foo,
-  //     })
-  //   }
-  // }
 
   render() {
-    const { username, locationname, commonname } = this.state;
-
-    // const {passedlocationname} = this.props.location.state
-
-    // console.log(passedlocationname) // "bar"
+    const { username, locationname } = this.state;
 
     return (
       <div className="App">
-        <h4 style={{marginTop: '20px'}}>Add A Mushroom Sighting</h4>
+        <h4 style={{marginTop: '20px'}}>Add Mushroom Sighting To {locationname}</h4>
         <ul>
           <li>
               <h3>
               <Link to={{ pathname: '/sighting/add', state: { passedlocationname: locationname } }}>
-                New Mushroom Not Previously Found Anywhere To Be Added To {locationname} 
+                For A First Find 
               </Link> 
 
               </h3>
@@ -76,42 +57,42 @@ class AddPageTwo extends React.Component {
             });
 
             return (
+
+              
               <div>                          
                 
-                  <ul>
-                    {
-
-                      filteredSightings.map(sighting => 
-                          <li key={sighting._id} value={[sighting.commonname, sighting.latinname, sighting.imageUrl]}
-                          > 
-
-                          <Link to={{ pathname: '/sightingsavedmushroom/add', state: { passedcommonname: sighting.commonname, passedlatinname: sighting.latinname,
-                          passedimageUrl: sighting.imageUrl, passedlocationname: locationname } }}>
-                            {sighting.commonname}
-                          </Link> 
-                             
-
-
-                          </li>)                                    
-                    }
-                  </ul>
-
+                {
+                  filteredSightings.length ? ( 
                   
-                    
+                    <ul>
+                      {
+
+                        filteredSightings.map(sighting => 
+                            <li key={sighting._id} value={[sighting.commonname, sighting.latinname, sighting.imageUrl]}
+                            > 
+
+                              <Link to={{ pathname: '/sightingsavedmushroom/add', state: { passedcommonname: sighting.commonname, passedlatinname: sighting.latinname,
+                              passedimageUrl: sighting.imageUrl, passedlocationname: locationname } }}>
+                                {sighting.commonname}
+                              </Link>                             
+
+
+                            </li>)                                    
+                      }
+                    </ul>
+                  
+                  ) : (<div><p>You have no saved mushrooms</p></div>)
+                }                    
 
               </div>
             )
           }}
+
         </Query>
   
       </div>
     )
   }
 } 
-
-
-
-
-
 
 export default withAuth(session => session && session.getCurrentUser)(withRouter(AddPageTwo));

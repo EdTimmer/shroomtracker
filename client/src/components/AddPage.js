@@ -12,12 +12,7 @@ import Error from './Error';
 
 class AddPage extends React.Component {
   state = {
-    username: '',
-    locationname: ''
-  }
-
-  clearState = () => {
-    this.setState({ locationname: '', username: '' });
+    username: ''
   }
 
   componentDidMount() {
@@ -26,25 +21,8 @@ class AddPage extends React.Component {
     });
   }
 
-  handleChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  }
-
-
-  handleSubmit = (event, addSighting) => {
-    event.preventDefault();
-    addSighting().then(({ data }) => {
-      console.log(data); 
-      this.clearState();     
-      this.props.history.push(`/sightings/${data.addSighting._id}`);
-    });
-  }
-
   render() {
-    const { username, locationname } = this.state;
+    const { username } = this.state;
     return (
       <div className="App">
 
@@ -63,19 +41,15 @@ class AddPage extends React.Component {
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
             if (error) return <div>Error</div>
-            // console.log('username is', username)
-            // const { on } = this.state;
+
             return (
               <div>                          
                 {
-                  <ul
-                    name="locationname"
-                    onChange={this.handleChange}  
 
-                  >
-                  
-                    {
-                      data.getAllLocations.map(location => 
+                  data.getAllLocations.length ? (
+                    <ul>                  
+                      {
+                        data.getAllLocations.map(location => 
                           <li key={location._id} value={location.locationname}> 
                           
                             <Link to={{ pathname: '/addpagetwo', state: { passedlocationname: location.locationname } }}>
@@ -83,9 +57,10 @@ class AddPage extends React.Component {
                             </Link>                          
                           
                           </li>)
-                    }
-
-                  </ul>
+                      }
+                    </ul>
+                  ) : (<div><p>You have no saved locations</p></div>)
+                  
                 }
               </div>
             )

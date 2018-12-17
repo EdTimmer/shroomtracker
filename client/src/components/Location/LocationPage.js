@@ -5,7 +5,7 @@ import withAuth from '../withAuth';
 import { Query } from 'react-apollo';
 import { GET_LOCATION, GET_LOCATION_SIGHTINGS } from '../../queries';
 import Spinner from '../Spinner';
-import SightingItem from '../Sighting/SightingItem';
+import SightingItemLocation from '../Sighting/SightingItemLocation';
 import mushrooms2 from '../../images/mushrooms2.jpg';
 
 const LocationPage = ({ match }) => {
@@ -37,7 +37,7 @@ const LocationPage = ({ match }) => {
                     >
                       {
                         data.getLocationSightings.map(sighting => (
-                          <SightingItem key={sighting._id} {...sighting} />
+                          <SightingItemLocation key={sighting._id} {...sighting} />
                         ))
                       }
                     </div>

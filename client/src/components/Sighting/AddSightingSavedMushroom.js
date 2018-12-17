@@ -4,7 +4,7 @@ import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
 import { Query, Mutation } from 'react-apollo';
-import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
+import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_LOCATION_SIGHTINGS, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
 import Error from '../Error';
 
 // const initialState = {
@@ -108,8 +108,9 @@ class AddSightingSavedMushroom extends React.Component {
         variables={{ username, locationname, commonname, latinname, imageUrl, date, latitude, longitude }}
         refetchQueries={() => [
           { query: GET_CURRENT_USER },
-          { query: GET_ALL_LOCATIONS, variables: { username } },
-          { query: GET_ALL_SIGHTINGS, variables: { username } }
+          // { query: GET_ALL_LOCATIONS, variables: { username } },
+          { query: GET_ALL_SIGHTINGS, variables: { username } },
+          { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } }
         ]}
         // update={this.updateCache}
       >
