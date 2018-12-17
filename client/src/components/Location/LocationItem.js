@@ -8,12 +8,9 @@ import posed from 'react-pose';
 // });
 
 export default ({ _id, locationname, address }) => (
-  <div
-    className="card"
-  >    
-    <div className="card-text">
-      <Link to={`/locations/${_id}`}><h4>{locationname}</h4></Link>
-    </div> 
-    
+  <div>    
+    <div>
+      <Link to={`/locations/${_id}`}><h4 style={{color: 'white'}}>{locationname}</h4></Link>
+    </div>     
   </div>
 );

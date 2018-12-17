@@ -9,12 +9,12 @@ const handleSignout = (client, history) => {
   history.push('/');
 }
 
-const Signout = ({ history }) => (
+const Signout = ({ history, username }) => (
   <ApolloConsumer>
     {
       client => {
         return (
-          <button onClick={() => handleSignout(client, history)}>Signout</button>
+          <button style={{color: 'white'}} onClick={() => handleSignout(client, history)}>Signout {username}</button>
         )
       }
     }

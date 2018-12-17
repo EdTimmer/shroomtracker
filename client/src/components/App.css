@@ -6,8 +6,10 @@ nav {
   text-align: center;
   padding-bottom: 0.2em;
   padding-top: 2em;
-  background-color: #efefef;
-  box-shadow: -3px 3px 10px 0px rgba(168, 168, 168, 0.7);
+  height: 60px;
+  background-color: black;
+  /* background-color: #efefef; */
+  /* box-shadow: -3px 3px 10px 0px rgba(168, 168, 168, 0.7); */
 }
 
 nav ul {
@@ -15,6 +17,7 @@ nav ul {
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
+
 }
 
 p,
@@ -38,6 +41,7 @@ nav a:link {
   text-decoration: none;
   font-size: 2.5rem;
   font-weight: 100;
+  color: white;
 }
 
 .active {
@@ -85,6 +89,8 @@ nav a:link {
   text-align: center;
   background: #ddd;
   transition: all 0.3s;
+  /* max-width: 400px; */
+  /* min-width: 300px; */
 }
 
 .card:hover {

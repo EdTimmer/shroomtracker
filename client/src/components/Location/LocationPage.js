@@ -6,6 +6,7 @@ import { Query } from 'react-apollo';
 import { GET_LOCATION, GET_LOCATION_SIGHTINGS } from '../../queries';
 import Spinner from '../Spinner';
 import SightingItem from '../Sighting/SightingItem';
+import mushrooms2 from '../../images/mushrooms2.jpg';
 
 const LocationPage = ({ match }) => {
   const { _id } = match.params;
@@ -19,7 +20,7 @@ const LocationPage = ({ match }) => {
           // console.log(data.getLocation.username);
           return (
             
-            <div className="App">
+            <div className="App" style={{backgroundImage: `url(${mushrooms2})`, height: '900px'}}>
               <div>
                 <h2>{data.getLocation.locationname}</h2>
                 <h5>{data.getLocation.address}</h5>

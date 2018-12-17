@@ -8,6 +8,7 @@ import { GET_ALL_SIGHTINGS } from '../../queries';
 
 import SightingItem from './SightingItem';
 import Spinner from '../Spinner';
+import mushrooms2 from '../../images/mushrooms2.jpg'
 
 class AllSightingsPage extends Component {
   ;
@@ -15,7 +16,7 @@ class AllSightingsPage extends Component {
     const username = this.props.session.getCurrentUser.username;
     // console.log(this.props.session.getCurrentUser.username)
     return (
-      <div className="App">
+      <div className="App" style={{backgroundImage: `url(${mushrooms2})`, height: '900px'}}>
         <h1 className="main-title">
           My <strong>Mushroom</strong> Sightings 
         </h1>
@@ -25,7 +26,7 @@ class AllSightingsPage extends Component {
             if (error) return <div>Error</div>
 
             return (
-              <div>
+              <div className="cards">
                 {
                   data.getAllSightings.map(sighting => (
                     <SightingItem key={sighting._id} {...sighting} />

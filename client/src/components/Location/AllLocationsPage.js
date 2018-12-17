@@ -8,6 +8,7 @@ import { GET_ALL_LOCATIONS } from '../../queries';
 import withAuth from '../withAuth';
 import LocationItem from './LocationItem';
 import Spinner from '../Spinner';
+import mushrooms2 from '../../images/mushrooms2.jpg';
 
 class AllLocationsPage extends Component {
 
@@ -25,7 +26,7 @@ class AllLocationsPage extends Component {
     const { username } = this.state;
 
     return (
-      <div className="App">
+      <div className="App" style={{backgroundImage: `url(${mushrooms2})`, height: '900px'}}>
         <h1 className="main-title">
           My <strong>Mushroom</strong> Locations
         </h1>

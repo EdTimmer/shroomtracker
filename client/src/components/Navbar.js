@@ -33,10 +33,10 @@ const NavbarAuth = ({ session }) => (
                 <NavLink to="/profile">Profile</NavLink>
             </li>
             <li>
-                <Signout />
+                <Signout username={session.getCurrentUser.username} />
             </li>
         </ul>
-        <h4>Welcome, <strong>{session.getCurrentUser.username}</strong></h4>
+        
 
     </Fragment>
 );
