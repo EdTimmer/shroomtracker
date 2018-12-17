@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import fairy from '../images/fairy1.jpg'
+import mushrooms from '../images/mushrooms1.jpg'
 // import posed from 'react-pose';
 
 // import { Query } from 'react-apollo';
@@ -34,12 +36,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <h1 className="main-title">
-          <strong>Mushroom Tracker</strong>
-        </h1>
-        
+      <div>
+        <div className="App" style={{backgroundImage: `url(${mushrooms})`, height: '900px'}}>
+          <h1 className="main-title">
+            <strong>Mushroom Tracker</strong>
+          </h1>          
+        </div>
+        <div />
       </div>
+      
     )
   }
 }
