@@ -1,10 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import withAuth from '../withAuth';
 
 import { Query } from 'react-apollo';
 import { GET_SIGHTING } from '../../queries';
 import Spinner from '../Spinner';
+// import { get } from 'https';
 
 
 const SightingPage = ({ match }) => {
@@ -17,7 +19,7 @@ const SightingPage = ({ match }) => {
 
           if (loading) return <Spinner />
           if (error) return <div>Error</div>
-          // console.log(data);
+          console.log(data.getSighting);
           return (
             <div className="App">
               <div 
@@ -41,7 +43,10 @@ const SightingPage = ({ match }) => {
                   </h5>
                   <h5>
                     <i>Coordinates: </i> {data.getSighting.latitude} by {data.getSighting.longitude}
-                  </h5>
+                
+                    <a href={`http://www.google.com/maps/place/${data.getSighting.latitude},${data.getSighting.longitude}`} rel="noopener noreferrer" target="_blank"><h5>Map Link</h5></a>
+                  </h5>                
+                  
                 </div>
 
               </div>
