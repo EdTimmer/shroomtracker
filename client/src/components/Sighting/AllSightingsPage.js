@@ -24,7 +24,7 @@ class AllSightingsPage extends Component {
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
             if (error) return <div>Error</div>
-
+            
             return (
               <div className="cards">
                 {

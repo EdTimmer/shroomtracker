@@ -53,7 +53,7 @@ exports.typeDefs = `
     getLocationMushroomSightings(locationname: String!, username: String!, commonname: String!): [Sighting]
 
     searchSightings(searchTerm: String): [Sighting]
-
+    
     getMushroom(_id: ID!): Mushroom
 
     getAllMushrooms(username: String!): [Mushroom]

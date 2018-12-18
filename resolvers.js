@@ -51,7 +51,24 @@ exports.resolvers = {
     getAllMushrooms: async (root, { username }, { Mushroom }) => {
       const allMushrooms = await Mushroom.find({ username }).sort({ commonname: 1 });
       return allMushrooms;
-    }
+    },
+
+    searchSightings: async (root, { searchTerm, username }, { Sighting }) => {
+      if (searchTerm) {
+        const searchResults = await Sighting.find({
+          $text: { $search: searchTerm }, username
+        }, {
+          score: { $meta: "textScore" }
+        }).sort({
+          score: { $meta: "textScore" }
+        });
+        return searchResults;
+      }
+      else {
+        const sightings = await Sighting.find({ username }).sort({ createdDate: 'desc' });
+        return sightings;
+      }
+    },
   },
 
   Mutation: {

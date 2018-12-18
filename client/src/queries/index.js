@@ -98,6 +98,17 @@ export const GET_LOCATION_MUSHROOM_SIGHTINGS = gql`
   }
 `;
 
+export const SEARCH_SIGHTINGS = gql`
+  query($searchTerm: String) {
+    searchSightings(searchTerm: $searchTerm) {
+      _id
+      commonname
+      locationname
+      date
+    }
+  }
+`;
+
 /* Mushroom Queries */
 
 export const GET_MUSHROOM = gql`

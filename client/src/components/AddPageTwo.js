@@ -3,6 +3,7 @@ import withAuth from './withAuth';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
+import mushrooms from './mushrooms';
 
 import Spinner from './Spinner';
 
@@ -32,13 +33,13 @@ class AddPageTwo extends React.Component {
           <li>
               <h3>
               <Link to={{ pathname: '/sighting/add', state: { passedlocationname: locationname } }}>
-                For A First Find 
+                For A New Mushroom 
               </Link> 
 
               </h3>
           </li>
           <li>
-              <h3>For A Saved Mushroom:</h3>
+              <h3>For My Saved Mushroom:</h3>
           </li>
         </ul>
 
@@ -68,8 +69,7 @@ class AddPageTwo extends React.Component {
                       {
 
                         filteredSightings.map(sighting => 
-                            <li key={sighting._id} value={[sighting.commonname, sighting.latinname, sighting.imageUrl]}
-                            > 
+                            <li key={sighting._id}> 
 
                               <Link to={{ pathname: '/sightingsavedmushroom/add', state: { passedcommonname: sighting.commonname, passedlatinname: sighting.latinname,
                               passedimageUrl: sighting.imageUrl, passedlocationname: locationname } }}>
@@ -82,8 +82,23 @@ class AddPageTwo extends React.Component {
                     </ul>
                   
                   ) : (<div><p>You have no saved mushrooms</p></div>)
-                }                    
+                } 
+                
+                <p>For A Preset Mushroom:</p>
+                <ul>
+                  {
 
+                    mushrooms.map(mushroom => 
+                        <li key={mushroom._id}> 
+
+                          <Link to={{ pathname: '/sightingsavedmushroom/add', state: { passedcommonname: mushroom.commonname, passedlatinname: mushroom.latinname,
+                          passedimageUrl: mushroom.imageUrl, passedlocationname: locationname } }}>
+                            {mushroom.commonname}
+                          </Link>
+
+                        </li>)                                    
+                  }
+                </ul>
               </div>
             )
           }}
