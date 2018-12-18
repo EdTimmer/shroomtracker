@@ -99,8 +99,8 @@ export const GET_LOCATION_MUSHROOM_SIGHTINGS = gql`
 `;
 
 export const SEARCH_SIGHTINGS = gql`
-  query($searchTerm: String) {
-    searchSightings(searchTerm: $searchTerm) {
+  query($searchTerm: String, $username: String) {
+    searchSightings(searchTerm: $searchTerm, username: $username) {
       _id
       commonname
       locationname

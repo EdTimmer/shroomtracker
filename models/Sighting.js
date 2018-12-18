@@ -34,6 +34,10 @@ const SightingSchema = new Schema({
     type: Date,
     default: Date.now
   }
+});
+
+SightingSchema.index({
+  "$**": "text"
 })
 
 module.exports = mongoose.model('Sighting', SightingSchema);

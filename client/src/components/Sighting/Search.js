@@ -1,4 +1,6 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+import withAuth from '../withAuth';
 
 import { ApolloConsumer } from 'react-apollo';
 import { SEARCH_SIGHTINGS } from '../../queries';
@@ -17,8 +19,14 @@ class Search extends React.Component {
     })
   }
 
+  componentDidMount() {
+    this.setState({
+      username: this.props.session.getCurrentUser.username
+    });
+  }
+
   render() {
-    const { searchResults } = this.state;
+    const { username, searchResults } = this.state;
     return (
       <ApolloConsumer>
       {
@@ -32,7 +40,7 @@ class Search extends React.Component {
                 event.persist();
                 const { data } = await client.query({
                   query: SEARCH_SIGHTINGS,
-                  variables: { searchTerm: event.target.value}
+                  variables: { searchTerm: event.target.value, username: username }
                 });
                 this.handleChange(data);
               }}
@@ -51,6 +59,5 @@ class Search extends React.Component {
 } 
   
   
-
-
-export default Search;
+// export default Search;
+export default withAuth(session => session && session.getCurrentUser)(withRouter(Search));

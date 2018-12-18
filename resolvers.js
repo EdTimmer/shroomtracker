@@ -65,7 +65,7 @@ exports.resolvers = {
         return searchResults;
       }
       else {
-        const sightings = await Sighting.find({ username }).sort({ createdDate: 'desc' });
+        const sightings = await Sighting.find({ username });
         return sightings;
       }
     },
