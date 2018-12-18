@@ -10,6 +10,7 @@ import Spinner from './Spinner';
 import { Query } from 'react-apollo';
 import { GET_ALL_SIGHTINGS } from '../queries';
 import Error from './Error';
+import mushrooms4 from '../images/mushrooms4.jpg';
 
 class AddPageTwo extends React.Component {
   state = {
@@ -27,8 +28,8 @@ class AddPageTwo extends React.Component {
     const { username, locationname } = this.state;
 
     return (
-      <div className="App">
-        <h4 style={{marginTop: '20px'}}>Add Mushroom Sighting To {locationname}</h4>
+      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
+        <h4 style={{paddingTop: '20px'}}>Add Mushroom Sighting To {locationname}</h4>
         <ul>
           <li>
               <h3>

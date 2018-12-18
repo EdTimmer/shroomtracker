@@ -5,6 +5,7 @@ import withAuth from '../withAuth';
 import { ApolloConsumer } from 'react-apollo';
 import { SEARCH_SIGHTINGS } from '../../queries';
 import SearchItem from './SearchItem';
+import mushrooms4 from '../../images/mushrooms4.jpg';
 
 class Search extends React.Component {
 
@@ -31,7 +32,7 @@ class Search extends React.Component {
       <ApolloConsumer>
       {
         client => (
-          <div className="App">
+          <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
             <input 
               type="search" 
               className="search"

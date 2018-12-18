@@ -41,11 +41,21 @@ const SightingPage = ({ match }) => {
                   <h5>
                     <i>Found Date: </i> {data.getSighting.date}
                   </h5>
-                  <h5>
-                    <i>Coordinates: </i> {data.getSighting.latitude} by {data.getSighting.longitude}
-                
-                    <a href={`http://www.google.com/maps/place/${data.getSighting.latitude},${data.getSighting.longitude}`} rel="noopener noreferrer" target="_blank"><h5>Map Link</h5></a>
-                  </h5>                
+                  <div>
+                    
+                    {
+                      data.getSighting.latitude && data.getSighting.longitude ? (
+                        <div>
+                          
+                          <a href={`http://www.google.com/maps/place/${data.getSighting.latitude},${data.getSighting.longitude}`} rel="noopener noreferrer" target="_blank"><h5><strong>Map Link</strong></h5></a>
+
+                          <p><i>Coordinates: </i> {data.getSighting.latitude} by {data.getSighting.longitude}</p>
+
+                        </div>
+                      ) : (<h5><i>No recorded coordinates</i></h5>)
+                    }
+                    
+                  </div>                
                   
                 </div>
 
