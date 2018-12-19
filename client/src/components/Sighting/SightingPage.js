@@ -10,8 +10,8 @@ import Spinner from '../Spinner';
 
 
 const SightingPage = ({ match }) => {
-  const { _id } = match.params;  
-  
+  const { _id } = match.params;
+
   return (
     <Query query={GET_SIGHTING} variables={{ _id }}>
       {
@@ -22,14 +22,17 @@ const SightingPage = ({ match }) => {
           console.log(data.getSighting);
           return (
             <div className="App">
-              <div 
+              <div
                 style={{ background: `url(${data.getSighting.imageUrl}) center center / cover no-repeat` }}
-                className="recipe-image">              
+                className="sighting-image">
               </div>
 
-              <div className="recipe">
-                <div className="recipe-header">
-                  <h2 className="recipe-name">
+              <div className="sighting">
+                <div className="sighting-header">
+                  {
+                    data.getSighting.imageCredit ? (<p>Photograph credit: {data.getSighting.imageCredit}</p>) : (null)
+                  }
+                  <h2 className="sighting-name">
                     <strong>{data.getSighting.commonname}</strong>
                   </h2>
                   <h5>
@@ -42,11 +45,11 @@ const SightingPage = ({ match }) => {
                     <i>Found Date: </i> {data.getSighting.date}
                   </h5>
                   <div>
-                    
+
                     {
                       data.getSighting.latitude && data.getSighting.longitude ? (
                         <div>
-                          
+
                           <a href={`http://www.google.com/maps/place/${data.getSighting.latitude},${data.getSighting.longitude}`} rel="noopener noreferrer" target="_blank"><h5><strong>Map Link</strong></h5></a>
 
                           <p><i>Coordinates: </i> {data.getSighting.latitude} by {data.getSighting.longitude}</p>
@@ -54,13 +57,13 @@ const SightingPage = ({ match }) => {
                         </div>
                       ) : (<h5><i>No recorded coordinates</i></h5>)
                     }
-                    
-                  </div>                
-                  
+
+                  </div>
+
                 </div>
 
               </div>
-              
+
             </div>
           )
         }

@@ -20,6 +20,9 @@ const SightingSchema = new Schema({
   imageUrl: {
     type: String
   },
+  imageCredit: {
+    type: String
+  },
   date: {
     type: String,
     required: true

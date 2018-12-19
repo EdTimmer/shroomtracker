@@ -42,7 +42,7 @@ const httpLink = createHttpLink({
   //For Development
   uri: "http://localhost:4444/graphql",
   //For Deployment
-  // uri: "https://recipes-react-graphql.herokuapp.com/graphql"
+  // uri: "https://<INSERT_HEROKU_URL>.herokuapp.com/graphql"
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -73,12 +73,10 @@ const Root = ({ refetch, session }) => (
       <Navbar session={session} />
       <Switch>
         <Route path="/" exact component={App} />
-        <Route path="/addpage" render={() => <AddPage session={session} /> } />
-        <Route path="/addpagetwo" render={() => <AddPageTwo session={session} /> } />
+        <Route path="/addpage" render={() => <AddPage session={session} />} />
+        <Route path="/addpagetwo" render={() => <AddPageTwo session={session} />} />
         <Route path="/locations/:_id" render={() => <LocationPage session={session} />} />
         <Route path="/sightings/:_id" render={() => <SightingPage session={session} />} />
-        {/*<Route path="/mushrooms/:_id" render={() => <MushroomPage session={session} />} />
-<Route path="/mushroom/add" render={() => <AddMushroom session={session} />} />*/}
         <Route path="/location/add" render={() => <AddLocation session={session} />} />
         <Route path="/sighting/add" render={() => <AddSighting session={session} />} />
         <Route path="/sightingsavedmushroom/add" render={() => <AddSightingSavedMushroom session={session} />} />
@@ -87,11 +85,8 @@ const Root = ({ refetch, session }) => (
         <Route path="/search" render={() => <Search session={session} />} />
         <Route path="/signin" render={() => <Signin refetch={refetch} />} />
         <Route path="/signup" render={() => <Signup refetch={refetch} />} />
-        {/*<Route path="/recipe/add" render={() => <AddRecipe session={session} />} />
-        <Route path="/recipes/:_id" component={RecipePage} />
-        <Route path="/mushroom/add" component={AddMushroom} />*/}
-        <Route path="/profile" render={() => <Profile session={session} /> } />
-        
+        <Route path="/profile" render={() => <Profile session={session} />} />
+
         <Redirect to="/" />
       </Switch>
     </Fragment>

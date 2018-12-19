@@ -46,6 +46,7 @@ export const GET_SIGHTING = gql`
       commonname
       latinname
       imageUrl
+      imageCredit
       date
       latitude
       longitude
@@ -180,7 +181,8 @@ export const ADD_SIGHTING = gql`
     $locationname: String!,
     $commonname: String!,
     $latinname: String,
-    $imageUrl: String!,    
+    $imageUrl: String!,  
+    $imageCredit: String,  
     $date: String!,
     $latitude: String!,
     $longitude: String!
@@ -190,7 +192,8 @@ export const ADD_SIGHTING = gql`
       locationname: $locationname,
       commonname: $commonname,
       latinname: $latinname,
-      imageUrl: $imageUrl,      
+      imageUrl: $imageUrl,
+      imageCredit: $imageCredit   
       date: $date,
       latitude: $latitude,
       longitude: $longitude
@@ -200,6 +203,7 @@ export const ADD_SIGHTING = gql`
       commonname
       latinname
       imageUrl
+      imageCredit
       date
       latitude
       longitude

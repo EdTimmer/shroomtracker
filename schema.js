@@ -23,7 +23,8 @@ exports.typeDefs = `
     locationname: String!
     commonname: String!
     latinname: String
-    imageUrl: String    
+    imageUrl: String
+    imageCredit: String   
     date: String!
     latitude: String
     longitude: String
@@ -78,8 +79,9 @@ exports.typeDefs = `
       username: String!
       locationname: String!
       commonname: String!
-      latinname: String,
-      imageUrl: String,
+      latinname: String
+      imageUrl: String
+      imageCredit: String
       date: String!
       latitude: String
       longitude: String

@@ -25,6 +25,7 @@ class AddSighting extends React.Component {
     commonname: '',
     latinname: '',
     imageUrl: '',
+    imageCredit: '',
     date: '',
     latitude: '',
     longitude: ''
@@ -37,6 +38,7 @@ class AddSighting extends React.Component {
       commonname: '',
       latinname: '',
       imageUrl: '',
+      imageCredit: '',
       date: '',
       latitude: '',
       longitude: ''
@@ -85,7 +87,7 @@ class AddSighting extends React.Component {
   }
 
   render() {
-    const { username, locationname, commonname, latinname, imageUrl, date, latitude, longitude } = this.state;
+    const { username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
     // const {passedlocationname} = this.props.location.state
     // console.log('props are:', this.props)
     // console.log(passedlocationname) // "bar"
@@ -136,6 +138,14 @@ class AddSighting extends React.Component {
                     placeholder="Mushroom Image"
                     onChange={this.handleChange}
                     value={imageUrl}
+                  />
+
+                  <input
+                    type="text"
+                    name="imageCredit"
+                    placeholder="Image Credit"
+                    onChange={this.handleChange}
+                    value={imageCredit}
                   />
 
                   <input

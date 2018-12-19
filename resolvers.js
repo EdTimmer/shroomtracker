@@ -82,13 +82,14 @@ exports.resolvers = {
       return newLocation;
     },
 
-    addSighting: async (root, { username, locationname, commonname, latinname, imageUrl, date, latitude, longitude }, { Sighting }) => {
+    addSighting: async (root, { username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting }) => {
       const newSighting = await new Sighting({
         username,
         locationname,
         commonname,
         latinname,
         imageUrl,
+        imageCredit,
         date,
         latitude,
         longitude

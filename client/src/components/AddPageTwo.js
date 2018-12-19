@@ -93,7 +93,10 @@ class AddPageTwo extends React.Component {
                         <li key={mushroom._id}> 
 
                           <Link to={{ pathname: '/sightingsavedmushroom/add', state: { passedcommonname: mushroom.commonname, passedlatinname: mushroom.latinname,
-                          passedimageUrl: mushroom.imageUrl, passedlocationname: locationname } }}>
+                          passedimageUrl: mushroom.imageUrl, passedimageCredit: mushroom.imageCredit, passedlocationname: locationname } }}>
+                          <div>
+                            <img src={mushroom.imageUrl} style={{width: '200px'}}/>                    
+                          </div>
                             {mushroom.commonname}
                           </Link>
 

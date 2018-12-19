@@ -9,7 +9,7 @@
 
 // const MushroomPage = ({ match }) => {
 //   const { _id } = match.params;  
-  
+
 //   return (
 //     <Query query={GET_MUSHROOM} variables={{ _id }}>
 //       {
@@ -22,12 +22,12 @@
 //             <div className="App">
 //               <div 
 //                 style={{ background: `url(${data.getMushroom.imageUrl}) center center / cover no-repeat` }}
-//                 className="recipe-image">              
+//                 className="sighting-image">              
 //               </div>
 
-//               <div className="recipe">
-//                 <div className="recipe-header">
-//                   <h2 className="recipe-name">
+//               <div className="sighting">
+//                 <div className="sighting-header">
+//                   <h2 className="sighting-name">
 //                     <strong>{data.getMushroom.commonname}</strong>
 //                   </h2>
 //                   <h5>
@@ -45,7 +45,7 @@
 //                 </div>
 
 //               </div>
-              
+
 //             </div>
 //           )
 //         }

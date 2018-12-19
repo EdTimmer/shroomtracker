@@ -25,6 +25,7 @@ class AddSightingSavedMushroom extends React.Component {
     commonname: this.props.location.state.passedcommonname,
     latinname: this.props.location.state.passedlatinname,
     imageUrl: this.props.location.state.passedimageUrl,
+    imageCredit: this.props.location.state.passedimageCredit,
     date: '',
     latitude: '',
     longitude: ''
@@ -37,6 +38,7 @@ class AddSightingSavedMushroom extends React.Component {
       commonname: this.props.location.state.passedcommonname,
       latinname: this.props.location.state.passedlatinname,
       imageUrl: this.props.location.state.passedimageUrl,
+      imageCredit: this.props.location.state.passedimageCredit,
       date: '',
       latitude: '',
       longitude: ''
@@ -97,7 +99,7 @@ class AddSightingSavedMushroom extends React.Component {
   // }
 
   render() {
-    const { username, locationname, commonname, latinname, imageUrl, date, latitude, longitude } = this.state;
+    const { username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
 
 
     // console.log('state is:', this.state)
@@ -105,7 +107,7 @@ class AddSightingSavedMushroom extends React.Component {
     return (
       <Mutation
         mutation={ADD_SIGHTING}
-        variables={{ username, locationname, commonname, latinname, imageUrl, date, latitude, longitude }}
+        variables={{ username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }}
         refetchQueries={() => [
           { query: GET_CURRENT_USER },
           // { query: GET_ALL_LOCATIONS, variables: { username } },
@@ -124,6 +126,11 @@ class AddSightingSavedMushroom extends React.Component {
                   <div>
                     <img src={imageUrl} style={{width: '200px'}}/>                    
                   </div>
+
+                  <div>
+                    <h4>Image Credit: {imageCredit}</h4>
+                  </div>
+
                   <div>
                     <h4>Location: {locationname}</h4>
                   </div>
