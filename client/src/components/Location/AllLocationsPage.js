@@ -28,7 +28,7 @@ class AllLocationsPage extends Component {
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms2})`, height: '900px'}}>
         <h1 className="main-title">
-          My <strong>Mushroom</strong> Locations
+          My <strong>Locations</strong>
         </h1>
         <Query query={GET_ALL_LOCATIONS} variables={{username}}>
           {({ data, loading, error }) => {

@@ -29,18 +29,22 @@ class AddPageTwo extends React.Component {
 
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
-        <h4 style={{paddingTop: '20px'}}>Add Mushroom Sighting To {locationname}</h4>
+
+        <h1 className="main-title">
+          Add To {locationname}
+        </h1>
+        
         <ul>
           <li>
               <h3>
               <Link to={{ pathname: '/sighting/add', state: { passedlocationname: locationname } }}>
-                For A New Mushroom 
+                Add New Mushroom 
               </Link> 
 
               </h3>
           </li>
           <li>
-              <h3>For My Saved Mushroom:</h3>
+              <h3>Choose A Mushroom:</h3>
           </li>
         </ul>
 
@@ -50,7 +54,8 @@ class AddPageTwo extends React.Component {
             if (error) return <div>Error</div>
             // console.log('username is', username)
             // const { on } = this.state;
-            const filteredSightings = data.getAllSightings.filter(sighting => {
+            const combinedMushroomArrays = data.getAllSightings.concat(mushrooms);
+            const filteredSightings = combinedMushroomArrays.filter(sighting => {
               if (data.getAllSightings[sighting.commonname]) {
                   return false;
               }
@@ -58,25 +63,22 @@ class AddPageTwo extends React.Component {
               return true;
             });
 
-            return (
-
-              
-              <div>                          
-                
+            return (              
+              <div>                
                 {
-                  filteredSightings.length ? ( 
-                  
+                  filteredSightings.length ? (                  
                     <ul>
                       {
-
                         filteredSightings.map(sighting => 
                             <li key={sighting._id}> 
 
                               <Link to={{ pathname: '/sightingsavedmushroom/add', state: { passedcommonname: sighting.commonname, passedlatinname: sighting.latinname,
-                              passedimageUrl: sighting.imageUrl, passedlocationname: locationname } }}>
-                                {sighting.commonname}
-                              </Link>                             
-
+                              passedimageUrl: sighting.imageUrl, passedimageCredit: sighting.imageCredit, passedlocationname: locationname } }}>
+                                <div>
+                                  <img src={sighting.imageUrl} style={{width: '200px'}}/>                    
+                                </div>
+                                  {sighting.commonname}
+                              </Link>
 
                             </li>)                                    
                       }
@@ -85,7 +87,7 @@ class AddPageTwo extends React.Component {
                   ) : (<div><p>You have no saved mushrooms</p></div>)
                 } 
                 
-                <p>For A Preset Mushroom:</p>
+                {/*<p>For A Preset Mushroom:</p>
                 <ul>
                   {
 
@@ -102,7 +104,7 @@ class AddPageTwo extends React.Component {
 
                         </li>)                                    
                   }
-                </ul>
+                </ul>*/}
               </div>
             )
           }}

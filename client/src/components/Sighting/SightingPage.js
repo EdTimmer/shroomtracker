@@ -21,7 +21,7 @@ const SightingPage = ({ match }) => {
           if (error) return <div>Error</div>
           console.log(data.getSighting);
           return (
-            <div className="App">
+            <div className="App" style={{color: 'brown'}}>
               <div
                 style={{ background: `url(${data.getSighting.imageUrl}) center center / cover no-repeat` }}
                 className="sighting-image">

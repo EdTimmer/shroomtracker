@@ -26,9 +26,11 @@ class AddPage extends React.Component {
     const { username } = this.state;
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
-
-        <h4 style={{paddingTop: '20px'}}>Add A Mushroom Sighting</h4>
-
+      
+        <h1 className="main-title">
+          Add A Mushroom Sighting
+        </h1>
+        
         <ul>
           <li>
               <h3><NavLink to="/location/add" exact>To A New Location</NavLink></h3>
