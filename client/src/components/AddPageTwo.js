@@ -33,18 +33,19 @@ class AddPageTwo extends React.Component {
           <strong>Add To {locationname}</strong>
         </h1>
 
-        <ul>
-          <li>
+        <div>
+          <div>
             <h3>
               <Link to={{ pathname: '/sighting/add', state: { passedlocationname: locationname } }}>
                 Add New Mushroom
               </Link>
             </h3>
-          </li>
-          <li>
+          </div>
+          <div>
+            <h5>OR</h5>
             <h3>Choose A Mushroom:</h3>
-          </li>
-        </ul>
+          </div>
+        </div>
 
 
         <Query query={GET_ALL_SIGHTINGS} variables={{ username }}>

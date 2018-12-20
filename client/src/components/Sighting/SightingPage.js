@@ -1,6 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 // import ReactHtmlParser from 'react-html-parser';
 import withAuth from '../withAuth';
 
@@ -72,7 +71,7 @@ const SightingPage = ({ match }) => {
                 </div>
 
               </div>
-
+              <Link to={`/sightingsedit/${_id}`}><button>Edit</button></Link>
             </div>
           )
         }

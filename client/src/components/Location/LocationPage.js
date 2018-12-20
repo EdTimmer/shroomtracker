@@ -6,7 +6,7 @@ import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import SightingItemLocation from '../Sighting/SightingItemLocation';
-import mushrooms2 from '../../images/mushrooms2.jpg';
+import mushrooms4 from '../../images/mushrooms4.jpg';
 
 const LocationPage = ({ match }) => {
   const { _id } = match.params;
@@ -20,7 +20,7 @@ const LocationPage = ({ match }) => {
           // console.log(data.getLocation.username);
           return (
             
-            <div className="App" style={{backgroundImage: `url(${mushrooms2})`, height: '900px'}}>
+            <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
               <div>
                 <h2>{data.getLocation.locationname}</h2>
                 <h5>{data.getLocation.address}</h5>
