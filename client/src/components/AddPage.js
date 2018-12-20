@@ -28,7 +28,7 @@ class AddPage extends React.Component {
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
       
         <h1 className="main-title">
-          Add A Mushroom Sighting
+          <strong>Add A Mushroom Sighting</strong>
         </h1>
         
         <ul>

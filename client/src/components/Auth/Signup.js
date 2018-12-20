@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import { SIGNUP_USER } from '../../queries';
 import Error from '../Error';
+import mushrooms4 from '../../images/mushrooms4.jpg';
 
 const initialState = {
   username: "",
@@ -48,7 +49,7 @@ class Signup extends React.Component {
     const { username, email, password, passwordConfirmation } = this.state;
 
     return (
-      <div className="App">
+      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
         <h2 className="App">Signup</h2>
         <Mutation mutation={SIGNUP_USER} variables={{ username, email, password }}>
         {

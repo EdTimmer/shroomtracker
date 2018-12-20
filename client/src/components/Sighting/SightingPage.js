@@ -1,17 +1,19 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 // import { Link } from 'react-router-dom';
+// import ReactHtmlParser from 'react-html-parser';
 import withAuth from '../withAuth';
 
 import { Query } from 'react-apollo';
 import { GET_SIGHTING } from '../../queries';
 import Spinner from '../Spinner';
 // import { get } from 'https';
+import mushrooms4 from '../../images/mushrooms4.jpg';
 
 
 const SightingPage = ({ match }) => {
   const { _id } = match.params;
-
+  
   return (
     <Query query={GET_SIGHTING} variables={{ _id }}>
       {
@@ -20,18 +22,25 @@ const SightingPage = ({ match }) => {
           if (loading) return <Spinner />
           if (error) return <div>Error</div>
           console.log(data.getSighting);
+          
+
           return (
-            <div className="App" style={{color: 'brown'}}>
-              <div
-                style={{ background: `url(${data.getSighting.imageUrl}) center center / cover no-repeat` }}
-                className="sighting-image">
+            <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px', color: 'brown'}}>
+              <div className="container">
+                <div
+                  style={{ background: `url(${data.getSighting.imageUrl}) center center / cover no-repeat` }}
+                  className="sighting-image">
+                </div>
+                <div className="bottom-left">
+                  {
+                    data.getSighting.imageCredit ? (<p>Photograph credit: {data.getSighting.imageCredit}</p>) : (null)
+                  }
+                </div>
               </div>
 
               <div className="sighting">
                 <div className="sighting-header">
-                  {
-                    data.getSighting.imageCredit ? (<p>Photograph credit: {data.getSighting.imageCredit}</p>) : (null)
-                  }
+                  
                   <h2 className="sighting-name">
                     <strong>{data.getSighting.commonname}</strong>
                   </h2>

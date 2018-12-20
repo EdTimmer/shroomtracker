@@ -28,27 +28,26 @@ class AddPageTwo extends React.Component {
     const { username, locationname } = this.state;
 
     return (
-      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
-
+      <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, backgroundRepeat: "repeat" }}>
         <h1 className="main-title">
-          Add To {locationname}
+          <strong>Add To {locationname}</strong>
         </h1>
-        
+
         <ul>
           <li>
-              <h3>
+            <h3>
               <Link to={{ pathname: '/sighting/add', state: { passedlocationname: locationname } }}>
-                Add New Mushroom 
-              </Link> 
-
-              </h3>
+                Add New Mushroom
+              </Link>
+            </h3>
           </li>
           <li>
-              <h3>Choose A Mushroom:</h3>
+            <h3>Choose A Mushroom:</h3>
           </li>
         </ul>
 
-        <Query query={GET_ALL_SIGHTINGS} variables={{username}}>
+
+        <Query query={GET_ALL_SIGHTINGS} variables={{ username }}>
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
             if (error) return <div>Error</div>
@@ -57,63 +56,64 @@ class AddPageTwo extends React.Component {
             const combinedMushroomArrays = data.getAllSightings.concat(mushrooms);
             const filteredSightings = combinedMushroomArrays.filter(sighting => {
               if (data.getAllSightings[sighting.commonname]) {
-                  return false;
+                return false;
               }
               data.getAllSightings[sighting.commonname] = true;
               return true;
             });
+            console.log(mushrooms)
+            console.log(filteredSightings)
 
-            return (              
-              <div>                
+            
+            return (
+              <div>
                 {
-                  filteredSightings.length ? (                  
-                    <ul>
-                      {
-                        filteredSightings.map(sighting => 
-                            <li key={sighting._id}> 
-
-                              <Link to={{ pathname: '/sightingsavedmushroom/add', state: { passedcommonname: sighting.commonname, passedlatinname: sighting.latinname,
-                              passedimageUrl: sighting.imageUrl, passedimageCredit: sighting.imageCredit, passedlocationname: locationname } }}>
+                  filteredSightings ? (
+                    <div>
+                    {                
+                      <ul className="all-mushrooms">
+                        {
+                          filteredSightings.map(sighting =>
+                            <li key={sighting._id} className="mushroom">
+    
+                              <Link to={{
+                                pathname: '/sightingsavedmushroom/add', state: {
+                                  passedcommonname: sighting.commonname, passedlatinname: sighting.latinname,
+                                  passedimageUrl: sighting.imageUrl, passedimageCredit: sighting.imageCredit, passedlocationname: locationname
+                                }
+                              }}>
                                 <div>
-                                  <img src={sighting.imageUrl} style={{width: '200px'}}/>                    
+                                  <img src={sighting.imageUrl} style={{ height: '200px' }} />
                                 </div>
-                                  {sighting.commonname}
+                                {sighting.commonname}
                               </Link>
+    
+                            </li>
+                          )
+                        }
+                      </ul>
+                    }
+    
+                    
+                  </div>
 
-                            </li>)                                    
-                      }
-                    </ul>
-                  
-                  ) : (<div><p>You have no saved mushrooms</p></div>)
-                } 
-                
-                {/*<p>For A Preset Mushroom:</p>
-                <ul>
-                  {
-
-                    mushrooms.map(mushroom => 
-                        <li key={mushroom._id}> 
-
-                          <Link to={{ pathname: '/sightingsavedmushroom/add', state: { passedcommonname: mushroom.commonname, passedlatinname: mushroom.latinname,
-                          passedimageUrl: mushroom.imageUrl, passedimageCredit: mushroom.imageCredit, passedlocationname: locationname } }}>
-                          <div>
-                            <img src={mushroom.imageUrl} style={{width: '200px'}}/>                    
-                          </div>
-                            {mushroom.commonname}
-                          </Link>
-
-                        </li>)                                    
-                  }
-                </ul>*/}
+                  ) : (null)
+                }
+               
               </div>
+              
+              
+              
+              
             )
           }}
 
         </Query>
-  
+
+
       </div>
     )
   }
-} 
+}
 
 export default withAuth(session => session && session.getCurrentUser)(withRouter(AddPageTwo));

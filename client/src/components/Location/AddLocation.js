@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import withAuth from '../withAuth';
+import mushrooms4 from '../../images/mushrooms4.jpg';
 
 import { ADD_LOCATION, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
 
@@ -80,8 +81,11 @@ class AddLocation extends React.Component {
         {
           (addLocation, { data, loading, error }) => {
             return (
-              <div className="App">
-                <h2 className="App">Add Location</h2>
+              <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
+                
+                <h2 className="main-title">
+                  <strong>Add Location</strong>
+                </h2>
 
                 <form className="form" onSubmit={event => this.handleSubmit(event, addLocation)}>
 
@@ -104,6 +108,7 @@ class AddLocation extends React.Component {
                   <button
                     disabled={loading || this.validateForm()}
                     type="submit" className="botton-primary"
+                    style={{color: 'white'}}
                   >
                     Submit
                   </button>

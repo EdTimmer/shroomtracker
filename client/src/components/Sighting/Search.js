@@ -33,10 +33,13 @@ class Search extends React.Component {
       {
         client => (
           <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
+            <h1 className="main-title">
+              <strong>Search My Mushrooms</strong>
+            </h1>
             <input 
               type="search" 
               className="search"
-              placeholder="Search For My Found Mushrooms" 
+              placeholder="search term" 
               onChange={async event => {
                 event.persist();
                 const { data } = await client.query({

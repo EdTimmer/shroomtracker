@@ -8,7 +8,7 @@ import { GET_ALL_SIGHTINGS } from '../../queries';
 
 import SightingItem from './SightingItem';
 import Spinner from '../Spinner';
-import mushrooms2 from '../../images/mushrooms2.jpg'
+import mushrooms4 from '../../images/mushrooms4.jpg'
 
 class AllSightingsPage extends Component {
   ;
@@ -16,9 +16,9 @@ class AllSightingsPage extends Component {
     const username = this.props.session.getCurrentUser.username;
     // console.log(this.props.session.getCurrentUser.username)
     return (
-      <div className="App" style={{backgroundImage: `url(${mushrooms2})`, height: '900px'}}>
+      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
         <h1 className="main-title">
-          My <strong>Mushroom</strong> Sightings 
+          <strong>My Mushroom Sightings</strong> 
         </h1>
         <Query query={GET_ALL_SIGHTINGS} variables={{username}}>
           {({ data, loading, error }) => {

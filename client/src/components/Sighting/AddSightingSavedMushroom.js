@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+// import ReactHtmlParser from 'react-html-parser';
 import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
@@ -102,7 +103,8 @@ class AddSightingSavedMushroom extends React.Component {
     const { username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
 
 
-    // console.log('state is:', this.state)
+    console.log('state is:', this.state)
+    // console.log(this.props.location.state)
 
     return (
       <Mutation
@@ -119,7 +121,7 @@ class AddSightingSavedMushroom extends React.Component {
         {
           (addSighting, { data, loading, error }) => {
             return (
-              <div className="App">
+              <div className="App" style={{color: 'black'}}>
                 <h2 className="App">Add Sighting</h2>
 
                 <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>

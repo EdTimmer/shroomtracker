@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { Mutation } from 'react-apollo';
 import { SIGNIN_USER } from '../../queries';
 import Error from '../Error';
+import mushrooms4 from '../../images/mushrooms4.jpg';
 
 const initialState = {
   username: "",
@@ -46,7 +47,7 @@ class Signin extends React.Component {
     const { username, password } = this.state;
 
     return (
-      <div className="App">
+      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
         <h2 className="App">Signin</h2>
         <Mutation mutation={SIGNIN_USER} variables={{ username, password }}>
         {

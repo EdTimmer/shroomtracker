@@ -338,3 +338,27 @@ nav a:link {
 .modal-buttons button:first-child {
   margin-left: 0;
 }
+
+.container {
+  /* position: relative; */
+  /* text-align: center; */
+  color: white;
+}
+
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+  font-size: 4px;
+}
+
+.all-mushrooms {
+  display: flex;
+  flex-wrap: wrap;
+  /* background-color: DodgerBlue; */
+  justify-content: center;
+}
+
+.mushroom {
+  margin: 15px;
+}

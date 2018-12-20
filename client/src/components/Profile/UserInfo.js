@@ -9,7 +9,10 @@ const formatDate = date => {
 
 const UserInfo = ({ session }) => (
   <div style={{color: 'white'}}>
-    <h3>User Info</h3>
+    <h1 className="main-title">
+      <strong>User Information</strong>
+    </h1>
+    
     <p>Username: {session.getCurrentUser.username}</p>
     <p>Email: {session.getCurrentUser.email}</p>
     <p>Join Date: {formatDate(session.getCurrentUser.joinDate)}</p>

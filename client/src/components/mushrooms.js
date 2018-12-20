@@ -127,7 +127,7 @@ const mushrooms = [
   },
   {
     _id: 19,
-    commonname: "Honey Mushroom",
+    commonname: "Humongous Fungus",
     latinname: "Armillaria solidipes (A. ostoyae)",
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/a/ab/Armillaria_ostoyae.jpg",
     imageCredit: "By W.J.Pilsak, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=167753"
@@ -203,6 +203,8 @@ const mushrooms = [
     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Artomyces_pyxidatus_45278.jpg/1280px-Artomyces_pyxidatus_45278.jpg",
     imageCredit: "By hríb - This image is Image Number 45278 at Mushroom Observer, a source for mycological images., CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=7986905"
   },
-]
+];
+
+// imageCredit: "By Amanita_muscaria_3_vliegenzwammen_op_rij.jpg: Onderwijsgekderivative work: Ak ccm - This file was derived from: Amanita muscaria 3 vliegenzwammen op rij.jpg:, CC BY-SA 3.0 nl, https://commons.wikimedia.org/w/index.php?curid=21983879"
 
 module.exports = mushrooms;

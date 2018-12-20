@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import withAuth from '../withAuth';
 import Spinner from '../Spinner';
+import mushrooms4 from '../../images/mushrooms4.jpg';
 
 import { Query, Mutation } from 'react-apollo';
 import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_LOCATION_SIGHTINGS, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
@@ -107,7 +108,7 @@ class AddSighting extends React.Component {
         {
           (addSighting, { data, loading, error }) => {
             return (
-              <div className="App">
+              <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
                 <h2 className="App">Add Sighting</h2>
 
                 <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>

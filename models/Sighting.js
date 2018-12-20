@@ -44,6 +44,10 @@ const SightingSchema = new Schema({
 }
 );
 
+// SightingSchema.index({
+//   "$commonname": "text"
+// })
+
 SightingSchema.index({
   "$**": "text"
 })
