@@ -2,11 +2,12 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import withAuth from '../withAuth';
 import Spinner from '../Spinner';
+import Error from '../Error';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
-import { Query, Mutation } from 'react-apollo';
-import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_LOCATION_SIGHTINGS, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
-import Error from '../Error';
+import { Mutation } from 'react-apollo';
+import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_LOCATION_SIGHTINGS, GET_CURRENT_USER } from '../../queries';
+
 
 // const initialState = {
 //   username: '',
@@ -107,6 +108,8 @@ class AddSighting extends React.Component {
       >
         {
           (addSighting, { data, loading, error }) => {
+            if (loading) return <Spinner />
+            if (error) return <Error error={error} />
             return (
               <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
                 <h2 className="App">Add Sighting</h2>
@@ -178,8 +181,8 @@ class AddSighting extends React.Component {
                     type="submit" className="botton-primary"
                   >
                     Submit
-                </button>
-                  {error && <Error error={error} />}
+                  </button>
+                  
                 </form>
               </div>
             )

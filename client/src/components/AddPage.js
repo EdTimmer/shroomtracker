@@ -43,7 +43,7 @@ class AddPage extends React.Component {
         <Query query={GET_ALL_LOCATIONS} variables={{username}}>
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
-            if (error) return <div>Error</div>
+            if (error) return <Error error={error} />
 
             return (
               <div>                          

@@ -8,7 +8,8 @@ import { GET_ALL_LOCATIONS } from '../../queries';
 import withAuth from '../withAuth';
 import LocationItem from './LocationItem';
 import Spinner from '../Spinner';
-import mushrooms2 from '../../images/mushrooms2.jpg';
+import Error from '../Error';
+// import mushrooms2 from '../../images/mushrooms2.jpg';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 class AllLocationsPage extends Component {
@@ -34,7 +35,7 @@ class AllLocationsPage extends Component {
         <Query query={GET_ALL_LOCATIONS} variables={{username}}>
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
-            if (error) return <div>Error</div>
+            if (error) return <Error error={error} />
               console.log(data)
             return (
               <div>

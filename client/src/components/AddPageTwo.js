@@ -2,7 +2,7 @@ import React from 'react';
 import withAuth from './withAuth';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 import mushrooms from './mushrooms';
 
 import Spinner from './Spinner';
@@ -50,7 +50,7 @@ class AddPageTwo extends React.Component {
         <Query query={GET_ALL_SIGHTINGS} variables={{ username }}>
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
-            if (error) return <div>Error</div>
+            if (error) return <Error error={error} />
             // console.log('username is', username)
             // const { on } = this.state;
             const combinedMushroomArrays = data.getAllSightings.concat(mushrooms);
@@ -83,7 +83,7 @@ class AddPageTwo extends React.Component {
                                 }
                               }}>
                                 <div>
-                                  <img src={sighting.imageUrl} style={{ height: '200px' }} />
+                                  <img src={sighting.imageUrl} style={{ height: '200px' }} alt="mushroom" />
                                 </div>
                                 {sighting.commonname}
                               </Link>

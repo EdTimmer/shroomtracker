@@ -8,6 +8,7 @@ import { GET_ALL_SIGHTINGS } from '../../queries';
 
 import SightingItem from './SightingItem';
 import Spinner from '../Spinner';
+import Error from '../Error';
 import mushrooms4 from '../../images/mushrooms4.jpg'
 
 class AllSightingsPage extends Component {
@@ -22,8 +23,9 @@ class AllSightingsPage extends Component {
         </h1>
         <Query query={GET_ALL_SIGHTINGS} variables={{username}}>
           {({ data, loading, error }) => {
+
             if (loading) return <Spinner />
-            if (error) return <div>Error</div>
+            if (error) return <Error error={error} />
             
             return (
               <div className="cards">

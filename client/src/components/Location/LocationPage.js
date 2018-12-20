@@ -1,10 +1,10 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import withAuth from '../withAuth';
-
 import { Query } from 'react-apollo';
 import { GET_LOCATION, GET_LOCATION_SIGHTINGS } from '../../queries';
+import withAuth from '../withAuth';
 import Spinner from '../Spinner';
+import Error from '../Error';
 import SightingItemLocation from '../Sighting/SightingItemLocation';
 import mushrooms2 from '../../images/mushrooms2.jpg';
 
@@ -16,7 +16,7 @@ const LocationPage = ({ match }) => {
       {
         ({ data, loading, error }) => {
           if (loading) return <Spinner />
-          if (error) return <div>Error</div>
+          if (error) return <Error error={error} />
           // console.log(data.getLocation.username);
           return (
             

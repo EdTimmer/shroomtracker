@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import posed from 'react-pose';
+// import posed from 'react-pose';
 
 // const LocationItem = posed.li({
 //   shown: { opacity: 1 },

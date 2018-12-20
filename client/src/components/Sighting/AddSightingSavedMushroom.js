@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom';
 import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
-import { Query, Mutation } from 'react-apollo';
-import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_LOCATION_SIGHTINGS, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
+import { Mutation } from 'react-apollo';
+import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_LOCATION_SIGHTINGS, GET_CURRENT_USER } from '../../queries';
 import Error from '../Error';
 
 // const initialState = {
@@ -120,13 +120,15 @@ class AddSightingSavedMushroom extends React.Component {
       >
         {
           (addSighting, { data, loading, error }) => {
+            if (loading) return <Spinner />
+            if (error) return <Error error={error} />
             return (
               <div className="App" style={{color: 'black'}}>
                 <h2 className="App">Add Sighting</h2>
 
                 <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>
                   <div>
-                    <img src={imageUrl} style={{width: '200px'}}/>                    
+                    <img src={imageUrl} style={{width: '200px'}} alt="mushroom" />                    
                   </div>
 
                   <div>
@@ -176,8 +178,8 @@ class AddSightingSavedMushroom extends React.Component {
                     type="submit" className="botton-primary"
                   >
                     Submit
-                </button>
-                  {error && <Error error={error} />}
+                  </button>
+                  
                 </form>
               </div>
             )

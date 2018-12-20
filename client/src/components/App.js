@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import fairy from '../images/fairy1.jpg'
+// import fairy from '../images/fairy1.jpg'
 import mushrooms from '../images/mushrooms1.jpg'
 // import posed from 'react-pose';
 

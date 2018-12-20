@@ -7,6 +7,7 @@ import withAuth from '../withAuth';
 import { Query } from 'react-apollo';
 import { GET_SIGHTING } from '../../queries';
 import Spinner from '../Spinner';
+import Error from '../Error';
 // import { get } from 'https';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
@@ -20,9 +21,8 @@ const SightingPage = ({ match }) => {
         ({ data, loading, error }) => {
 
           if (loading) return <Spinner />
-          if (error) return <div>Error</div>
-          console.log(data.getSighting);
-          
+          if (error) return <Error error={error} />
+          // console.log(data.getSighting);          
 
           return (
             <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px', color: 'brown'}}>

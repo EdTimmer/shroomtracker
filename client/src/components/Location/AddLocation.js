@@ -80,6 +80,8 @@ class AddLocation extends React.Component {
       >
         {
           (addLocation, { data, loading, error }) => {
+            if (loading) return <Spinner />
+            if (error) return <Error error={error} />
             return (
               <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
                 
@@ -111,9 +113,7 @@ class AddLocation extends React.Component {
                     style={{color: 'white'}}
                   >
                     Submit
-                  </button>
-
-                  {error && <Error error={error} />}
+                  </button>                  
 
                 </form>
               </div>
