@@ -94,6 +94,8 @@ exports.typeDefs = `
       imageUrl: String,
     ): Mushroom
 
+    deleteSighting(_id: ID): Sighting
+
     signupUser(
       username: String!,
       email: String!,

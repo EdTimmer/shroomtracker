@@ -211,6 +211,14 @@ export const ADD_SIGHTING = gql`
   }
 `;
 
+export const DELETE_SIGHTING = gql`
+  mutation($_id: ID!) {
+    deleteSighting(_id: $_id) {
+      _id
+    }
+  }
+`;
+
 /* Mushroom Mutations */
 
 export const ADD_MUSHROOM = gql`

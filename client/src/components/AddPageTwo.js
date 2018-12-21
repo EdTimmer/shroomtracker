@@ -62,6 +62,7 @@ class AddPageTwo extends React.Component {
               data.getAllSightings[sighting.commonname] = true;
               return true;
             });
+            filteredSightings.sort((a, b) => (a.commonname > b.commonname) ? 1 : ((b.commonname > a.commonname) ? -1 : 0));
             console.log(mushrooms)
             console.log(filteredSightings)
 

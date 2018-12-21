@@ -107,6 +107,11 @@ exports.resolvers = {
       return newMushroom;
     },
 
+    deleteSighting: async (root, { _id }, { Sighting }) => {
+      const sighting = await Sighting.findOneAndRemove({ _id });
+      return sighting;
+    },
+
     signupUser: async (root, { username, email, password }, { User }) => {
       const user = await User.findOne({ username });
       if (user) {
