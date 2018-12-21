@@ -198,7 +198,7 @@ export const ADD_SIGHTING = gql`
       latitude: $latitude,
       longitude: $longitude
     ) {
-      _id,
+      _id
       locationname
       commonname
       latinname
@@ -217,6 +217,43 @@ export const DELETE_SIGHTING = gql`
       _id
     }
   }
+`;
+
+export const UPDATE_SIGHTING = gql`
+  mutation(
+    $_id: ID!, 
+    $locationname: String!,
+    $commonname: String!,
+    $latinname: String,
+    $imageUrl: String,
+    $imageCredit: String,
+    $date: String!,
+    $latitude: String,
+    $longitude: String
+  ) {
+    updateSighting(
+      _id: $_id, 
+      locationname: $locationname,
+      commonname: $commonname,
+      latinname: $latinname,
+      imageUrl: $imageUrl,
+      imageCredit: $imageCredit,
+      date: $date,
+      latitude: $latitude,
+      longitude: $longitude
+    )
+      {
+        _id
+        locationname
+        commonname
+        latinname
+        imageUrl
+        imageCredit
+        date
+        latitude
+        longitude
+      }
+  }  
 `;
 
 /* Mushroom Mutations */

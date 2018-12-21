@@ -75,7 +75,7 @@ class AddSightingSavedMushroom extends React.Component {
   handleSubmit = (event, addSighting) => {
     event.preventDefault();
     addSighting().then(({ data }) => {
-      console.log(data); 
+      // console.log(data); 
       this.clearState();     
       this.props.history.push(`/sightings/${data.addSighting._id}`);
     });

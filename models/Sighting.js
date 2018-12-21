@@ -33,20 +33,7 @@ const SightingSchema = new Schema({
   longitude: {
     type: String
   },
-  createdDate: {
-    type: Date,
-    default: Date.now
-  }
-},
-{
-  toObject: { virtuals: true },
-  toJSON: { virtuals: true }
-}
-);
-
-// SightingSchema.index({
-//   "$commonname": "text"
-// })
+});
 
 SightingSchema.index({
   "$**": "text"

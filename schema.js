@@ -28,8 +28,7 @@ exports.typeDefs = `
     date: String!
     latitude: String
     longitude: String
-    createdDate: String
-  }
+   }
 
   type Mushroom {
     _id: ID!
@@ -95,6 +94,18 @@ exports.typeDefs = `
     ): Mushroom
 
     deleteSighting(_id: ID): Sighting
+
+    updateSighting(
+      _id: ID! 
+      locationname: String!
+      commonname: String!
+      latinname: String
+      imageUrl: String
+      imageCredit: String
+      date: String!
+      latitude: String
+      longitude: String
+    ): Sighting
 
     signupUser(
       username: String!,

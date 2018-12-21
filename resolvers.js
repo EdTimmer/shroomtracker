@@ -112,6 +112,15 @@ exports.resolvers = {
       return sighting;
     },
 
+    updateSighting: async (root, { _id, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting }) => {
+      const updatedSighting = await Sighting.findOneAndUpdate(
+        { _id },
+        { $set: { locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }},
+        { new: true }
+      );
+      return updatedSighting;
+    },
+
     signupUser: async (root, { username, email, password }, { User }) => {
       const user = await User.findOne({ username });
       if (user) {
