@@ -47,7 +47,7 @@ class SightingEditPage extends React.Component {
   }
 
   handleDelete = deleteSighting => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this sighting?  If this is the only sighting for this mushroom and you added this mushroom to our database, then your record of this mushroom will be also erased.');
+    const confirmDelete = window.confirm('Are you sure you want to delete this sighting?');
     if (confirmDelete) {
       deleteSighting().then(() => {
         this.props.history.push(`/sightings`);
@@ -112,62 +112,76 @@ class SightingEditPage extends React.Component {
                     )
                   }}
                 </Query>
+                <div>
+                  <input
+                    type="text"
+                    name="commonname"
+                    placeholder={commonname}
+                    onChange={handleChange}
+                    value={commonname}
+                  />
+                </div>
 
-                <input
-                  type="text"
-                  name="commonname"
-                  placeholder={commonname}
-                  onChange={handleChange}
-                  value={commonname}
-                />
+                <div>
+                  <input
+                    type="text"
+                    name="latinname"
+                    placeholder={latinname}
+                    onChange={handleChange}
+                    value={latinname}
+                  />
+                </div>
 
-                <input
-                  type="text"
-                  name="latinname"
-                  placeholder={latinname}
-                  onChange={handleChange}
-                  value={latinname}
-                />
+                <div>
+                  <input
+                    type="text"
+                    name="imageUrl"
+                    placeholder={imageUrl}
+                    onChange={handleChange}
+                    value={imageUrl}
+                  />
+                </div>
 
-                <input
-                  type="text"
-                  name="imageUrl"
-                  placeholder={imageUrl}
-                  onChange={handleChange}
-                  value={imageUrl}
-                />
+                <div>
+                  <input
+                    type="text"
+                    name="imageCredit"
+                    placeholder={imageCredit}
+                    onChange={handleChange}
+                    value={imageCredit}
+                  />
+                </div>
 
-                <input
-                  type="text"
-                  name="imageCredit"
-                  placeholder={imageCredit}
-                  onChange={handleChange}
-                  value={imageCredit}
-                />
+                <div>
+                  <input
+                    type="text"
+                    name="date"
+                    placeholder={date}
+                    onChange={handleChange}
+                    value={date}
+                  />
+                </div>
 
-                <input
-                  type="text"
-                  name="date"
-                  placeholder={date}
-                  onChange={handleChange}
-                  value={date}
-                />
+                <div>
+                  <input
+                    type="text"
+                    name="latitude"
+                    placeholder={latitude}
+                    onChange={handleChange}
+                    value={latitude}
+                  />
+                </div>
 
-                <input
-                  type="text"
-                  name="latitude"
-                  placeholder={latitude}
-                  onChange={handleChange}
-                  value={latitude}
-                />
+                <div>
+                  <input
+                    type="text"
+                    name="longitude"
+                    placeholder={longitude}
+                    onChange={handleChange}
+                    value={longitude}
+                  />
+                </div>
 
-                <input
-                  type="text"
-                  name="longitude"
-                  placeholder={longitude}
-                  onChange={handleChange}
-                  value={longitude}
-                />
                 <button type="submit" className="button-primary">Update</button>
 
               </form>
