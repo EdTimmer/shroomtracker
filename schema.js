@@ -8,19 +8,19 @@ exports.typeDefs = `
     password: String!
     email: String!
     joinDate: String
+    locations: [Location]
+    sightings: [Sighting]
   }
 
   type Location {
     _id: ID!
     locationname: String!
     address: String!
-    username: String!
+    sightings: [Sighting]
   }
 
   type Sighting {
     _id: ID!
-    username: String!
-    locationname: String!
     commonname: String!
     latinname: String
     imageUrl: String
@@ -32,31 +32,30 @@ exports.typeDefs = `
 
   type Mushroom {
     _id: ID!
-    username: String!
     commonname: String!
     latinname: String!
     imageUrl: String
+    locations: [Location]
+    sighting: [Sighting]
   }
 
   type Query {
-
-    getAllLocations(username: String!): [Location]
 
     getLocation(_id: ID!): Location
 
     getSighting(_id: ID!): Sighting
 
-    getAllSightings(username: String!): [Sighting]
+    location: [Location]
 
-    getLocationSightings(locationname: String!, username: String!): [Sighting]
+    sightings: [Sighting]
 
-    getLocationMushroomSightings(locationname: String!, username: String!, commonname: String!): [Sighting]
+    getLocationSightings(_id: ID!): [Sighting]
 
     searchSightings(searchTerm: String, username: String): [Sighting]
     
     getMushroom(_id: ID!): Mushroom
 
-    getAllMushrooms(username: String!): [Mushroom]
+    mushrooms: [Mushroom]
 
     getCurrentUser: User
 
@@ -70,13 +69,10 @@ exports.typeDefs = `
 
     addLocation(
       locationname: String!,
-      address: String!,
-      username: String!
+      address: String!
     ): Location
 
     addSighting(
-      username: String!
-      locationname: String!
       commonname: String!
       latinname: String
       imageUrl: String
@@ -87,7 +83,6 @@ exports.typeDefs = `
     ): Sighting
 
     addMushroom(
-      username: String!
       commonname: String!
       latinname: String,
       imageUrl: String,
@@ -97,7 +92,6 @@ exports.typeDefs = `
 
     updateSighting(
       _id: ID! 
-      locationname: String!
       commonname: String!
       latinname: String
       imageUrl: String
