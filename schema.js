@@ -45,17 +45,11 @@ exports.typeDefs = `
 
     getSighting(_id: ID!): Sighting
 
-    location: [Location]
-
-    sightings: [Sighting]
-
     getLocationSightings(_id: ID!): [Sighting]
 
-    searchSightings(searchTerm: String, username: String): [Sighting]
+    searchSightings(searchTerm: String, userId: String): [Sighting]
     
     getMushroom(_id: ID!): Mushroom
-
-    mushrooms: [Mushroom]
 
     getCurrentUser: User
 
@@ -68,18 +62,21 @@ exports.typeDefs = `
   type Mutation {
 
     addLocation(
-      locationname: String!,
-      address: String!
+      userId: String!
+      locationname: String!
+      address: String!      
     ): Location
 
     addSighting(
+      userId: String!
+      locationId: String!
       commonname: String!
       latinname: String
       imageUrl: String
       imageCredit: String
       date: String!
       latitude: String
-      longitude: String
+      longitude: String      
     ): Sighting
 
     addMushroom(

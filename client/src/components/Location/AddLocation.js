@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo';
 import withAuth from '../withAuth';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
-import { ADD_LOCATION, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
+import { ADD_LOCATION, GET_CURRENT_USER } from '../../queries';
 
 import Spinner from '../Spinner';
 import Error from '../Error';
@@ -12,6 +12,7 @@ import Error from '../Error';
 
 const initialState = {
   username: '',
+  userId: '',
   locationname: '',
   address: ''  
 }
@@ -25,7 +26,8 @@ class AddLocation extends React.Component {
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username
+      username: this.props.session.getCurrentUser.username,
+      userId: this.props.session.getCurrentUser._id
     });
   }
 
@@ -66,15 +68,14 @@ class AddLocation extends React.Component {
   // }
 
   render() {
-    const { locationname, address, username } = this.state;
+    const { locationname, address, username, userId } = this.state;
 
     return (
       <Mutation
         mutation={ADD_LOCATION}
-        variables={{ locationname, address, username }}
+        variables={{ locationname, address, userId }}
         refetchQueries={() => [
-          { query: GET_CURRENT_USER },
-          { query: GET_ALL_LOCATIONS, variables: { username } }          
+          { query: GET_CURRENT_USER }                   
         ]}
         // update={this.updateCache}
       >

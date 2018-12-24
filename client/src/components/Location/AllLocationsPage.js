@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import '../App.css';
 
 import { Query } from 'react-apollo';
-import { GET_ALL_LOCATIONS } from '../../queries';
+import { GET_CURRENT_USER } from '../../queries';
 
 import withAuth from '../withAuth';
 import LocationItem from './LocationItem';
@@ -32,7 +32,7 @@ class AllLocationsPage extends Component {
         <h1 className="main-title">
           <strong>My Locations</strong>
         </h1>
-        <Query query={GET_ALL_LOCATIONS} variables={{username}}>
+        <Query query={GET_CURRENT_USER} variables={{username}}>
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
             if (error) return <Error error={error} />
@@ -40,7 +40,7 @@ class AllLocationsPage extends Component {
             return (
               <div>
                 {
-                  data.getAllLocations.map(location => (
+                  data.getCurrentUser.locations.map(location => (
                     <LocationItem key={location._id} {...location} />
                   ))
                 }
