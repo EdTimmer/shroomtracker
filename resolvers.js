@@ -14,7 +14,15 @@ exports.resolvers = {
       if (!currentUser) {
         return null;
       }
-      const user = await User.findOne({ username: currentUser.username });
+      const user = await User.findOne({ username: currentUser.username })
+        .populate({
+          path: 'locations',
+          model: 'Location'
+        })
+        .populate({
+          path: 'sightings',
+          model: 'Sighting'
+        });
       return user;
     },
 
@@ -24,7 +32,11 @@ exports.resolvers = {
     },
 
     getLocation: async (root, { _id }, { Location }) => {
-      const location = await Location.findOne({ _id });
+      const location = await Location.findOne({ _id })
+        .populate({
+          path: 'sightings',
+          model: 'Sighting'
+        });
       return location;
     },
 

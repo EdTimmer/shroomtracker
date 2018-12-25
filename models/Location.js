@@ -13,7 +13,11 @@ const LocationSchema = new Schema({
   address: {
     type: String,
     required: true
-  }
+  },
+  sightings: {
+    type: [Schema.Types.ObjectId],
+    ref: 'Sighting'
+  },
 });
 
 module.exports = mongoose.model('Location', LocationSchema);
