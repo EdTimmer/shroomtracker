@@ -8,24 +8,27 @@ import mushrooms from './mushrooms';
 import Spinner from './Spinner';
 
 import { Query } from 'react-apollo';
-import { GET_ALL_SIGHTINGS } from '../queries';
+import { GET_CURRENT_USER } from '../queries';
 import Error from './Error';
 import mushrooms4 from '../images/mushrooms4.jpg';
 
 class AddPageTwo extends React.Component {
   state = {
-    username: '',
+    // username: '',
+    userId: '',
+    locationId: this.props.location.state.passedlocationId,
     locationname: this.props.location.state.passedlocationname
   }
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username
+      // username: this.props.session.getCurrentUser.username,
+      userId: this.props.session.getCurrentUser._id
     });
   }
 
   render() {
-    const { username, locationname } = this.state;
+    const { locationname, userId, locationId } = this.state;
 
     return (
       <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, backgroundRepeat: "repeat" }}>
@@ -36,7 +39,7 @@ class AddPageTwo extends React.Component {
         <div>
           <div>
             <h3>
-              <Link to={{ pathname: '/sighting/add', state: { passedlocationname: locationname } }}>
+              <Link to={{ pathname: '/sighting/add', state: { passedlocationname: locationname, passedlocationId: locationId } }}>
                 Add New Mushroom
               </Link>
             </h3>
@@ -48,13 +51,13 @@ class AddPageTwo extends React.Component {
         </div>
 
 
-        <Query query={GET_ALL_SIGHTINGS} variables={{ username }}>
+        <Query query={GET_CURRENT_USER}>
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
             if (error) return <Error error={error} />
             // console.log('username is', username)
             // const { on } = this.state;
-            const combinedMushroomArrays = data.getAllSightings.concat(mushrooms);
+            const combinedMushroomArrays = data.getCurrentUser.sightings.concat(mushrooms);
             const filteredSightings = combinedMushroomArrays.filter(sighting => {
               if (data.getAllSightings[sighting.commonname]) {
                 return false;
@@ -81,7 +84,7 @@ class AddPageTwo extends React.Component {
                               <Link to={{
                                 pathname: '/sightingsavedmushroom/add', state: {
                                   passedcommonname: sighting.commonname, passedlatinname: sighting.latinname,
-                                  passedimageUrl: sighting.imageUrl, passedimageCredit: sighting.imageCredit, passedlocationname: locationname
+                                  passedimageUrl: sighting.imageUrl, passedimageCredit: sighting.imageCredit, passedlocationname: locationname, passedlocationId: sighting.locationId
                                 }
                               }}>
                                 <div>

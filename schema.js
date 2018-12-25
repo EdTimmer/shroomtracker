@@ -13,14 +13,14 @@ exports.typeDefs = `
   }
 
   type Location {
-    _id: ID!
+    _id: ID
     locationname: String!
     address: String!
     sightings: [Sighting]
   }
 
   type Sighting {
-    _id: ID!
+    _id: ID
     commonname: String!
     latinname: String
     imageUrl: String
@@ -30,14 +30,7 @@ exports.typeDefs = `
     longitude: String
    }
 
-  type Mushroom {
-    _id: ID!
-    commonname: String!
-    latinname: String!
-    imageUrl: String
-    locations: [Location]
-    sighting: [Sighting]
-  }
+
 
   type Query {
 
@@ -45,13 +38,10 @@ exports.typeDefs = `
 
     getSighting(_id: ID!): Sighting
 
-    getLocationSightings(_id: ID!): [Sighting]
-
     searchSightings(searchTerm: String, userId: String): [Sighting]
     
-    getMushroom(_id: ID!): Mushroom
-
     getCurrentUser: User
+   
 
   }
 
@@ -79,13 +69,8 @@ exports.typeDefs = `
       longitude: String      
     ): Sighting
 
-    addMushroom(
-      commonname: String!
-      latinname: String,
-      imageUrl: String,
-    ): Mushroom
 
-    deleteSighting(_id: ID): Sighting
+    deleteSighting(_id: ID!): Sighting
 
     updateSighting(
       _id: ID! 
@@ -101,7 +86,8 @@ exports.typeDefs = `
     signupUser(
       username: String!,
       email: String!,
-      password: String!
+      password: String!,
+      
     ) : Token
 
     signinUser(

@@ -28,7 +28,7 @@
 //               <div>
 //                 {
 //                   data.getAllMushrooms.map(mushroom => (
-//                     <MushroomItem key={mushroom._id} {...mushroom} />
+//                     <MushroomItem key={mushroom.id} {...mushroom} />
 //                   ))
 //                 }
 //               </div>

@@ -15,14 +15,14 @@ exports.resolvers = {
         return null;
       }
       const user = await User.findOne({ username: currentUser.username })
-      .populate({
-        path: 'locations',
-        model: 'Location'
-      })
-      .populate({
-        path: 'sightings',
-        model: 'Sighting'
-      });
+        .populate({
+          path: 'locations',
+          model: 'Location'
+        })
+        .populate({
+          path: 'sightings',
+          model: 'Sighting'
+        });
       return user;
     },
 
@@ -32,7 +32,11 @@ exports.resolvers = {
     // },
 
     getLocation: async (root, { _id }, { Location }) => {
-      const location = await Location.findOne({ _id });
+      const location = await Location.findOne({ _id })
+        .populate({
+          path: 'sightings',
+          model: 'Sighting'
+        });
       return location;
     },
 
@@ -93,7 +97,6 @@ exports.resolvers = {
     addSighting: async (root, { userId, locationId, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting }) => {
       const newSighting = await new Sighting({
         userId,
-        locationId,
         locationname,
         commonname,
         latinname,

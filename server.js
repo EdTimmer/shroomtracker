@@ -9,7 +9,7 @@ require('dotenv').config({ path: 'variables.env' });
 const User = require('./models/User');
 const Location = require('./models/Location');
 const Sighting = require('./models/Sighting');
-const Mushroom = require('./models/Mushroom');
+// const Mushroom = require('./models/Mushroom');
 
 // Bring in GraphQL-Express middlewarequire
 
@@ -21,15 +21,15 @@ const { resolvers } = require('./resolvers');
 
 //create schema
 
-const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers
-});
-
 const { ObjectId } = mongoose.Types;
 ObjectId.prototype.valueOf = function () {
   return this.toString();
 };
+
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers
+});
 
 //Connect to database 
 
@@ -75,7 +75,7 @@ app.use(
       User,
       Location,
       Sighting,
-      Mushroom,
+      // Mushroom,
       currentUser
     }
   }))

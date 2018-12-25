@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { GET_LOCATION, GET_LOCATION_SIGHTINGS } from '../../queries';
+import { GET_LOCATION } from '../../queries';
 import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 import Error from '../Error';
@@ -26,24 +26,16 @@ const LocationPage = ({ match }) => {
                 <h5>{data.getLocation.address}</h5>
               </div>
 
-              <Query query={GET_LOCATION_SIGHTINGS} variables={{locationname: data.getLocation.locationname, username: data.getLocation.username}}>
-                {({ data, loading, error }) => {
-                  if (loading) return <Spinner />
-                  if (error) return <div>Error</div>
-                  // console.log(data)
-                  // const { on } = this.state;
-                  return (
+              
                     <div className="cards"
                     >
                       {
-                        data.getLocationSightings.map(sighting => (
+                        data.getLocation.sightings.map(sighting => (
                           <SightingItemLocation key={sighting._id} {...sighting} />
                         ))
                       }
                     </div>
-                  )
-                }}
-              </Query>
+                  
 
             </div>            
           )

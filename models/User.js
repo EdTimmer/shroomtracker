@@ -25,10 +25,10 @@ const UserSchema = new Schema({
     type: [Schema.Types.ObjectId],
     ref: 'Location'
   },
-  sightings: {
-    type: [Schema.Types.ObjectId],
-    ref: 'Sighting'
-  },
+  // sightings: {
+  //   type: [Schema.Types.ObjectId],
+  //   ref: 'Sighting'
+  // },
 });
 
 UserSchema.pre('save', function(next) {

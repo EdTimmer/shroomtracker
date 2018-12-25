@@ -14,25 +14,25 @@ import mushrooms4 from '../../images/mushrooms4.jpg';
 
 class AllLocationsPage extends Component {
 
-  state = {
-    username: ''
-  }
+  // state = {
+  //   username: ''
+  // }
 
-  componentDidMount() {
-    this.setState({
-      username: this.props.session.getCurrentUser.username
-    });
-  }
+  // componentDidMount() {
+  //   this.setState({
+  //     username: this.props.session.getCurrentUser.username
+  //   });
+  // }
 
   render() {
-    const { username } = this.state;
+    // const { username } = this.state;
 
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
         <h1 className="main-title">
           <strong>My Locations</strong>
         </h1>
-        <Query query={GET_CURRENT_USER} variables={{username}}>
+        <Query query={GET_CURRENT_USER}>
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
             if (error) return <Error error={error} />

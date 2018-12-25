@@ -11,7 +11,7 @@ import Error from '../Error';
 
 
 const initialState = {
-  username: '',
+  // username: '',
   userId: '',
   locationname: '',
   address: ''  
@@ -26,7 +26,7 @@ class AddLocation extends React.Component {
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username,
+      // username: this.props.session.getCurrentUser.username,
       userId: this.props.session.getCurrentUser._id
     });
   }
@@ -68,7 +68,7 @@ class AddLocation extends React.Component {
   // }
 
   render() {
-    const { locationname, address, username, userId } = this.state;
+    const { locationname, address, userId } = this.state;
 
     return (
       <Mutation

@@ -22,7 +22,9 @@ import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_LOCATION_SIGHTINGS, GET_CURRENT_US
 
 class AddSighting extends React.Component {
   state = {
-    username: '',
+    // username: '',
+    userId: '',
+    locationId: this.props.location.state.passedlocationId,
     locationname: this.props.location.state.passedlocationname,
     commonname: '',
     latinname: '',
@@ -35,7 +37,9 @@ class AddSighting extends React.Component {
 
   clearState = () => {
     this.setState({
-      username: '',
+      // username: '',
+      userId: '',
+      locationId: this.props.location.state.passedlocationId,
       locationname: this.props.location.state.passedlocationname,
       commonname: '',
       latinname: '',
@@ -49,7 +53,8 @@ class AddSighting extends React.Component {
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username
+      userId: this.props.session.getCurrentUser._id,
+      // username: this.props.session.getCurrentUser.username
     });
   }
 
@@ -76,20 +81,20 @@ class AddSighting extends React.Component {
     return isInvalid;
   }
 
-  updateCache = (cache, { data: { addSighting, username } }) => {
-    const { getAllSightings } = cache.readQuery({ query: GET_ALL_SIGHTINGS, variables: { username } });
+  // updateCache = (cache, { data: { addSighting, username } }) => {
+  //   const { getAllSightings } = cache.readQuery({ query: GET_ALL_SIGHTINGS, variables: { username } });
 
-    cache.writeQuery({
-      query: GET_ALL_SIGHTINGS,
-      variables: {username},
-      data: {
-        getAllMushrooms: [addSighting, ...getAllSightings]
-      }
-    })
-  }
+  //   cache.writeQuery({
+  //     query: GET_ALL_SIGHTINGS,
+  //     variables: {username},
+  //     data: {
+  //       getAllMushrooms: [addSighting, ...getAllSightings]
+  //     }
+  //   })
+  // }
 
   render() {
-    const { username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
+    const { userId, locationId, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
     // const {passedlocationname} = this.props.location.state
     // console.log('props are:', this.props)
     // console.log(passedlocationname) // "bar"
@@ -97,12 +102,12 @@ class AddSighting extends React.Component {
     return (
       <Mutation
         mutation={ADD_SIGHTING}
-        variables={{ username, locationname, commonname, latinname, imageUrl, date, latitude, longitude }}
+        variables={{ userId, locationId, locationname, commonname, latinname, imageUrl, date, latitude, longitude }}
         refetchQueries={() => [
           { query: GET_CURRENT_USER },
           // { query: GET_ALL_LOCATIONS, variables: { username } },
-          { query: GET_ALL_SIGHTINGS, variables: { username } },
-          { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } },
+          // { query: GET_ALL_SIGHTINGS, variables: { username } },
+          // { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } },
         ]}
         // update={this.updateCache}
       >

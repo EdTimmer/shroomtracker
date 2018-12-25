@@ -7,23 +7,25 @@ import { NavLink } from 'react-router-dom';
 import Spinner from './Spinner';
 
 import { Query } from 'react-apollo';
-import { GET_ALL_LOCATIONS } from '../queries';
+import { GET_CURRENT_USER} from '../queries';
 import Error from './Error';
 import mushrooms4 from '../images/mushrooms4.jpg';
 
 class AddPage extends React.Component {
   state = {
-    username: ''
+    // username: '',
+    userId: '',
   }
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username
+      userId: this.props.session.getCurrentUser.userId,
+      // username: this.props.session.getCurrentUser.username
     });
   }
 
   render() {
-    const { username } = this.state;
+    const { userId } = this.state;
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
       
@@ -40,7 +42,7 @@ class AddPage extends React.Component {
           </li>
         </ul>
 
-        <Query query={GET_ALL_LOCATIONS} variables={{username}}>
+        <Query query={GET_CURRENT_USER}>
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
             if (error) return <Error error={error} />
@@ -49,13 +51,13 @@ class AddPage extends React.Component {
               <div>                          
                 {
 
-                  data.getAllLocations.length ? (
+                  data.getCurrentUser.locations.length ? (
                     <ul>                  
                       {
-                        data.getAllLocations.map(location => 
+                        data.getCurrentUser.locations.map(location => 
                           <li key={location._id} value={location.locationname}> 
                           
-                            <Link to={{ pathname: '/addpagetwo', state: { passedlocationname: location.locationname } }}>
+                            <Link to={{ pathname: '/addpagetwo', state: { passedlocationname: location.locationname, passedlocationId: location._id } }}>
                               {location.locationname} 
                             </Link>                          
                           

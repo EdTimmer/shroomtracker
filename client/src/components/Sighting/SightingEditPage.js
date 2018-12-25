@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 import withAuth from '../withAuth';
 
 import { Query, Mutation } from 'react-apollo';
-import { DELETE_SIGHTING, GET_ALL_LOCATIONS, UPDATE_SIGHTING, GET_ALL_SIGHTINGS } from '../../queries';
+import { DELETE_SIGHTING, UPDATE_SIGHTING, GET_CURRENT_USER } from '../../queries';
 import Spinner from '../Spinner';
 import Error from '../Error';
 // import { get } from 'https';
@@ -14,7 +14,9 @@ import mushrooms4 from '../../images/mushrooms4.jpg';
 class SightingEditPage extends React.Component {
   state = {
     _id: this.props.match.params._id,
-    username: '',
+    locationId: this.props.location.state.locationId,
+    // username: '',
+    userId: '',
     locationname: this.props.location.state.locationname,
     commonname: this.props.location.state.commonname,
     latinname: this.props.location.state.latinname ? this.props.location.state.latinname : '',
@@ -27,7 +29,8 @@ class SightingEditPage extends React.Component {
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username
+      // username: this.props.session.getCurrentUser.username,
+      userId: this.props.session.getCurrentUser._id
     });
   }
 
@@ -57,7 +60,7 @@ class SightingEditPage extends React.Component {
 
   render() {
     console.log('state is:', this.state);
-    const { _id, username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
+    const { _id, userId, locationId, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
     const { handleChange, handleSubmit } = this;
     return (
       <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px', color: 'white' }}
@@ -66,6 +69,8 @@ class SightingEditPage extends React.Component {
           mutation={UPDATE_SIGHTING}
           variables={{
             _id,
+            userId,
+            locationId,
             locationname,
             commonname,
             latinname,
@@ -84,7 +89,7 @@ class SightingEditPage extends React.Component {
               >
                 <h4>Edit Sighting</h4>
 
-                <Query query={GET_ALL_LOCATIONS} variables={{ username }}>
+                <Query query={GET_CURRENT_USER}>
                   {({ data, loading, error }) => {
                     if (loading) return <Spinner />
                     if (error) return <Error error={error} />
@@ -99,7 +104,7 @@ class SightingEditPage extends React.Component {
                         >
                           <option value='-1'>{locationname}</option>
                           {
-                            data.getAllLocations.map(location => (
+                            data.getCurrentUser.locations.map(location => (
                               <option key={location._id} value={location.locationname}>
                                 {location.locationname}
                               </option>
@@ -193,7 +198,7 @@ class SightingEditPage extends React.Component {
         <Mutation
           mutation={DELETE_SIGHTING} variables={{ _id }}
           refetchQueries={() => [
-            { query: GET_ALL_SIGHTINGS, variables: { username } }
+            { query: GET_CURRENT_USER }
           ]}
         >
           {

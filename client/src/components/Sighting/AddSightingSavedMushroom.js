@@ -5,7 +5,7 @@ import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
 import { Mutation } from 'react-apollo';
-import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_LOCATION_SIGHTINGS, GET_CURRENT_USER } from '../../queries';
+import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_LOCATION_SIGHTINGS, GET_LOCATION, GET_CURRENT_USER } from '../../queries';
 import Error from '../Error';
 
 // const initialState = {
@@ -21,7 +21,9 @@ import Error from '../Error';
 
 class AddSightingSavedMushroom extends React.Component {
   state = { 
-    username: '',
+    // username: '',
+    userId: '',
+    locationId: this.props.location.state.passedlocationId,
     locationname: this.props.location.state.passedlocationname,
     commonname: this.props.location.state.passedcommonname,
     latinname: this.props.location.state.passedlatinname,
@@ -34,7 +36,9 @@ class AddSightingSavedMushroom extends React.Component {
 
   clearState = () => {
     this.setState({
-      username: '',
+      // username: '',
+      userId: '',
+      locationId: this.props.location.state.passedlocationId,
       locationname: this.props.location.state.passedlocationname,
       commonname: this.props.location.state.passedcommonname,
       latinname: this.props.location.state.passedlatinname,
@@ -48,7 +52,8 @@ class AddSightingSavedMushroom extends React.Component {
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username
+      // username: this.props.session.getCurrentUser.username,
+      userId: this.props.session.getCurrentUser._id
     });
   }
 
@@ -100,7 +105,7 @@ class AddSightingSavedMushroom extends React.Component {
   // }
 
   render() {
-    const { username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
+    const { userId, locationId, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
 
 
     console.log('state is:', this.state)
@@ -109,12 +114,12 @@ class AddSightingSavedMushroom extends React.Component {
     return (
       <Mutation
         mutation={ADD_SIGHTING}
-        variables={{ username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }}
+        variables={{ userId, locationId, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }}
         refetchQueries={() => [
           { query: GET_CURRENT_USER },
           // { query: GET_ALL_LOCATIONS, variables: { username } },
-          { query: GET_ALL_SIGHTINGS, variables: { username } },
-          { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } }
+          // { query: GET_ALL_SIGHTINGS, variables: { username } },
+          // { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } }
         ]}
         // update={this.updateCache}
       >

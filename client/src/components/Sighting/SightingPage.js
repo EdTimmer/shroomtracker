@@ -73,7 +73,8 @@ const SightingPage = ({ match }) => {
               </div>
               <Link to={{
                 pathname: `/sightingsedit/${_id}`, 
-                state: {                  
+                state: { 
+                  locationId: data.getSighting.locationId,
                   locationname: data.getSighting.locationname,
                   commonname: data.getSighting.commonname,
                   latinname: data.getSighting.latinname,

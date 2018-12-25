@@ -8,10 +8,10 @@
 
 
 // const MushroomPage = ({ match }) => {
-//   const { _id } = match.params;  
+//   const {  } = match.params;  
 
 //   return (
-//     <Query query={GET_MUSHROOM} variables={{ _id }}>
+//     <Query query={GET_MUSHROOM} variables={{ id }}>
 //       {
 //         ({ data, loading, error }) => {
 

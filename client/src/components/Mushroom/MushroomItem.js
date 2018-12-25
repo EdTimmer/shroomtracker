@@ -7,13 +7,13 @@
 // //   hidden: { opacity: 0 }
 // // });
 
-// export default ({ _id, commonname, imageUrl }) => (
+// export default ({ id, commonname, imageUrl }) => (
 //   <div
 //     style={{ background: `url(${imageUrl}) center center / cover no-repeat`}}
 //     className="card"
 //   >    
 //     <div className="card-text">
-//       <Link to={`/mushrooms/${_id}`}><h4>{commonname}</h4></Link>
+//       <Link to={`/mushrooms/${id}`}><h4>{commonname}</h4></Link>
       
 //     </div> 
     
