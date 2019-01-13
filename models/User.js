@@ -21,14 +21,18 @@ const UserSchema = new Schema({
     type: String,
     default: moment().format('LL').toString()
   },
-  locations: {
-    type: [Schema.Types.ObjectId],
-    ref: 'Location'
-  },
-  sightings: {
-    type: [Schema.Types.ObjectId],
-    ref: 'Sighting'
-  },
+  locations: [
+    {
+      type: [Schema.Types.ObjectId],
+      ref: 'Location'
+    }
+  ],
+  sightings: [
+    {
+      type: [Schema.Types.ObjectId],
+      ref: 'Sighting'
+    }
+  ],
 });
 
 UserSchema.pre('save', function(next) {

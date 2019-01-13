@@ -8,6 +8,14 @@ export const GET_CURRENT_USER = gql`
       username
       joinDate
       email
+      _id
+      locations {
+        locationname
+        address
+      } 
+      sightings {
+        commonname
+      }
     }
   }
 `;
@@ -163,7 +171,7 @@ export const ADD_LOCATION = gql`
     addLocation(
       locationname: $locationname,
       address: $address,
-      username: $username
+      username: $username,
     ) {
       _id
       locationname

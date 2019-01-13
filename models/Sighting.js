@@ -33,6 +33,14 @@ const SightingSchema = new Schema({
   longitude: {
     type: String
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  location: {
+    type: Schema.Types.ObjectId,
+    ref: 'Location'
+  }
 });
 
 SightingSchema.index({

@@ -23,6 +23,7 @@ exports.resolvers = {
           path: 'sightings',
           model: 'Sighting'
         });
+        // .exec();
       return user;
     },
 
@@ -33,10 +34,10 @@ exports.resolvers = {
 
     getLocation: async (root, { _id }, { Location }) => {
       const location = await Location.findOne({ _id })
-        .populate({
-          path: 'sightings',
-          model: 'Sighting'
-        });
+        // .populate({
+        //   path: 'sightings',
+        //   model: 'Sighting'
+        // });
       return location;
     },
 
@@ -85,14 +86,40 @@ exports.resolvers = {
 
   Mutation: {
 
-    addLocation: async (root, { locationname, address, username }, { Location }) => {
+    // likeRecipe: async (root, { _id, username }, { Recipe, User }) => {
+    //   const recipe = await Recipe.findOneAndUpdate({ _id }, { $inc: { likes: 1 } });
+    //   const user = await User.findOneAndUpdate({ username }, { $addToSet: { favorites: _id }});
+    //   return recipe;
+    // },
+
+    addLocation: async (root, { locationname, address, username }, { Location, User }) => {
+      // const userId = _id;
       const newLocation = await new Location({
         locationname,
         address,
         username
       }).save();
+      // .then(() => User.findOneAndUpdate({ username }, { $addToSet: { locations: newLocation._id }}));
+      const user = await User.findOneAndUpdate({ username }, { $addToSet: { locations: newLocation._id }}).populate('locations');
+      // User.populate('locations');
       return newLocation;
     },
+
+    // addLocation: async (root, { locationname, address, username, user }, context, info) => {
+    //   const newLocation = await new Location({
+    //     locationname,
+    //     address,
+    //     username,
+    //     user
+    //   });
+
+    //   return new Promise((resolve, reject) => {
+    //     newLocation.save((err, res) => {
+    //       err ? reject(err) : resolve(res);
+    //     });
+    //   });
+    // },
+
 
     addSighting: async (root, { username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting }) => {
       const newSighting = await new Sighting({

@@ -8,8 +8,8 @@ exports.typeDefs = `
     password: String!
     email: String!
     joinDate: String
-    locations: [Location]
-    sightings: [Sighting]
+    locations: [Location!]!
+    sightings: [Sighting!]!
   }
 
   type Location {
@@ -17,7 +17,7 @@ exports.typeDefs = `
     locationname: String!
     address: String!
     username: String!
-    sightings: [Sighting]
+    user: User!
   }
 
   type Sighting {
@@ -31,6 +31,8 @@ exports.typeDefs = `
     date: String!
     latitude: String
     longitude: String
+    user: User!
+    location: Location!
    }
 
   type Mushroom {

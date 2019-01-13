@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import '../App.css';
 
 import { Query } from 'react-apollo';
@@ -16,41 +15,40 @@ import mushrooms4 from '../../images/mushrooms4.jpg';
 class AllLocationsPage extends Component {
 
   state = {
-    username: '',
-    locations: []
+    username: ''
   }
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username,
-      locations: this.props.session.getCurrentUser.locations
+      username: this.props.session.getCurrentUser.username
     });
   }
 
   render() {
-    const { username, locations } = this.state;
-    console.log('current user:', this.props.session.getCurrentUser.locations)
-    // const {currentUserLocations} = this.props.session.getCurrentUser ? this.props.session.getCurrentUser.locatoins : 'test';
-    if (!locations) {
-      return null;
-    }
+    const { username } = this.state;
+
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
         <h1 className="main-title">
           <strong>My Locations</strong>
         </h1>
-        <div>
-          {
-            locations.map(location => {
-              return (                
-                <Link to={`/locations/${location._id}`}><h4 style={{color: 'white'}}>{location.locationname}</h4></Link>
-              )
-            })
-          }
-        </div>
-
+        <Query query={GET_ALL_LOCATIONS} variables={{username}}>
+          {({ data, loading, error }) => {
+            if (loading) return <Spinner />
+            if (error) return <Error error={error} />
+              console.log(data)
+            return (
+              <div>
+                {
+                  data.getAllLocations.map(location => (
+                    <LocationItem key={location._id} {...location} />
+                  ))
+                }
+              </div>
+            )
+          }}
+        </Query>
       </div>
-
     )
   }
 }
