@@ -27,17 +27,17 @@ exports.resolvers = {
       return user;
     },
 
-    getAllLocations: async (root, { username }, { Location }) => {
-      const allLocations = await Location.find({ username }).sort({ locationname: 1 });
-      return allLocations;
-    },
+    // getAllLocations: async (root, { username }, { Location }) => {
+    //   const allLocations = await Location.find({ username }).sort({ locationname: 1 });
+    //   return allLocations;
+    // },
 
     getLocation: async (root, { _id }, { Location }) => {
       const location = await Location.findOne({ _id })
-        // .populate({
-        //   path: 'sightings',
-        //   model: 'Sighting'
-        // });
+        .populate({
+          path: 'sightings',
+          model: 'Sighting'
+        });
       return location;
     },
 
@@ -46,25 +46,25 @@ exports.resolvers = {
       return sighting;
     },
 
-    getAllSightings: async (root, { username }, { Sighting }) => {
-      const allSightings = await Sighting.find({ username }).sort({createdDate: 'desc'});
-      return allSightings;
-    },
+    // getAllSightings: async (root, { username }, { Sighting }) => {
+    //   const allSightings = await Sighting.find({ username }).sort({createdDate: 'desc'});
+    //   return allSightings;
+    // },
 
-    getLocationSightings: async (root, { locationname, username }, { Sighting }) => {
-      const locationSightings = await Sighting.find({ locationname, username }).sort({ createdDate: 'desc' });
-      return locationSightings;
-    },
+    // getLocationSightings: async (root, { locationname, username }, { Sighting }) => {
+    //   const locationSightings = await Sighting.find({ locationname, username }).sort({ createdDate: 'desc' });
+    //   return locationSightings;
+    // },
 
-    getLocationMushroomSightings: async (root, { commonname, locationname, username }, { Sighting }) => {
-      const locationMushroomSightings = await Sighting.find({ commonname, locationname, username }).sort({ createdDate: 'desc'});
-      return locationMushroomSightings;
-    },
+    // getLocationMushroomSightings: async (root, { commonname, locationname, username }, { Sighting }) => {
+    //   const locationMushroomSightings = await Sighting.find({ commonname, locationname, username }).sort({ createdDate: 'desc'});
+    //   return locationMushroomSightings;
+    // },
 
-    getAllMushrooms: async (root, { username }, { Mushroom }) => {
-      const allMushrooms = await Mushroom.find({ username }).sort({ commonname: 1 });
-      return allMushrooms;
-    },
+    // getAllMushrooms: async (root, { username }, { Mushroom }) => {
+    //   const allMushrooms = await Mushroom.find({ username }).sort({ commonname: 1 });
+    //   return allMushrooms;
+    // },
 
     searchSightings: async (root, { searchTerm, username }, { Sighting }) => {
       if (searchTerm) {
@@ -92,15 +92,15 @@ exports.resolvers = {
     //   return recipe;
     // },
 
-    addLocation: async (root, { locationname, address, username }, { Location, User }) => {
+    addLocation: async (root, { locationname, address, user }, { Location, User }) => {
       // const userId = _id;
       const newLocation = await new Location({
+        user,
         locationname,
-        address,
-        username
+        address
       }).save();
       // .then(() => User.findOneAndUpdate({ username }, { $addToSet: { locations: newLocation._id }}));
-      const user = await User.findOneAndUpdate({ username }, { $addToSet: { locations: newLocation._id }}).populate('locations');
+      const userWithNewLocation = await User.findOneAndUpdate({ user }, { $addToSet: { locations: newLocation._id }}).populate('locations');
       // User.populate('locations');
       return newLocation;
     },
@@ -121,10 +121,10 @@ exports.resolvers = {
     // },
 
 
-    addSighting: async (root, { username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting }) => {
+    addSighting: async (root, { user, location, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting, User, Location }) => {
       const newSighting = await new Sighting({
-        username,
-        locationname,
+        user,
+        location,
         commonname,
         latinname,
         imageUrl,
@@ -133,32 +133,37 @@ exports.resolvers = {
         latitude,
         longitude
       }).save();
+
+      const userWithNewSighting = await User.findOneAndUpdate({ user }, { $addToSet: { sightings: newSighting._id }}).populate('sightings');
+
+      const locationWithNewSighting = await Location.findOneAndUpdate({ location }, { $addToSet: { sightings: newSighting._id }}).populate('sightings');
+
       return newSighting;
     },
 
-    addMushroom: async (root, { username, commonname, latinname, imageUrl }, { Mushroom }) => {
-      const newMushroom = await new Mushroom({
-        username,
-        commonname,
-        latinname,
-        imageUrl
-      }).save();
-      return newMushroom;
-    },
+    // addMushroom: async (root, { username, commonname, latinname, imageUrl }, { Mushroom }) => {
+    //   const newMushroom = await new Mushroom({
+    //     username,
+    //     commonname,
+    //     latinname,
+    //     imageUrl
+    //   }).save();
+    //   return newMushroom;
+    // },
 
     deleteSighting: async (root, { _id }, { Sighting }) => {
       const sighting = await Sighting.findOneAndRemove({ _id });
       return sighting;
     },
 
-    updateSighting: async (root, { _id, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting }) => {
-      const updatedSighting = await Sighting.findOneAndUpdate(
-        { _id },
-        { $set: { locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }},
-        { new: true }
-      );
-      return updatedSighting;
-    },
+    // updateSighting: async (root, { _id, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting }) => {
+    //   const updatedSighting = await Sighting.findOneAndUpdate(
+    //     { _id },
+    //     { $set: { locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }},
+    //     { new: true }
+    //   );
+    //   return updatedSighting;
+    // },
 
     signupUser: async (root, { username, email, password }, { User }) => {
       const user = await User.findOne({ username });

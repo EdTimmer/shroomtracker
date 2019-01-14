@@ -16,14 +16,12 @@ exports.typeDefs = `
     _id: ID!
     locationname: String!
     address: String!
-    username: String!
     user: User!
+    sightings: [Sighting!]!
   }
 
   type Sighting {
     _id: ID!
-    username: String!
-    locationname: String!
     commonname: String!
     latinname: String
     imageUrl: String
@@ -45,25 +43,17 @@ exports.typeDefs = `
 
   type Query {
 
-    getAllLocations(username: String!): [Location]
+    getCurrentUser: User
 
     getLocation(_id: ID!): Location
 
     getSighting(_id: ID!): Sighting
 
-    getAllSightings(username: String!): [Sighting]
+    getLocationMushroomSightings(_id: ID!, commonname: String!): [Sighting]
 
-    getLocationSightings(locationname: String!, username: String!): [Sighting]
-
-    getLocationMushroomSightings(locationname: String!, username: String!, commonname: String!): [Sighting]
-
-    searchSightings(searchTerm: String, username: String): [Sighting]
+    searchSightings(_id: ID!, searchTerm: String): [Sighting]
     
-    getMushroom(_id: ID!): Mushroom
-
-    getAllMushrooms(username: String!): [Mushroom]
-
-    getCurrentUser: User
+    getMushroom(_id: ID!): Mushroom    
 
   }
 
@@ -74,14 +64,14 @@ exports.typeDefs = `
   type Mutation {
 
     addLocation(
-      locationname: String!,
-      address: String!,
-      username: String!
+      user: ID!
+      locationname: String!
+      address: String!      
     ): Location
 
     addSighting(
-      username: String!
-      locationname: String!
+      location: ID!
+      user: ID!
       commonname: String!
       latinname: String
       imageUrl: String
@@ -90,13 +80,6 @@ exports.typeDefs = `
       latitude: String
       longitude: String
     ): Sighting
-
-    addMushroom(
-      username: String!
-      commonname: String!
-      latinname: String,
-      imageUrl: String,
-    ): Mushroom
 
     deleteSighting(_id: ID): Sighting
 

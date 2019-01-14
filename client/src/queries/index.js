@@ -22,16 +22,16 @@ export const GET_CURRENT_USER = gql`
 
 /* Location Queries */
 
-export const GET_ALL_LOCATIONS = gql`
-  query($username: String!) {
-    getAllLocations(username: $username) {
-      _id
-      locationname
-      address
-      username
-    }
-  }
-`;
+// export const GET_ALL_LOCATIONS = gql`
+//   query($username: String!) {
+//     getAllLocations(username: $username) {
+//       _id
+//       locationname
+//       address
+//       username
+//     }
+//   }
+// `;
 
 export const GET_LOCATION = gql`
   query($_id: ID!) {
@@ -39,7 +39,6 @@ export const GET_LOCATION = gql`
       _id
       locationname
       address
-      username
     }
   }  
 `;
@@ -62,85 +61,86 @@ export const GET_SIGHTING = gql`
   }  
 `;
 
-export const GET_ALL_SIGHTINGS = gql`
-  query($username: String!) {
-    getAllSightings(username: $username) {
-      _id
-      locationname
-      commonname
-      latinname
-      imageUrl
-      date
-      latitude
-      longitude
-    }
-  }
-`;
+// export const GET_ALL_SIGHTINGS = gql`
+//   query($username: String!) {
+//     getAllSightings(username: $username) {
+//       _id
+//       locationname
+//       commonname
+//       latinname
+//       imageUrl
+//       date
+//       latitude
+//       longitude
+//     }
+//   }
+// `;
 
-export const GET_LOCATION_SIGHTINGS = gql`
-  query($locationname: String!, $username: String!) {
-    getLocationSightings(locationname: $locationname, username: $username) {
-      _id
-      locationname
-      commonname
-      latinname
-      imageUrl
-      date
-      latitude
-      longitude
-    }
-  }
-`;
+// export const GET_LOCATION_SIGHTINGS = gql`
+//   query($locationname: String!, $username: String!) {
+//     getLocationSightings(locationname: $locationname, username: $username) {
+//       _id
+//       locationname
+//       commonname
+//       latinname
+//       imageUrl
+//       date
+//       latitude
+//       longitude
+//     }
+//   }
+// `;
 
-export const GET_LOCATION_MUSHROOM_SIGHTINGS = gql`
-  query($locationname: String!, $commonname: String!, $username: String!) {
-    getLocationMushroomSightings(locationname: $locationname, commonname: $commonname, username: $username) {
-      _id
-      locationname
-      commonname
-      latinname
-      imageUrl
-      date
-      latitude
-      longitude
-    }
-  }
-`;
+// export const GET_LOCATION_MUSHROOM_SIGHTINGS = gql`
+//   query($locationname: String!, $commonname: String!, $username: String!) {
+//     getLocationMushroomSightings(locationname: $locationname, commonname: $commonname, username: $username) {
+//       _id
+//       locationname
+//       commonname
+//       latinname
+//       imageUrl
+//       date
+//       latitude
+//       longitude
+//     }
+//   }
+// `;
 
-export const SEARCH_SIGHTINGS = gql`
-  query($searchTerm: String, $username: String) {
-    searchSightings(searchTerm: $searchTerm, username: $username) {
-      _id
-      commonname
-      locationname
-      date
-    }
-  }
-`;
+/*SEARCH*/
+// export const SEARCH_SIGHTINGS = gql`
+//   query($searchTerm: String, $username: String) {
+//     searchSightings(searchTerm: $searchTerm, username: $username) {
+//       _id
+//       commonname
+//       locationname
+//       date
+//     }
+//   }
+// `;
 
 /* Mushroom Queries */
 
-export const GET_MUSHROOM = gql`
-  query($_id: ID!) {
-    getMushroom(_id: $_id) {
-      _id
-      commonname
-      latinname
-      imageUrl
-    }
-  }  
-`;
+// export const GET_MUSHROOM = gql`
+//   query($_id: ID!) {
+//     getMushroom(_id: $_id) {
+//       _id
+//       commonname
+//       latinname
+//       imageUrl
+//     }
+//   }  
+// `;
 
-export const GET_ALL_MUSHROOMS = gql`
-  query($username: String!) {
-    getAllMushrooms(username: $username) {
-      _id
-      commonname
-      latinname
-      imageUrl
-    }
-  }
-`;
+// export const GET_ALL_MUSHROOMS = gql`
+//   query($username: String!) {
+//     getAllMushrooms(username: $username) {
+//       _id
+//       commonname
+//       latinname
+//       imageUrl
+//     }
+//   }
+// `;
 
 /* User Mutations */
 
@@ -164,19 +164,18 @@ export const SIGNUP_USER = gql`
 
 export const ADD_LOCATION = gql`
   mutation(
+    $_id: ID!,
     $locationname: String!,
-    $address: String!,
-    $username: String!
+    $address: String!    
   ) {
     addLocation(
+      _id: $_id,
       locationname: $locationname,
-      address: $address,
-      username: $username,
+      address: $address      
     ) {
       _id
       locationname
       address
-      username
     }
   }
 `;
@@ -185,8 +184,7 @@ export const ADD_LOCATION = gql`
 
 export const ADD_SIGHTING = gql`
   mutation(
-    $username: String!,
-    $locationname: String!,
+    $_id: ID!,
     $commonname: String!,
     $latinname: String,
     $imageUrl: String!,  
@@ -196,8 +194,7 @@ export const ADD_SIGHTING = gql`
     $longitude: String!
   ) {
     addSighting(
-      username: $username,
-      locationname: $locationname,
+      _id: $_id,
       commonname: $commonname,
       latinname: $latinname,
       imageUrl: $imageUrl,
