@@ -151,8 +151,21 @@ exports.resolvers = {
     //   return newMushroom;
     // },
 
-    deleteSighting: async (root, { _id }, { Sighting }) => {
+    deleteLocation: async (root, { _id, user }, { User, Location }) => {
+      const location = await Location.findOneAndRemove({ _id });
+
+      const userWithDeletedLocation = await User.findOneAndUpdate({ user }, { $pull: { locations: location._id }}).populate('locations');
+
+      return sighting;
+    },
+
+    deleteSighting: async (root, { _id, user, location }, { Sighting, User, Location }) => {
       const sighting = await Sighting.findOneAndRemove({ _id });
+
+      const userWithDeletedSighting = await User.findOneAndUpdate({ user }, { $pull: { sightings: newSighting._id }}).populate('sightings');
+
+      const locationWithDeletedSighting = await Location.findOneAndUpdate({ location }, { $pull: { sightings: newSighting._id }}).populate('sightings');
+      
       return sighting;
     },
 

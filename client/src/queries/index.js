@@ -5,16 +5,24 @@ import { gql } from 'apollo-boost';
 export const GET_CURRENT_USER = gql`
   query {
     getCurrentUser {
+      _id
       username
       joinDate
-      email
-      _id
+      email      
       locations {
+        _id
         locationname
         address
       } 
       sightings {
-        commonname
+        _id
+        commonname        
+        latinname
+        imageUrl
+        imageCredit
+        date
+        latitude
+        longitude
       }
     }
   }
@@ -49,7 +57,6 @@ export const GET_SIGHTING = gql`
   query($_id: ID!) {
     getSighting(_id: $_id) {
       _id
-      locationname
       commonname
       latinname
       imageUrl
@@ -164,12 +171,12 @@ export const SIGNUP_USER = gql`
 
 export const ADD_LOCATION = gql`
   mutation(
-    $_id: ID!,
+    $user: ID!,
     $locationname: String!,
     $address: String!    
   ) {
     addLocation(
-      _id: $_id,
+      user: $user,
       locationname: $locationname,
       address: $address      
     ) {
@@ -180,11 +187,20 @@ export const ADD_LOCATION = gql`
   }
 `;
 
+export const DELETE_LOCATION = gql`
+  mutation($_id: ID!, $user: ID!) {
+    deleteLocation(_id: $_id, user: $user) {
+      _id
+    }
+  }
+`;
+
 /* Sighting Mutations */
 
 export const ADD_SIGHTING = gql`
   mutation(
-    $_id: ID!,
+    $user: ID!,
+    $location: ID!,
     $commonname: String!,
     $latinname: String,
     $imageUrl: String!,  
@@ -194,7 +210,8 @@ export const ADD_SIGHTING = gql`
     $longitude: String!
   ) {
     addSighting(
-      _id: $_id,
+      user: $user,
+      location: $location,
       commonname: $commonname,
       latinname: $latinname,
       imageUrl: $imageUrl,
@@ -204,7 +221,6 @@ export const ADD_SIGHTING = gql`
       longitude: $longitude
     ) {
       _id
-      locationname
       commonname
       latinname
       imageUrl
@@ -217,8 +233,8 @@ export const ADD_SIGHTING = gql`
 `;
 
 export const DELETE_SIGHTING = gql`
-  mutation($_id: ID!) {
-    deleteSighting(_id: $_id) {
+  mutation($_id: ID!, $user: ID!, $location: ID!) {
+    deleteSighting(_id: $_id, user: $user, location: $location) {
       _id
     }
   }
@@ -227,7 +243,7 @@ export const DELETE_SIGHTING = gql`
 export const UPDATE_SIGHTING = gql`
   mutation(
     $_id: ID!, 
-    $locationname: String!,
+    $location: ID!,
     $commonname: String!,
     $latinname: String,
     $imageUrl: String,
@@ -238,7 +254,7 @@ export const UPDATE_SIGHTING = gql`
   ) {
     updateSighting(
       _id: $_id, 
-      locationname: $locationname,
+      location: $location,
       commonname: $commonname,
       latinname: $latinname,
       imageUrl: $imageUrl,
@@ -249,7 +265,6 @@ export const UPDATE_SIGHTING = gql`
     )
       {
         _id
-        locationname
         commonname
         latinname
         imageUrl
@@ -263,23 +278,23 @@ export const UPDATE_SIGHTING = gql`
 
 /* Mushroom Mutations */
 
-export const ADD_MUSHROOM = gql`
-  mutation(
-    $username: String!,
-    $commonname: String!,
-    $latinname: String,
-    $imageUrl: String!,    
-  ) {
-    addMushroom(
-      username: $username,
-      commonname: $commonname,
-      latinname: $latinname,
-      imageUrl: $imageUrl,      
-    ) {
-      _id,
-      commonname
-      latinname
-      imageUrl
-    }
-  }
-`;
+// export const ADD_MUSHROOM = gql`
+//   mutation(
+//     $username: String!,
+//     $commonname: String!,
+//     $latinname: String,
+//     $imageUrl: String!,    
+//   ) {
+//     addMushroom(
+//       username: $username,
+//       commonname: $commonname,
+//       latinname: $latinname,
+//       imageUrl: $imageUrl,      
+//     ) {
+//       _id,
+//       commonname
+//       latinname
+//       imageUrl
+//     }
+//   }
+// `;

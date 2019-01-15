@@ -3,7 +3,7 @@
 exports.typeDefs = `
 
   type User {
-    _id: ID
+    _id: ID!
     username: String!
     password: String!
     email: String!
@@ -81,11 +81,12 @@ exports.typeDefs = `
       longitude: String
     ): Sighting
 
-    deleteSighting(_id: ID): Sighting
+    deleteSighting(_id: ID, user: ID!, location: ID!): Sighting
 
     updateSighting(
       _id: ID! 
-      locationname: String!
+      user: ID!
+      location: ID!
       commonname: String!
       latinname: String
       imageUrl: String
