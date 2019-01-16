@@ -47,7 +47,7 @@ const SightingPage = ({ match }) => {
                     <strong><i>{data.getSighting.latinname}</i></strong>
                   </h5>
                   <h5>
-                    <i>Location: </i> {data.getSighting.locationname}
+                    <i>Location: </i> [NEED LOCATION NAME]
                   </h5>
                   <h5>
                     <i>Found Date: </i> {data.getSighting.date}
@@ -74,7 +74,8 @@ const SightingPage = ({ match }) => {
               <Link to={{
                 pathname: `/sightingsedit/${_id}`, 
                 state: {                  
-                  locationname: data.getSighting.locationname,
+                  location: data.getSighting.location._id,
+                  locationname: data.getSighting.location.locationname,
                   commonname: data.getSighting.commonname,
                   latinname: data.getSighting.latinname,
                   imageUrl: data.getSighting.imageUrl,

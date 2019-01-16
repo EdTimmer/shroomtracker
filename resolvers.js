@@ -42,7 +42,11 @@ exports.resolvers = {
     },
 
     getSighting: async (root, { _id }, { Sighting }) => {
-      const sighting = await Sighting.findOne({ _id });
+      const sighting = await Sighting.findOne({ _id })
+        .populate({
+          path: 'location',
+          model: 'Location'
+        });
       return sighting;
     },
 
@@ -169,14 +173,14 @@ exports.resolvers = {
       return sighting;
     },
 
-    // updateSighting: async (root, { _id, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting }) => {
-    //   const updatedSighting = await Sighting.findOneAndUpdate(
-    //     { _id },
-    //     { $set: { locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }},
-    //     { new: true }
-    //   );
-    //   return updatedSighting;
-    // },
+    updateSighting: async (root, { _id, location, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting }) => {
+      const updatedSighting = await Sighting.findOneAndUpdate(
+        { _id },
+        { $set: { location, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }},
+        { new: true }
+      );
+      return updatedSighting;
+    },
 
     signupUser: async (root, { username, email, password }, { User }) => {
       const user = await User.findOne({ username });

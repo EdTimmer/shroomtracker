@@ -22,8 +22,9 @@ import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_LOCATION_SIGHTINGS, GET_CURRENT_US
 
 class AddSighting extends React.Component {
   state = {
-    username: '',
-    locationname: this.props.location.state.passedlocationname,
+    user: '',
+    location: this.props.location.state.location,
+    locationname: this.props.location.state.locationname,
     commonname: '',
     latinname: '',
     imageUrl: '',
@@ -35,8 +36,9 @@ class AddSighting extends React.Component {
 
   clearState = () => {
     this.setState({
-      username: '',
-      locationname: this.props.location.state.passedlocationname,
+      user: '',
+      location: this.props.location.state.location,
+      locationname: this.props.location.state.locationname,
       commonname: '',
       latinname: '',
       imageUrl: '',
@@ -49,7 +51,7 @@ class AddSighting extends React.Component {
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username
+      user: this.props.session.getCurrentUser._id
     });
   }
 
@@ -60,36 +62,35 @@ class AddSighting extends React.Component {
     });
   }
 
-
   handleSubmit = (event, addSighting) => {
     event.preventDefault();
     addSighting().then(({ data }) => {
-      console.log(data); 
-      this.clearState();     
+      console.log(data);
+      this.clearState();
       this.props.history.push(`/sightings/${data.addSighting._id}`);
     });
   }
 
   validateForm = () => {
-    const { locationname, commonname, date } = this.state;
-    const isInvalid = !locationname || !commonname || !date;
+    const { location, commonname, date } = this.state;
+    const isInvalid = !location || !commonname || !date;
     return isInvalid;
   }
 
-  updateCache = (cache, { data: { addSighting, username } }) => {
-    const { getAllSightings } = cache.readQuery({ query: GET_ALL_SIGHTINGS, variables: { username } });
+  // updateCache = (cache, { data: { addSighting, username } }) => {
+  //   const { getAllSightings } = cache.readQuery({ query: GET_ALL_SIGHTINGS, variables: { username } });
 
-    cache.writeQuery({
-      query: GET_ALL_SIGHTINGS,
-      variables: {username},
-      data: {
-        getAllMushrooms: [addSighting, ...getAllSightings]
-      }
-    })
-  }
+  //   cache.writeQuery({
+  //     query: GET_ALL_SIGHTINGS,
+  //     variables: {username},
+  //     data: {
+  //       getAllMushrooms: [addSighting, ...getAllSightings]
+  //     }
+  //   })
+  // }
 
   render() {
-    const { username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
+    const { user, location, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
     // const {passedlocationname} = this.props.location.state
     // console.log('props are:', this.props)
     // console.log(passedlocationname) // "bar"
@@ -97,21 +98,21 @@ class AddSighting extends React.Component {
     return (
       <Mutation
         mutation={ADD_SIGHTING}
-        variables={{ username, locationname, commonname, latinname, imageUrl, date, latitude, longitude }}
-        refetchQueries={() => [
-          { query: GET_CURRENT_USER },
-          // { query: GET_ALL_LOCATIONS, variables: { username } },
-          { query: GET_ALL_SIGHTINGS, variables: { username } },
-          { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } },
-        ]}
-        // update={this.updateCache}
+        variables={{ user, location, commonname, latinname, imageUrl, date, latitude, longitude }}
+      // refetchQueries={() => [
+      //   { query: GET_CURRENT_USER },
+      //   // { query: GET_ALL_LOCATIONS, variables: { username } },
+      //   { query: GET_ALL_SIGHTINGS, variables: { username } },
+      //   { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } },
+      // ]}
+      // update={this.updateCache}
       >
         {
           (addSighting, { data, loading, error }) => {
             if (loading) return <Spinner />
             if (error) return <Error error={error} />
             return (
-              <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
+              <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px' }}>
                 <h2 className="App">Add Sighting</h2>
 
                 <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>
@@ -182,7 +183,7 @@ class AddSighting extends React.Component {
                   >
                     Submit
                   </button>
-                  
+
                 </form>
               </div>
             )

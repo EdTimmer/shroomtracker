@@ -21,12 +21,13 @@ import Error from '../Error';
 
 class AddSightingSavedMushroom extends React.Component {
   state = { 
-    username: '',
-    locationname: this.props.location.state.passedlocationname,
-    commonname: this.props.location.state.passedcommonname,
-    latinname: this.props.location.state.passedlatinname,
-    imageUrl: this.props.location.state.passedimageUrl,
-    imageCredit: this.props.location.state.passedimageCredit,
+    user: '',
+    location: this.props.location.state.location,
+    locationname: this.props.location.state.locationname,
+    commonname: this.props.location.state.commonname,
+    latinname: this.props.location.state.latinname,
+    imageUrl: this.props.location.state.imageUrl,
+    imageCredit: this.props.location.state.imageCredit,
     date: '',
     latitude: '',
     longitude: ''
@@ -34,12 +35,13 @@ class AddSightingSavedMushroom extends React.Component {
 
   clearState = () => {
     this.setState({
-      username: '',
-      locationname: this.props.location.state.passedlocationname,
-      commonname: this.props.location.state.passedcommonname,
-      latinname: this.props.location.state.passedlatinname,
-      imageUrl: this.props.location.state.passedimageUrl,
-      imageCredit: this.props.location.state.passedimageCredit,
+      user: '',
+      location: this.props.location.state.location,
+      locationname: this.props.location.state.locationname,
+      commonname: this.props.location.state.commonname,
+      latinname: this.props.location.state.latinname,
+      imageUrl: this.props.location.state.imageUrl,
+      imageCredit: this.props.location.state.imageCredit,
       date: '',
       latitude: '',
       longitude: ''
@@ -48,7 +50,7 @@ class AddSightingSavedMushroom extends React.Component {
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username
+      user: this.props.session.getCurrentUser._id
     });
   }
 
@@ -82,8 +84,8 @@ class AddSightingSavedMushroom extends React.Component {
   }
 
   validateForm = () => {
-    const { locationname, commonname, date } = this.state;
-    const isInvalid = !locationname || !commonname || !date;
+    const { location, commonname, date } = this.state;
+    const isInvalid = !location || !commonname || !date;
     return isInvalid;
   }
 
@@ -100,22 +102,22 @@ class AddSightingSavedMushroom extends React.Component {
   // }
 
   render() {
-    const { username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
+    const { user, location, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
 
 
-    console.log('state is:', this.state)
+    // console.log('state is:', this.state)
     // console.log(this.props.location.state)
 
     return (
       <Mutation
         mutation={ADD_SIGHTING}
-        variables={{ username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }}
-        refetchQueries={() => [
-          { query: GET_CURRENT_USER },
-          // { query: GET_ALL_LOCATIONS, variables: { username } },
-          { query: GET_ALL_SIGHTINGS, variables: { username } },
-          { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } }
-        ]}
+        variables={{ user, location, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }}
+        // refetchQueries={() => [
+        //   { query: GET_CURRENT_USER },
+        //   // { query: GET_ALL_LOCATIONS, variables: { username } },
+        //   { query: GET_ALL_SIGHTINGS, variables: { username } },
+        //   { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } }
+        // ]}
         // update={this.updateCache}
       >
         {
@@ -145,9 +147,7 @@ class AddSightingSavedMushroom extends React.Component {
 
                   <div>
                     <h4>Latin Name: {latinname}</h4>
-                  </div>
-
-                  
+                  </div>                  
 
                   <input
                     type="text"

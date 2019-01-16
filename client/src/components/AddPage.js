@@ -4,26 +4,26 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-import Spinner from './Spinner';
+// import Spinner from './Spinner';
 
-import { Query } from 'react-apollo';
-import { GET_ALL_LOCATIONS } from '../queries';
-import Error from './Error';
+// import { Query } from 'react-apollo';
+// import { GET_ALL_LOCATIONS } from '../queries';
+// import Error from './Error';
 import mushrooms4 from '../images/mushrooms4.jpg';
 
 class AddPage extends React.Component {
   state = {
-    username: ''
+    locations: ''
   }
 
   componentDidMount() {
-    this.setState({
-      username: this.props.session.getCurrentUser.username
+    this.setState({      
+      locations: this.props.session.getCurrentUser.locations
     });
   }
 
   render() {
-    const { username } = this.state;
+    const { locations } = this.state;
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
       
@@ -40,35 +40,25 @@ class AddPage extends React.Component {
           </li>
         </ul>
 
-        <Query query={GET_ALL_LOCATIONS} variables={{username}}>
-          {({ data, loading, error }) => {
-            if (loading) return <Spinner />
-            if (error) return <Error error={error} />
-
-            return (
-              <div>                          
+        <div>                          
+          {
+            locations.length ? (
+              <ul>                  
                 {
-
-                  data.getAllLocations.length ? (
-                    <ul>                  
-                      {
-                        data.getAllLocations.map(location => 
-                          <li key={location._id} value={location.locationname}> 
-                          
-                            <Link to={{ pathname: '/addpagetwo', state: { passedlocationname: location.locationname } }}>
-                              {location.locationname} 
-                            </Link>                          
-                          
-                          </li>)
-                      }
-                    </ul>
-                  ) : (<div><p>You have no saved locations</p></div>)
-                  
+                  locations.map(location => 
+                    <li key={location._id} value={location.locationname}> 
+                    
+                      <Link to={{ pathname: '/addpagetwo', state: { location: location._id, locationname: location.locationname } }}>
+                        {location.locationname} 
+                      </Link>                          
+                    
+                    </li>)
                 }
-              </div>
-            )
-          }}
-        </Query>
+              </ul>
+            ) : (<div><p>You have no saved locations</p></div>)            
+          }
+        </div>
+
   
       </div>
     )

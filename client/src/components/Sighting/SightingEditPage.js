@@ -14,7 +14,8 @@ import mushrooms4 from '../../images/mushrooms4.jpg';
 class SightingEditPage extends React.Component {
   state = {
     _id: this.props.match.params._id,
-    username: '',
+    user: '',
+    location: this.props.location.state.location,
     locationname: this.props.location.state.locationname,
     commonname: this.props.location.state.commonname,
     latinname: this.props.location.state.latinname ? this.props.location.state.latinname : '',
@@ -27,7 +28,7 @@ class SightingEditPage extends React.Component {
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username
+      user: this.props.session.getCurrentUser._id      
     });
   }
 
@@ -56,9 +57,10 @@ class SightingEditPage extends React.Component {
   };
 
   render() {
-    console.log('state is:', this.state);
-    const { _id, username, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
+    // console.log('state is:', this.state);
+    const { _id, location, user, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
     const { handleChange, handleSubmit } = this;
+    const locations = this.props.session.getCurrentUser.locations;
     return (
       <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px', color: 'white' }}
       >
@@ -66,7 +68,7 @@ class SightingEditPage extends React.Component {
           mutation={UPDATE_SIGHTING}
           variables={{
             _id,
-            locationname,
+            location,
             commonname,
             latinname,
             imageUrl,
@@ -84,34 +86,25 @@ class SightingEditPage extends React.Component {
               >
                 <h4>Edit Sighting</h4>
 
-                <Query query={GET_ALL_LOCATIONS} variables={{ username }}>
-                  {({ data, loading, error }) => {
-                    if (loading) return <Spinner />
-                    if (error) return <Error error={error} />
-                    // console.log(data)
+
+                <div style={{ color: 'black' }}>
+                  <select
+                    name="location"
+                    onChange={handleChange}
+                  >
+                    <option value='-1'>{locationname}</option>
+                    {
+                      locations.map(location => (
+                        <option key={location._id} value={location.locationname}>
+                          {location.locationname}
+                        </option>
+                      ))
+                    }
+                  </select>
+
+                </div>
 
 
-                    return (
-                      <div style={{ color: 'black' }}>
-                        <select
-                          name="locationname"
-                          onChange={handleChange}
-                        >
-                          <option value='-1'>{locationname}</option>
-                          {
-                            data.getAllLocations.map(location => (
-                              <option key={location._id} value={location.locationname}>
-                                {location.locationname}
-                              </option>
-                            ))
-                          }
-                        </select>
-
-                      </div>
-
-                    )
-                  }}
-                </Query>
                 <div>
                   <input
                     type="text"
@@ -191,10 +184,10 @@ class SightingEditPage extends React.Component {
         </Mutation>
 
         <Mutation
-          mutation={DELETE_SIGHTING} variables={{ _id }}
-          refetchQueries={() => [
-            { query: GET_ALL_SIGHTINGS, variables: { username } }
-          ]}
+          mutation={DELETE_SIGHTING} variables={{ _id, user, location }}
+          // refetchQueries={() => [
+          //   { query: GET_ALL_SIGHTINGS, variables: { username } }
+          // ]}
         >
           {
             (deleteSighting, attrs = {}) => {

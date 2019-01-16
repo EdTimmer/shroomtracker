@@ -5,27 +5,40 @@ import { Link } from 'react-router-dom';
 // import { NavLink } from 'react-router-dom';
 import mushrooms from './mushrooms';
 
-import Spinner from './Spinner';
+// import Spinner from './Spinner';
 
-import { Query } from 'react-apollo';
-import { GET_ALL_SIGHTINGS } from '../queries';
-import Error from './Error';
+// import { Query } from 'react-apollo';
+// import { GET_ALL_SIGHTINGS } from '../queries';
+// import Error from './Error';
 import mushrooms4 from '../images/mushrooms4.jpg';
 
 class AddPageTwo extends React.Component {
   state = {
-    username: '',
-    locationname: this.props.location.state.passedlocationname
+    sightings: '',
+    locationname: this.props.location.state.locationname,
+    location: this.props.location.state.location
   }
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username
+      sightings: this.props.session.getCurrentUser.sightings
     });
   }
 
   render() {
-    const { username, locationname } = this.state;
+    const { locationname, location, sightings } = this.state;
+
+    const combinedMushroomArrays = sightings.concat(mushrooms);
+    const filteredSightings = combinedMushroomArrays.filter(sighting => {
+      if (sightings[sighting.commonname]) {
+        return false;
+      }
+      sightings[sighting.commonname] = true;
+      return true;
+    });
+    filteredSightings.sort((a, b) => (a.commonname > b.commonname) ? 1 : ((b.commonname > a.commonname) ? -1 : 0));
+    // console.log(mushrooms)
+    // console.log(filteredSightings)
 
     return (
       <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, backgroundRepeat: "repeat" }}>
@@ -36,7 +49,7 @@ class AddPageTwo extends React.Component {
         <div>
           <div>
             <h3>
-              <Link to={{ pathname: '/sighting/add', state: { passedlocationname: locationname } }}>
+              <Link to={{ pathname: '/sighting/add', state: { location: location, locationname: locationname } }}>
                 Add New Mushroom
               </Link>
             </h3>
@@ -46,73 +59,35 @@ class AddPageTwo extends React.Component {
             <h3>Choose A Mushroom:</h3>
           </div>
         </div>
-
-
-        <Query query={GET_ALL_SIGHTINGS} variables={{ username }}>
-          {({ data, loading, error }) => {
-            if (loading) return <Spinner />
-            if (error) return <Error error={error} />
-            // console.log('username is', username)
-            // const { on } = this.state;
-            const combinedMushroomArrays = data.getAllSightings.concat(mushrooms);
-            const filteredSightings = combinedMushroomArrays.filter(sighting => {
-              if (data.getAllSightings[sighting.commonname]) {
-                return false;
-              }
-              data.getAllSightings[sighting.commonname] = true;
-              return true;
-            });
-            filteredSightings.sort((a, b) => (a.commonname > b.commonname) ? 1 : ((b.commonname > a.commonname) ? -1 : 0));
-            console.log(mushrooms)
-            console.log(filteredSightings)
-
-            
-            return (
+          {                
+            filteredSightings ? (
               <div>
-                {
-                  filteredSightings ? (
-                    <div>
-                    {                
-                      <ul className="all-mushrooms">
-                        {
-                          filteredSightings.map(sighting =>
-                            <li key={sighting._id} className="mushroom">
-    
-                              <Link to={{
-                                pathname: '/sightingsavedmushroom/add', state: {
-                                  passedcommonname: sighting.commonname, passedlatinname: sighting.latinname,
-                                  passedimageUrl: sighting.imageUrl, passedimageCredit: sighting.imageCredit, passedlocationname: locationname
-                                }
-                              }}>
-                                <div>
-                                  <img src={sighting.imageUrl} style={{ height: '200px' }} alt="mushroom" />
-                                </div>
-                                {sighting.commonname}
-                              </Link>
-    
-                            </li>
-                          )
-                        }
-                      </ul>
-                    }
-    
-                    
-                  </div>
+              {                
+                <ul className="all-mushrooms">
+                  {
+                    filteredSightings.map(sighting =>
+                      <li key={sighting._id} className="mushroom">
 
-                  ) : (null)
-                }
-               
-              </div>
-              
-              
-              
-              
-            )
-          }}
+                        <Link to={{
+                          pathname: '/sightingsavedmushroom/add', state: {
+                            commonname: sighting.commonname, latinname: sighting.latinname,
+                            imageUrl: sighting.imageUrl, imageCredit: sighting.imageCredit, location: location
+                          }
+                        }}>
+                          <div>
+                            <img src={sighting.imageUrl} style={{ height: '200px' }} alt="mushroom" />
+                          </div>
+                          {sighting.commonname}
+                        </Link>
 
-        </Query>
-
-
+                      </li>
+                    )
+                  }
+                </ul>
+              }              
+            </div>
+            ) : (null)
+          }
       </div>
     )
   }

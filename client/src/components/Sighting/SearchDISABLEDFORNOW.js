@@ -4,7 +4,7 @@ import withAuth from '../withAuth';
 
 import { ApolloConsumer } from 'react-apollo';
 import { SEARCH_SIGHTINGS } from '../../queries';
-import SearchItem from './SearchItem';
+// import SearchItem from './SearchItem';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 class Search extends React.Component {
@@ -51,7 +51,7 @@ class Search extends React.Component {
             />
             <ul>
               {searchResults.map(sighting =>
-                <SearchItem key={sighting._id} {...sighting} />
+                {/*<SearchItem key={sighting._id} {...sighting} />*/}
               )}
             </ul>
           </div>

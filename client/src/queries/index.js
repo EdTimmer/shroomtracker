@@ -64,6 +64,10 @@ export const GET_SIGHTING = gql`
       date
       latitude
       longitude
+      location {
+        id
+        locationname
+      }
     }
   }  
 `;

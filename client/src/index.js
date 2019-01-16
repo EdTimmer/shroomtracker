@@ -28,7 +28,7 @@ import AddSighting from './components/Sighting/AddSighting';
 import AddSightingSavedMushroom from './components/Sighting/AddSightingSavedMushroom';
 import SightingPage from './components/Sighting/SightingPage';
 import SightingEditPage from './components/Sighting/SightingEditPage';
-import Search from './components/Sighting/Search';
+// import Search from './components/Sighting/Search';
 import Profile from './components/Profile/Profile';
 
 // Required for 2.0
@@ -84,7 +84,7 @@ const Root = ({ refetch, session }) => (
         <Route path="/sightingsavedmushroom/add" render={() => <AddSightingSavedMushroom session={session} />} />
         <Route path="/locations" render={() => <AllLocationsPage session={session} />} />
         <Route path="/sightings" render={() => <AllSightingsPage session={session} />} />
-        <Route path="/search" render={() => <Search session={session} />} />
+        {/*<Route path="/search" render={() => <Search session={session} />} />*/}
         <Route path="/signin" render={() => <Signin refetch={refetch} />} />
         <Route path="/signup" render={() => <Signup refetch={refetch} />} />
         <Route path="/profile" render={() => <Profile session={session} />} />
