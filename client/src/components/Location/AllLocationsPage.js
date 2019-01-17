@@ -3,32 +3,32 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
-import { Query } from 'react-apollo';
-import { GET_ALL_LOCATIONS } from '../../queries';
+// import { Query } from 'react-apollo';
+// import { GET_ALL_LOCATIONS } from '../../queries';
 
 import withAuth from '../withAuth';
-import LocationItem from './LocationItem';
-import Spinner from '../Spinner';
-import Error from '../Error';
+// import LocationItem from './LocationItem';
+// import Spinner from '../Spinner';
+// import Error from '../Error';
 // import mushrooms2 from '../../images/mushrooms2.jpg';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 class AllLocationsPage extends Component {
 
   state = {
-    username: '',
+    // username: '',
     locations: []
   }
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username,
+      // username: this.props.session.getCurrentUser.username,
       locations: this.props.session.getCurrentUser.locations
     });
   }
 
   render() {
-    const { username, locations } = this.state;
+    const { locations } = this.state;
     console.log('current user:', this.props.session.getCurrentUser.locations)
     // const {currentUserLocations} = this.props.session.getCurrentUser ? this.props.session.getCurrentUser.locatoins : 'test';
     if (!locations) {

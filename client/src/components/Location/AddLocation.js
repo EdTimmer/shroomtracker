@@ -11,10 +11,9 @@ import Error from '../Error';
 
 
 const initialState = {
-  username: '',
-  locationname: '',
-  address: '',
   user: '',
+  locationname: '',
+  address: ''
 }
 
 class AddLocation extends React.Component {
@@ -26,7 +25,7 @@ class AddLocation extends React.Component {
 
   componentDidMount() {
     this.setState({
-      username: this.props.session.getCurrentUser.username,
+      // username: this.props.session.getCurrentUser.username,
       user: this.props.session.getCurrentUser._id
     });
   }
@@ -68,16 +67,16 @@ class AddLocation extends React.Component {
   // }
 
   render() {
-    const { locationname, address, username, user } = this.state;
-    console.log(this.props.session.getCurrentUser);
+    const { locationname, address, user } = this.state;
+    // console.log(this.props.session.getCurrentUser);
     return (
       <Mutation
         mutation={ADD_LOCATION}
-        variables={{ locationname, address, username, user }}
-        refetchQueries={() => [
-          { query: GET_CURRENT_USER },
-          { query: GET_ALL_LOCATIONS, variables: { username } }          
-        ]}
+        variables={{ locationname, address, user }}
+        // refetchQueries={() => [
+        //   { query: GET_CURRENT_USER },
+        //   { query: GET_ALL_LOCATIONS, variables: { username } }          
+        // ]}
         // update={this.updateCache}
       >
         {

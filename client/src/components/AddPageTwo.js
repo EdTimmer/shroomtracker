@@ -27,6 +27,13 @@ class AddPageTwo extends React.Component {
 
   render() {
     const { locationname, location, sightings } = this.state;
+    
+
+    if (!sightings) {
+      return null;
+    }
+
+    console.log('sightings in AddPageTwo:', sightings)
 
     const combinedMushroomArrays = sightings.concat(mushrooms);
     const filteredSightings = combinedMushroomArrays.filter(sighting => {
@@ -39,6 +46,8 @@ class AddPageTwo extends React.Component {
     filteredSightings.sort((a, b) => (a.commonname > b.commonname) ? 1 : ((b.commonname > a.commonname) ? -1 : 0));
     // console.log(mushrooms)
     // console.log(filteredSightings)
+
+   
 
     return (
       <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, backgroundRepeat: "repeat" }}>

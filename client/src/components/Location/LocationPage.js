@@ -26,24 +26,16 @@ const LocationPage = ({ match }) => {
                 <h5>{data.getLocation.address}</h5>
               </div>
 
-              <Query query={GET_LOCATION_SIGHTINGS} variables={{locationname: data.getLocation.locationname, username: data.getLocation.username}}>
-                {({ data, loading, error }) => {
-                  if (loading) return <Spinner />
-                  if (error) return <div>Error</div>
-                  // console.log(data)
-                  // const { on } = this.state;
-                  return (
-                    <div className="cards"
-                    >
-                      {
-                        data.getLocationSightings.map(sighting => (
-                          <SightingItemLocation key={sighting._id} {...sighting} />
-                        ))
-                      }
-                    </div>
-                  )
-                }}
-              </Query>
+
+              <div className="cards"
+              >
+                {
+                  data.getLocation.sightings.map(sighting => (
+                    <SightingItemLocation key={sighting._id} {...sighting} />
+                  ))
+                }
+              </div>
+
 
             </div>            
           )

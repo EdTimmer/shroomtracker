@@ -47,6 +47,16 @@ export const GET_LOCATION = gql`
       _id
       locationname
       address
+      sightings {
+        _id
+        commonname
+        latinname
+        imageUrl
+        imageCredit
+        date
+        latitude
+        longitude
+      }
     }
   }  
 `;

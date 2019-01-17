@@ -99,10 +99,9 @@ exports.resolvers = {
     addLocation: async (root, { locationname, address, user }, { Location, User }) => {
       // const userId = _id;
       const newLocation = await new Location({
-        user,
         locationname,
         address
-      }).save();
+      }, { $addToSet: { user } }).save();
       // .then(() => User.findOneAndUpdate({ username }, { $addToSet: { locations: newLocation._id }}));
       const userWithNewLocation = await User.findOneAndUpdate({ user }, { $addToSet: { locations: newLocation._id }}).populate('locations');
       // User.populate('locations');
