@@ -66,14 +66,15 @@ exports.typeDefs = `
     addLocation(
       user: ID!
       locationname: String!
-      address: String!      
+      address: String!    
+      username: String!  
     ): Location
 
     deleteLocation(_id: ID, user: ID!): Location
 
     addSighting(
-      user: User!
-      location: Location!    
+      user: ID!
+      location: ID!    
       commonname: String!
       latinname: String
       imageUrl: String

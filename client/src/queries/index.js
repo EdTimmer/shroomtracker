@@ -188,11 +188,13 @@ export const ADD_LOCATION = gql`
     $user: ID!,
     $locationname: String!,
     $address: String!    
+    $username: String!
   ) {
     addLocation(
       user: $user,
-      locationname: $locationname,
-      address: $address      
+      locationname: $locationname
+      address: $address  
+      username: $username    
     ) {
       _id
       locationname

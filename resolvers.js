@@ -96,31 +96,42 @@ exports.resolvers = {
     //   return recipe;
     // },
 
-    addLocation: async (root, { locationname, address, user }, { Location, User }) => {
-      // const userId = _id;
+    addLocation: async (root, { locationname, address, user, username }, { Location, User }, info) => {
+      
       const newLocation = await new Location({
         locationname,
-        address
-      }, { $addToSet: { user } }).save();
-      // .then(() => User.findOneAndUpdate({ username }, { $addToSet: { locations: newLocation._id }}));
-      const userWithNewLocation = await User.findOneAndUpdate({ user }, { $addToSet: { locations: newLocation._id }}).populate('locations');
-      // User.populate('locations');
+        address,
+        user
+      }).save()
+      // .then((res) => console.log('saved location is:', res))
+        // .then((res) => User.findOneAndUpdate({ username }, { $addToSet: { locations: res._id }}))
+        // .then((res) => console.log('update user is:', res))
+        // .then(res => console.log('res is:', res))
+      // console.log('user is:', user)
+      // console.log('newLocation._id is:', newLocation._id)
+      const userWithNewLocation = await User.findOneAndUpdate({ username }, { $addToSet: { locations: newLocation._id }}).populate('locatoins');
+      // const userWithNewLocation = 'test'
+      // console.log('userWithNewLocation is:', userWithNewLocation)
+      
       return newLocation;
     },
 
-    // addLocation: async (root, { locationname, address, username, user }, context, info) => {
+    // addLocation: async (root, { locationname, address, user }, { Location, User }, info) => {
     //   const newLocation = await new Location({
     //     locationname,
     //     address,
-    //     username,
     //     user
     //   });
 
-    //   return new Promise((resolve, reject) => {
+    //   const promise = new Promise((resolve, reject) => {
     //     newLocation.save((err, res) => {
     //       err ? reject(err) : resolve(res);
     //     });
     //   });
+
+    //   const userWithNewLocation = await User.findOneAndUpdate({ user }, { $addToSet: { locations: newLocation._id }}).populate('locations');
+
+    //   return promise;
     // },
 
 
