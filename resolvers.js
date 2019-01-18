@@ -1,5 +1,11 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+
+const { ObjectId } = mongoose.Types;
+ObjectId.prototype.valueOf = function () {
+  return this.toString();
+};
 
 const createToken = (user, secret, expiresIn) => {
   const { username, email } = user;
@@ -96,7 +102,7 @@ exports.resolvers = {
     //   return recipe;
     // },
 
-    addLocation: async (root, { locationname, address, user, email }, { Location, User }, info) => {
+    addLocation: async (root, { locationname, address, user }, { Location, User }, info) => {
       
       const newLocation = await new Location({
         locationname,
@@ -109,7 +115,7 @@ exports.resolvers = {
         // .then(res => console.log('res is:', res))
       // console.log('user is:', user)
       // console.log('newLocation._id is:', newLocation._id)
-      const userWithNewLocation = await User.findOneAndUpdate({ email }, { $addToSet: { locations: newLocation._id }}).populate('locatoins');
+      const userWithNewLocation = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $addToSet: { locations: newLocation._id }}).populate('locatoins');
       // const userWithNewLocation = 'test'
       // console.log('userWithNewLocation is:', userWithNewLocation)
       

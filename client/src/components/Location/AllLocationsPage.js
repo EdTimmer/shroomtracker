@@ -43,7 +43,7 @@ class AllLocationsPage extends Component {
           {
             locations.map(location => {
               return (                
-                <Link to={`/locations/${location._id}`}><h4 style={{color: 'white'}}>{location.locationname}</h4></Link>
+                <Link to={`/locations/${location._id}`} key={location._id}><h4 style={{color: 'white'}}>{location.locationname}</h4></Link>
               )
             })
           }

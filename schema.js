@@ -67,7 +67,6 @@ exports.typeDefs = `
       user: ID!
       locationname: String!
       address: String!    
-      email: String!  
     ): Location
 
     deleteLocation(_id: ID, user: ID!): Location
