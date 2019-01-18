@@ -13,6 +13,7 @@ import Error from '../Error';
 const initialState = {
   user: '',
   username: '',
+  email: '',
   locationname: '',
   address: ''
 }
@@ -27,6 +28,7 @@ class AddLocation extends React.Component {
   componentDidMount() {
     this.setState({
       username: this.props.session.getCurrentUser.username,
+      email: this.props.session.getCurrentUser.email,
       user: this.props.session.getCurrentUser._id
     });
   }
@@ -68,13 +70,13 @@ class AddLocation extends React.Component {
   // }
 
   render() {
-    const { locationname, address, user, username } = this.state;
+    const { locationname, address, user, username, email } = this.state;
     // console.log(this.props.session.getCurrentUser);
     console.log('this.state.user is:', this.state.user);
     return (
       <Mutation
         mutation={ADD_LOCATION}
-        variables={{ locationname, address, user, username }}
+        variables={{ locationname, address, user, email }}
         // refetchQueries={() => [
         //   { query: GET_CURRENT_USER },
         //   { query: GET_ALL_LOCATIONS, variables: { username } }          
