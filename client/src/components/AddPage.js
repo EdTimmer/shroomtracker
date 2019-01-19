@@ -4,26 +4,29 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-// import Spinner from './Spinner';
+import { Query } from 'react-apollo';
+import { GET_MY_LOCATIONS } from '../queries';
+import Spinner from './Spinner';
+import Error from './Error';
+import MyLocationsList from './Location/MyLocationsList'
 
-// import { Query } from 'react-apollo';
-// import { GET_ALL_LOCATIONS } from '../queries';
-// import Error from './Error';
 import mushrooms4 from '../images/mushrooms4.jpg';
 
 class AddPage extends React.Component {
   state = {
-    locations: ''
+    locations: '',
+    user: '',
   }
 
   componentDidMount() {
     this.setState({      
-      locations: this.props.session.getCurrentUser.locations
+      locations: this.props.session.getCurrentUser.locations,
+      user: this.props.session.getCurrentUser._id
     });
   }
 
   render() {
-    const { locations } = this.state;
+    const { locations, user } = this.state;
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
       
@@ -40,7 +43,9 @@ class AddPage extends React.Component {
           </li>
         </ul>
 
-        <div>                          
+        <MyLocationsList user={user} />
+
+        {/*<div>                          
           {
             locations.length ? (
               <ul>                  
@@ -57,7 +62,7 @@ class AddPage extends React.Component {
               </ul>
             ) : (<div><p>You have no saved locations</p></div>)            
           }
-        </div>
+        </div>*/}
 
   
       </div>

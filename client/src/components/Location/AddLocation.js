@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo';
 import withAuth from '../withAuth';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
-import { ADD_LOCATION, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
+import { ADD_LOCATION, GET_MY_LOCATIONS, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
 
 import Spinner from '../Spinner';
 import Error from '../Error';
@@ -54,14 +54,14 @@ class AddLocation extends React.Component {
   }
 
 
-  // updateCache = (cache, { data: { addLocation, username } }) => {
-  //   const { getAllLocations } = cache.readQuery({ query: GET_ALL_LOCATIONS, variables: {username} });
+  // updateCache = (cache, { data: { addLocation, user } }) => {
+  //   const { getMyLocations } = cache.readQuery({ query: GET_MY_LOCATIONS, variables: {user} });
 
   //   cache.writeQuery({
-  //     query: GET_ALL_LOCATIONS,
-  //     variables: {username},
+  //     query: GET_MY_LOCATIONS,
+  //     variables: {user},
   //     data: {
-  //       getAllLocations: [addLocation, ...getAllLocations]
+  //       getMyLocations: [addLocation, ...getMyLocations]
   //     }
   //   })
   // }
@@ -74,10 +74,10 @@ class AddLocation extends React.Component {
       <Mutation
         mutation={ADD_LOCATION}
         variables={{ locationname, address, user }}
-        // refetchQueries={() => [
-        //   { query: GET_CURRENT_USER },
-        //   // { query: GET_ALL_LOCATIONS, variables: { username } }          
-        // ]}
+        refetchQueries={() => [
+          { query: GET_MY_LOCATIONS, variables: { user } },
+          // { query: GET_ALL_LOCATIONS, variables: { username } }          
+        ]}
         // update={this.updateCache}
       >
         {

@@ -40,6 +40,15 @@ export const GET_CURRENT_USER = gql`
 //     }
 //   }
 // `;
+export const GET_MY_LOCATIONS = gql`
+  query($user: ID!) {
+    getMyLocations(user: $user) {
+      _id
+      locationname
+      address
+    }
+  }
+`;
 
 export const GET_LOCATION = gql`
   query($_id: ID!) {

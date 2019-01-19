@@ -3,43 +3,73 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import '../App.css';
 
-// import { Query } from 'react-apollo';
-// import { GET_ALL_LOCATIONS } from '../../queries';
+import { Query } from 'react-apollo';
+import { GET_MY_LOCATIONS } from '../../queries';
+// import MyLocationsList from './MyLocationsList';
 
 import withAuth from '../withAuth';
 // import LocationItem from './LocationItem';
-// import Spinner from '../Spinner';
-// import Error from '../Error';
+import Spinner from '../Spinner';
+import Error from '../Error';
 // import mushrooms2 from '../../images/mushrooms2.jpg';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 class AllLocationsPage extends Component {
 
   state = {
-    // username: '',
+    user: '',
     locations: []
   }
 
   componentDidMount() {
     this.setState({
-      // username: this.props.session.getCurrentUser.username,
+      user: this.props.session.getCurrentUser._id,
       locations: this.props.session.getCurrentUser.locations
     });
   }
 
   render() {
-    const { locations } = this.state;
-    console.log('current user:', this.props.session.getCurrentUser.locations)
-    // const {currentUserLocations} = this.props.session.getCurrentUser ? this.props.session.getCurrentUser.locatoins : 'test';
-    if (!locations) {
-      return null;
-    }
+    const { locations, user } = this.state;
+
+    // if (!locations) {
+    //   return null;
+    // }
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
         <h1 className="main-title">
           <strong>My Locations</strong>
         </h1>
-        <div>
+
+        <Query query={GET_MY_LOCATIONS} variables={{ user }}>
+          {
+            ({ data, loading, error }) => {
+              if (loading) return <Spinner />
+              if (error) return <Error error={error} />
+              // console.log(data.getLocation.username);
+              return (            
+                  <div>
+                    {
+                      data.getMyLocations.length ? (
+                        <ul>                  
+                          {
+                            data.getMyLocations.map(location => 
+                              <li key={location._id} value={location.locationname}> 
+                              
+                                <Link to={`/locations/${location._id}`}>
+                                  <h4>{location.locationname}</h4> 
+                                </Link>                          
+                              
+                              </li>)
+                          }
+                        </ul>
+                      ) : (<div><p>You have no saved locations</p></div>)            
+                    }
+                  </div>                       
+              )
+            }
+          }
+        </Query>
+        {/*<div>
           {
             locations.map(location => {
               return (                
@@ -47,7 +77,7 @@ class AllLocationsPage extends Component {
               )
             })
           }
-        </div>
+        </div>*/}
 
       </div>
 

@@ -55,6 +55,8 @@ exports.typeDefs = `
     
     getMushroom(_id: ID!): Mushroom    
 
+    getMyLocations(user: ID!): [Location]
+
   }
 
   type Token {

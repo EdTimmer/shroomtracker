@@ -56,6 +56,10 @@ exports.resolvers = {
       return sighting;
     },
 
+    getMyLocations: async (root, { user }, { Location }) => {
+      const myLocations = await Location.find({ user }).sort({createdDate: 'desc'});
+      return myLocations;
+    },
     // getAllSightings: async (root, { username }, { Sighting }) => {
     //   const allSightings = await Sighting.find({ username }).sort({createdDate: 'desc'});
     //   return allSightings;
