@@ -1,23 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-// import ReactHtmlParser from 'react-html-parser';
 import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
 import { Mutation } from 'react-apollo';
-import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_LOCATION_SIGHTINGS, GET_CURRENT_USER } from '../../queries';
+import { ADD_SIGHTING } from '../../queries';
 import Error from '../Error';
-
-// const initialState = {
-//   username: '',
-//   locationname: this.props.location.state.passedlocationname,
-//   commonname: this.props.location.state.passedcommonname,
-//   latinname: this.props.location.state.passedlatinname,
-//   imageUrl: this.props.location.state.passedimageUrl,
-//   date: '',
-//   latitude: '',
-//   longitude: ''
-// }
 
 class AddSightingSavedMushroom extends React.Component {
   state = { 

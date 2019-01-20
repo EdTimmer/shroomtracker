@@ -11,6 +11,8 @@ import mushrooms from './mushrooms';
 // import { GET_ALL_SIGHTINGS } from '../queries';
 // import Error from './Error';
 import mushrooms4 from '../images/mushrooms4.jpg';
+// import sortedSightings from './Sighting/SortedSightings';
+import SortedSightings from './Sighting/SortedSightings';
 
 class AddPageTwo extends React.Component {
   state = {
@@ -33,20 +35,24 @@ class AddPageTwo extends React.Component {
       return null;
     }
 
-    console.log('state in AddPageTwo is:', this.state)
+    
+    // console.log('state in AddPageTwo is:', this.state)
 
-    const combinedMushroomArrays = sightings.concat(mushrooms);
-    const filteredSightings = combinedMushroomArrays.filter(sighting => {
-      if (sightings[sighting.commonname]) {
-        return false;
-      }
-      sightings[sighting.commonname] = true;
-      return true;
-    });
-    filteredSightings.sort((a, b) => (a.commonname > b.commonname) ? 1 : ((b.commonname > a.commonname) ? -1 : 0));
+    // const combinedMushroomArrays = sightings.concat(mushrooms);
+    // const filteredSightings = combinedMushroomArrays.filter(sighting => {
+    //   if (sightings[sighting.commonname]) {
+    //     return false;
+    //   }
+    //   sightings[sighting.commonname] = true;
+    //   return true;
+    // });
+    // const sortedSightings = filteredSightings.sort((a, b) => (a.commonname > b.commonname) ? 1 : ((b.commonname > a.commonname) ? -1 : 0));
     // console.log(mushrooms)
     // console.log(filteredSightings)
 
+    // if (!sortedSightings) {
+    //   return null;
+    // }
    
 
     return (
@@ -68,13 +74,12 @@ class AddPageTwo extends React.Component {
             <h3>Choose A Mushroom:</h3>
           </div>
         </div>
-          {                
-            filteredSightings ? (
-              <div>
+              <SortedSightings sightings={sightings} location={location} locationname={locationname}/>
+              {/*<div>
               {                
-                <ul className="all-mushrooms">
+                <ul className="all-mushrooms">                
                   {
-                    filteredSightings.map(sighting =>
+                    sortedSightings.map(sighting =>
                       <li key={sighting._id} className="mushroom">
 
                         <Link to={{
@@ -94,9 +99,8 @@ class AddPageTwo extends React.Component {
                   }
                 </ul>
               }              
-            </div>
-            ) : (null)
-          }
+            </div>  */}        
+          
       </div>
     )
   }

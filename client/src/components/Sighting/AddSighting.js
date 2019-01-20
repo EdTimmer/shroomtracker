@@ -6,19 +6,7 @@ import Error from '../Error';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 import { Mutation } from 'react-apollo';
-import { ADD_SIGHTING, GET_ALL_SIGHTINGS, GET_LOCATION_SIGHTINGS, GET_CURRENT_USER } from '../../queries';
-
-
-// const initialState = {
-//   username: '',
-//   locationname: this.props.location.state.passedlocationname,
-//   commonname: '',
-//   latinname: '',
-//   imageUrl: '',
-//   date: '',
-//   latitude: '',
-//   longitude: ''
-// }
+import { ADD_SIGHTING } from '../../queries';
 
 class AddSighting extends React.Component {
   state = {
