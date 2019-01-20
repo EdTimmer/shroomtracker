@@ -14,7 +14,7 @@ export default ({ _id, location, commonname, date, imageUrl }) => (
   >
 
     <div className="card-text">
-      <Link to={`/sightings/${_id}`}><h4>{commonname} at [NEED LOCATION NAME HERE] on {date}</h4></Link>
+      <Link to={`/sightings/${_id}`}><h4>{commonname} at {location.locationname} on {date}</h4></Link>
     </div> 
     
   </div>

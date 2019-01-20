@@ -57,6 +57,8 @@ exports.typeDefs = `
 
     getMyLocations(user: ID!): [Location]
 
+    getMySightings(user: ID!): [Sighting]
+
   }
 
   type Token {

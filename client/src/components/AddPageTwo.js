@@ -33,7 +33,7 @@ class AddPageTwo extends React.Component {
       return null;
     }
 
-    console.log('sightings in AddPageTwo:', sightings)
+    console.log('state in AddPageTwo is:', this.state)
 
     const combinedMushroomArrays = sightings.concat(mushrooms);
     const filteredSightings = combinedMushroomArrays.filter(sighting => {

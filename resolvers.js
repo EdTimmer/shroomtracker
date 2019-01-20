@@ -39,19 +39,29 @@ exports.resolvers = {
     // },
 
     getLocation: async (root, { _id }, { Location }) => {
+      // console.log('getLocation mutation got called')
       const location = await Location.findOne({ _id })
         .populate({
           path: 'sightings',
           model: 'Sighting'
-        });
+        })
+        .populate({
+          path: 'user',
+          model: 'User'
+        })
       return location;
     },
 
     getSighting: async (root, { _id }, { Sighting }) => {
+      console.log('getSighting mutation got called')
       const sighting = await Sighting.findOne({ _id })
         .populate({
           path: 'location',
           model: 'Location'
+        })
+        .populate({
+          path: 'user',
+          model: 'User'
         });
       return sighting;
     },
@@ -59,6 +69,19 @@ exports.resolvers = {
     getMyLocations: async (root, { user }, { Location }) => {
       const myLocations = await Location.find({ user }).sort({createdDate: 'desc'});
       return myLocations;
+    },
+
+    getMySightings: async (root, { user }, { Sighting }) => {
+      const mySightings = await Sighting.find({ user }).sort({createdDate: 'desc'})
+        .populate({
+          path: 'location',
+          model: 'Location'
+        })
+        .populate({
+          path: 'user',
+          model: 'User'
+        })
+      return mySightings;
     },
     // getAllSightings: async (root, { username }, { Sighting }) => {
     //   const allSightings = await Sighting.find({ username }).sort({createdDate: 'desc'});
@@ -113,37 +136,11 @@ exports.resolvers = {
         address,
         user
       }).save()
-      // .then((res) => console.log('saved location is:', res))
-        // .then((res) => User.findOneAndUpdate({ username }, { $addToSet: { locations: res._id }}))
-        // .then((res) => console.log('update user is:', res))
-        // .then(res => console.log('res is:', res))
-      // console.log('user is:', user)
-      // console.log('newLocation._id is:', newLocation._id)
+
       const userWithNewLocation = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $addToSet: { locations: newLocation._id }}).populate('locatoins');
-      // const userWithNewLocation = 'test'
-      // console.log('userWithNewLocation is:', userWithNewLocation)
-      
+
       return newLocation;
     },
-
-    // addLocation: async (root, { locationname, address, user }, { Location, User }, info) => {
-    //   const newLocation = await new Location({
-    //     locationname,
-    //     address,
-    //     user
-    //   });
-
-    //   const promise = new Promise((resolve, reject) => {
-    //     newLocation.save((err, res) => {
-    //       err ? reject(err) : resolve(res);
-    //     });
-    //   });
-
-    //   const userWithNewLocation = await User.findOneAndUpdate({ user }, { $addToSet: { locations: newLocation._id }}).populate('locations');
-
-    //   return promise;
-    // },
-
 
     addSighting: async (root, { user, location, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting, User, Location }) => {
       const newSighting = await new Sighting({
@@ -158,9 +155,9 @@ exports.resolvers = {
         longitude
       }).save();
 
-      const userWithNewSighting = await User.findOneAndUpdate({ user }, { $addToSet: { sightings: newSighting._id }}).populate('sightings');
+      const userWithNewSighting = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $addToSet: { sightings: newSighting._id }}).populate('sightings');
 
-      const locationWithNewSighting = await Location.findOneAndUpdate({ location }, { $addToSet: { sightings: newSighting._id }}).populate('sightings');
+      const locationWithNewSighting = await Location.findOneAndUpdate({ _id: ObjectId(location) }, { $addToSet: { sightings: newSighting._id }}).populate('sightings');
 
       return newSighting;
     },

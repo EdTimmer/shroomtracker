@@ -17,7 +17,7 @@ const LocationPage = ({ match }) => {
         ({ data, loading, error }) => {
           if (loading) return <Spinner />
           if (error) return <Error error={error} />
-          // console.log(data.getLocation.username);
+          console.log('data.getLocation is:', data.getLocation);
           return (
             
             <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>

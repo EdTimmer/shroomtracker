@@ -66,6 +66,9 @@ export const GET_LOCATION = gql`
         latitude
         longitude
       }
+      user {
+        _id
+      }
     }
   }  
 `;
@@ -84,11 +87,36 @@ export const GET_SIGHTING = gql`
       latitude
       longitude
       location {
-        id
+        _id
         locationname
+      }
+      user {
+        _id
       }
     }
   }  
+`;
+
+export const GET_MY_SIGHTINGS = gql`
+  query($user: ID!) {
+    getMySightings(user: $user) {
+      _id
+      commonname
+      latinname
+      imageUrl
+      imageCredit
+      date
+      latitude
+      longitude
+      location {
+        _id
+        locationname
+      }
+      user {
+        _id
+      }
+    }
+  }
 `;
 
 // export const GET_ALL_SIGHTINGS = gql`

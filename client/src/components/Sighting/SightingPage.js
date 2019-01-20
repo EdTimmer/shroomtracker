@@ -10,19 +10,18 @@ import Error from '../Error';
 // import { get } from 'https';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
-
 const SightingPage = ({ match }) => {
   const { _id } = match.params;
-  
+  // console.log('_id in SightingPage:', _id)
   return (
     <Query query={GET_SIGHTING} variables={{ _id }}>
       {
         ({ data, loading, error }) => {
-
+           
           if (loading) return <Spinner />
           if (error) return <Error error={error} />
-          // console.log(data.getSighting);          
-
+                   
+          console.log('data.getSighting is:', data.getSighting)
           return (
             <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px', color: 'brown'}}>
               <div className="container">
@@ -47,7 +46,7 @@ const SightingPage = ({ match }) => {
                     <strong><i>{data.getSighting.latinname}</i></strong>
                   </h5>
                   <h5>
-                    <i>Location: </i> [NEED LOCATION NAME]
+                    <i>Location: </i> {data.getSighting.location.locationname}
                   </h5>
                   <h5>
                     <i>Found Date: </i> {data.getSighting.date}
