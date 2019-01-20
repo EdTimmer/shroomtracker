@@ -10,6 +10,7 @@ exports.typeDefs = `
     joinDate: String
     locations: [Location!]!
     sightings: [Sighting!]!
+    mushrooms: [Mushroom!]!
   }
 
   type Location {
@@ -18,27 +19,28 @@ exports.typeDefs = `
     address: String!
     user: User!
     sightings: [Sighting!]!
+    mushrooms: [Mushroom!]!
   }
 
   type Sighting {
     _id: ID!
-    commonname: String!
-    latinname: String
-    imageUrl: String
-    imageCredit: String   
     date: String!
     latitude: String
     longitude: String
     user: User!
     location: Location!
+    mushroom: Mushroom!
    }
 
   type Mushroom {
     _id: ID!
-    username: String!
     commonname: String!
     latinname: String!
     imageUrl: String
+    imageCredit: String
+    user: User!
+    locations: [Location!]!
+    sightings: [Sighting!]!
   }
 
   type Query {
@@ -49,15 +51,13 @@ exports.typeDefs = `
 
     getSighting(_id: ID!): Sighting
 
-    getLocationMushroomSightings(_id: ID!, commonname: String!): [Sighting]
-
-    searchSightings(_id: ID!, searchTerm: String): [Sighting]
-    
     getMushroom(_id: ID!): Mushroom    
 
     getMyLocations(user: ID!): [Location]
 
     getMySightings(user: ID!): [Sighting]
+
+    getMyMushrooms(user: ID!): [Mushroom]
 
   }
 
@@ -73,34 +73,44 @@ exports.typeDefs = `
       address: String!    
     ): Location
 
-    deleteLocation(_id: ID, user: ID!): Location
+    deleteLocation(_id: ID, user: ID!, mushroom: ID!): Location
 
     addSighting(
       user: ID!
-      location: ID!    
-      commonname: String!
-      latinname: String
-      imageUrl: String
-      imageCredit: String
+      location: ID!      
       date: String!
       latitude: String
       longitude: String
     ): Sighting
 
-    deleteSighting(_id: ID, user: ID!, location: ID!): Sighting
+    deleteSighting(_id: ID, user: ID!, location: ID!, mushroom: ID!): Sighting
 
     updateSighting(
       _id: ID! 
       user: ID!
       location: ID!
-      commonname: String!
-      latinname: String
-      imageUrl: String
-      imageCredit: String
       date: String!
       latitude: String
       longitude: String
     ): Sighting
+
+    addMushroom(
+      user: ID!
+      commonname: String!
+      latinname: String
+      imageUrl: String
+      imageCredit: String
+    ): Sighting
+
+    deleteMushroom(_id: ID, user: ID!, location: ID!, sighting: ID!): Mushroom
+
+    updateMushroom(
+      _id: ID! 
+      commonname: String!
+      latinname: String
+      imageUrl: String
+      imageCredit: String
+    ): Mushroom
 
     signupUser(
       username: String!,

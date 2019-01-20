@@ -1,20 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const SightingSchema = new Schema({
-  commonname: {
-    type: String,
-    required: true,
-  },
-  latinname: {
-    type: String
-  },
-  imageUrl: {
-    type: String
-  },
-  imageCredit: {
-    type: String
-  },
+const SightingSchema = new Schema({  
   date: {
     type: String,
     required: true
@@ -35,8 +22,8 @@ const SightingSchema = new Schema({
   }
 });
 
-SightingSchema.index({
-  "$**": "text"
-})
+// SightingSchema.index({
+//   "$**": "text"
+// })
 
 module.exports = mongoose.model('Sighting', SightingSchema);

@@ -28,42 +28,13 @@ exports.resolvers = {
         .populate({
           path: 'sightings',
           model: 'Sighting'
+        })
+        .populate({
+          path: 'mushrooms',
+          model: 'Mushroom'
         });
         // .exec();
       return user;
-    },
-
-    // getAllLocations: async (root, { username }, { Location }) => {
-    //   const allLocations = await Location.find({ username }).sort({ locationname: 1 });
-    //   return allLocations;
-    // },
-
-    getLocation: async (root, { _id }, { Location }) => {
-      // console.log('getLocation mutation got called')
-      const location = await Location.findOne({ _id })
-        .populate({
-          path: 'sightings',
-          model: 'Sighting'
-        })
-        .populate({
-          path: 'user',
-          model: 'User'
-        })
-      return location;
-    },
-
-    getSighting: async (root, { _id }, { Sighting }) => {
-      console.log('getSighting mutation got called')
-      const sighting = await Sighting.findOne({ _id })
-        .populate({
-          path: 'location',
-          model: 'Location'
-        })
-        .populate({
-          path: 'user',
-          model: 'User'
-        });
-      return sighting;
     },
 
     getMyLocations: async (root, { user }, { Location }) => {
@@ -71,18 +42,93 @@ exports.resolvers = {
       return myLocations;
     },
 
+    getLocation: async (root, { _id }, { Location }) => {
+      // console.log('getLocation mutation got called')
+      const location = await Location.findOne({ _id })
+        .populate({
+          path: 'user',
+          model: 'User'
+        })
+        .populate({
+          path: 'sightings',
+          model: 'Sighting'
+        })
+        .populate({
+          path: 'mushrooms',
+          model: 'Mushroom'
+        });
+      return location;
+    },
+
     getMySightings: async (root, { user }, { Sighting }) => {
       const mySightings = await Sighting.find({ user }).sort({createdDate: 'desc'})
+        .populate({
+          path: 'user',
+          model: 'User'
+        })
         .populate({
           path: 'location',
           model: 'Location'
         })
         .populate({
+          path: 'mushrooms',
+          model: 'Mushroom'
+        });
+      return mySightings;
+    },
+
+    getSighting: async (root, { _id }, { Sighting }) => {
+      const sighting = await Sighting.findOne({ _id })
+        .populate({
           path: 'user',
           model: 'User'
         })
-      return mySightings;
+        .populate({
+          path: 'location',
+          model: 'Location'
+        })
+        .populate({
+          path: 'mushrooms',
+          model: 'Mushroom'
+        });
+      return sighting;
     },
+
+    getMyMushrooms: async (root, { user }, { Mushroom }) => {
+      const myMushrooms = await Mushroom.find({ user }).sort({ commonname: 1 })
+        .populate({
+          path: 'user',
+          model: 'User'
+        })
+        .populate({
+          path: 'location',
+          model: 'Location'
+        })
+        .populate({
+          path: 'sighting',
+          model: 'Sighting'
+        });
+      return myMushrooms;
+    },
+
+    getMushroom: async (root, { _id }, { Mushroom }) => {
+      const mushroom = await Mushroom.findOne({ _id })
+        .populate({
+          path: 'user',
+          model: 'User'
+        })
+        .populate({
+          path: 'location',
+          model: 'Location'
+        })
+        .populate({
+          path: 'sighting',
+          model: 'Sighting'
+        });
+      return mushroom;
+    },
+
+
     // getAllSightings: async (root, { username }, { Sighting }) => {
     //   const allSightings = await Sighting.find({ username }).sort({createdDate: 'desc'});
     //   return allSightings;
@@ -103,31 +149,25 @@ exports.resolvers = {
     //   return allMushrooms;
     // },
 
-    searchSightings: async (root, { searchTerm, username }, { Sighting }) => {
-      if (searchTerm) {
-        const searchResults = await Sighting.find({
-          $text: { $search: searchTerm }, username
-        }, {
-          score: { $meta: "textScore" }
-        }).sort({
-          score: { $meta: "textScore" }
-        });
-        return searchResults;
-      }
-      else {
-        const sightings = await Sighting.find({ username });
-        return sightings;
-      }
-    },
+    // searchSightings: async (root, { searchTerm, username }, { Sighting }) => {
+    //   if (searchTerm) {
+    //     const searchResults = await Sighting.find({
+    //       $text: { $search: searchTerm }, username
+    //     }, {
+    //       score: { $meta: "textScore" }
+    //     }).sort({
+    //       score: { $meta: "textScore" }
+    //     });
+    //     return searchResults;
+    //   }
+    //   else {
+    //     const sightings = await Sighting.find({ username });
+    //     return sightings;
+    //   }
+    // },
   },
 
   Mutation: {
-
-    // likeRecipe: async (root, { _id, username }, { Recipe, User }) => {
-    //   const recipe = await Recipe.findOneAndUpdate({ _id }, { $inc: { likes: 1 } });
-    //   const user = await User.findOneAndUpdate({ username }, { $addToSet: { favorites: _id }});
-    //   return recipe;
-    // },
 
     addLocation: async (root, { locationname, address, user }, { Location, User }, info) => {
       
@@ -142,14 +182,11 @@ exports.resolvers = {
       return newLocation;
     },
 
-    addSighting: async (root, { user, location, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting, User, Location }) => {
+    addSighting: async (root, { user, location, mushroom, date, latitude, longitude }, { User, Location, Sighting, Mushroom }) => {
       const newSighting = await new Sighting({
         user,
         location,
-        commonname,
-        latinname,
-        imageUrl,
-        imageCredit,
+        mushroom,
         date,
         latitude,
         longitude
@@ -159,8 +196,25 @@ exports.resolvers = {
 
       const locationWithNewSighting = await Location.findOneAndUpdate({ _id: ObjectId(location) }, { $addToSet: { sightings: newSighting._id }}).populate('sightings');
 
+      const mushroomWithNewSighting = await Mushroom.findOneAndUpdate({ _id: ObjectId(mushroom) }, { $addToSet: { sightings: newSighting._id }}).populate('sightings');
+
       return newSighting;
     },
+
+    addMushroom: async (root, { user, commonname, latinname, imageUrl, imageCredit }, { User, Mushroom }) => {
+      const newMushroom = await new Mushroom({
+        user,
+        commonname,
+        latinname,
+        imageUrl,
+        imageCredit
+      }).save();
+
+      const userWithNewMushroom = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $addToSet: { mushrooms: newMushroom._id }}).populate('mushrooms');
+
+      return newMushroom;
+    },
+
 
     // addMushroom: async (root, { username, commonname, latinname, imageUrl }, { Mushroom }) => {
     //   const newMushroom = await new Mushroom({
@@ -175,25 +229,27 @@ exports.resolvers = {
     deleteLocation: async (root, { _id, user }, { User, Location }) => {
       const location = await Location.findOneAndRemove({ _id });
 
-      const userWithDeletedLocation = await User.findOneAndUpdate({ user }, { $pull: { locations: location._id }}).populate('locations');
+      const userWithDeletedLocation = await User.findOneAndUpdate({ user }, { $pull: { locations: location._id }}).populate('locations').populate('mushrooms');
 
       return sighting;
     },
 
-    deleteSighting: async (root, { _id, user, location }, { Sighting, User, Location }) => {
+    deleteSighting: async (root, { _id, user, location, mushroom }, { Sighting, User, Location, Mushroom }) => {
       const sighting = await Sighting.findOneAndRemove({ _id });
 
       const userWithDeletedSighting = await User.findOneAndUpdate({ user }, { $pull: { sightings: newSighting._id }}).populate('sightings');
 
       const locationWithDeletedSighting = await Location.findOneAndUpdate({ location }, { $pull: { sightings: newSighting._id }}).populate('sightings');
+
+      const mushroomWithDeletedSighting = await Mushroom.findOneAndUpdate({ mushroom }, { $pull: { sightings: newSighting._id }}).populate('sightings');
       
       return sighting;
     },
 
-    updateSighting: async (root, { _id, location, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }, { Sighting }) => {
+    updateSighting: async (root, { _id, location, date, latitude, longitude }, { Sighting }) => {
       const updatedSighting = await Sighting.findOneAndUpdate(
         { _id },
-        { $set: { location, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude }},
+        { $set: { location, date, latitude, longitude }},
         { new: true }
       );
       return updatedSighting;
