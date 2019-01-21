@@ -13,7 +13,7 @@ import Error from '../Error';
 // import mushrooms4 from '../images/mushrooms4.jpg';
 
 
-const SortedMushrooms = ({ myMushrooms }) => {
+const SortedMushrooms = ({ myMushrooms, location, locationname }) => {
   console.log('myMushrooms are', myMushrooms)
   // const userMushrooms = user.mushrooms
   const combinedMushroomArrays = myMushrooms.concat(mushrooms).sort((a, b) => (a.commonname > b.commonname) ? 1 : ((b.commonname > a.commonname) ? -1 : 0));;
@@ -29,9 +29,13 @@ const SortedMushrooms = ({ myMushrooms }) => {
               <li key={mushroom._id} className="mushroom">
 
                 <Link to={{
-                  pathname: '/sightingsavedmushroom/add', state: {
-                    commonname: mushroom.commonname, latinname: mushroom.latinname,
-                    imageUrl: mushroom.imageUrl, imageCredit: mushroom.imageCredit
+                  pathname: '/mushroom/add', state: {
+                    mushroom: mushroom._id,
+                    commonname: mushroom.commonname, 
+                    latinname: mushroom.latinname,
+                    imageUrl: mushroom.imageUrl, 
+                    imageCredit: mushroom.imageCredit,
+                    location: location, locationname: locationname
                   }
                 }}>
                   <div>

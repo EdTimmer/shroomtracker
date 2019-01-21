@@ -77,7 +77,8 @@ exports.typeDefs = `
 
     addSighting(
       user: ID!
-      location: ID!      
+      location: ID! 
+      mushroom: ID!     
       date: String!
       latitude: String
       longitude: String
@@ -89,6 +90,7 @@ exports.typeDefs = `
       _id: ID! 
       user: ID!
       location: ID!
+      mushroom: ID!
       date: String!
       latitude: String
       longitude: String
@@ -96,6 +98,7 @@ exports.typeDefs = `
 
     addMushroom(
       user: ID!
+      locations: ID!
       commonname: String!
       latinname: String
       imageUrl: String!

@@ -13,7 +13,8 @@ import Error from '../Error';
 const initialState = {
   user: '',
   locationname: '',
-  address: ''
+  address: '',
+  location: ''
 }
 
 class AddLocation extends React.Component {
@@ -40,9 +41,15 @@ class AddLocation extends React.Component {
   handleSubmit = (event, addLocation) => {
     event.preventDefault();
     addLocation().then(({ data }) => {
-      // console.log(data);
-      this.clearState();
-      this.props.history.push("/addpage");
+      console.log('data after saving location:', data);
+      // this.clearState();
+      this.props.history.push({
+        pathname: '/selectmushroom',
+        state: {
+          locationname: this.state.locationname,
+          location: data.addLocation._id
+        }
+      });
 
     });
   }

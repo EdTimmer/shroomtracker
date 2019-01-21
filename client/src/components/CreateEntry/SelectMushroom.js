@@ -1,34 +1,38 @@
 import React from 'react';
-import withAuth from './withAuth';
+import withAuth from '../withAuth';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // import { NavLink } from 'react-router-dom';
-import mushrooms from './mushrooms';
+import mushrooms from '../mushrooms';
 
 // import Spinner from './Spinner';
 
 // import { Query } from 'react-apollo';
 // import { GET_ALL_SIGHTINGS } from '../queries';
 // import Error from './Error';
-import mushrooms4 from '../images/mushrooms4.jpg';
+import mushrooms4 from '../../images/mushrooms4.jpg';
 // import sortedSightings from './Sighting/SortedSightings';
-import SortedSightings from './Sighting/SortedSightings';
+import SortedMushrooms from '../Mushroom/SortedMushrooms';
 
-class AddPageTwo extends React.Component {
+class SelectMushroom extends React.Component {
   state = {
     sightings: '',
-    locationname: this.props.location.state.locationname,
-    location: this.props.location.state.location
+    locationname: '',
+    location: '',
+    myMushrooms: ''
   }
 
   componentDidMount() {
     this.setState({
-      sightings: this.props.session.getCurrentUser.sightings
+      sightings: this.props.session.getCurrentUser.sightings,
+      locationname: this.props.location.state.locationname,
+      location: this.props.location.state.location,
+      myMushrooms: this.props.session.getCurrentUser.mushrooms
     });
   }
 
   render() {
-    const { locationname, location, sightings } = this.state;
+    const { locationname, location, sightings, myMushrooms } = this.state;
     
 
     if (!sightings) {
@@ -36,7 +40,7 @@ class AddPageTwo extends React.Component {
     }
 
     
-    // console.log('state in AddPageTwo is:', this.state)
+    // console.log('state in SelectMushroom is:', this.state)
 
     // const combinedMushroomArrays = sightings.concat(mushrooms);
     // const filteredSightings = combinedMushroomArrays.filter(sighting => {
@@ -64,7 +68,13 @@ class AddPageTwo extends React.Component {
         <div>
           <div>
             <h3>
-              <Link to={'/mushroom/add'}>
+              <Link to={{
+                pathname: '/mushroom/add',
+                state: {
+                  location: this.state.location,
+                  locationname: this.state.locationname
+                }
+              }}>
                 Add New Mushroom
               </Link>
             </h3>
@@ -74,7 +84,7 @@ class AddPageTwo extends React.Component {
             <h3>Choose A Mushroom:</h3>
           </div>
         </div>
-              <SortedSightings sightings={sightings} location={location} locationname={locationname}/>
+              <SortedMushrooms myMushrooms={myMushrooms} location={location} locationname={locationname}/>
               {/*<div>
               {                
                 <ul className="all-mushrooms">                
@@ -106,4 +116,4 @@ class AddPageTwo extends React.Component {
   }
 }
 
-export default withAuth(session => session && session.getCurrentUser)(withRouter(AddPageTwo));
+export default withAuth(session => session && session.getCurrentUser)(withRouter(SelectMushroom));

@@ -71,7 +71,7 @@ exports.resolvers = {
           model: 'Location'
         })
         .populate({
-          path: 'mushrooms',
+          path: 'mushroom',
           model: 'Mushroom'
         });
       return mySightings;
@@ -183,6 +183,7 @@ exports.resolvers = {
     },
 
     addSighting: async (root, { user, location, mushroom, date, latitude, longitude }, { User, Location, Sighting, Mushroom }) => {
+      console.log('addSighting was called in the resolvers')
       const newSighting = await new Sighting({
         user,
         location,
@@ -196,12 +197,12 @@ exports.resolvers = {
 
       const locationWithNewSighting = await Location.findOneAndUpdate({ _id: ObjectId(location) }, { $addToSet: { sightings: newSighting._id }}).populate('sightings');
 
-      const mushroomWithNewSighting = await Mushroom.findOneAndUpdate({ _id: ObjectId(mushroom) }, { $addToSet: { sightings: newSighting._id }}).populate('sightings');
+      const mushroomWithNewSighting = await Mushroom.findOneAndUpdate({ _id: ObjectId(mushroom) }, { $addToSet: { sightings: newSighting._id, locations: location }}).populate('sightings');
 
       return newSighting;
     },
 
-    addMushroom: async (root, { user, commonname, latinname, imageUrl, imageCredit }, { User, Mushroom }) => {
+    addMushroom: async (root, { user, location, commonname, latinname, imageUrl, imageCredit }, { User, Location, Mushroom }) => {
       console.log('addMushroom got called in the resolvers')
       const newMushroom = await new Mushroom({
         user,
@@ -209,9 +210,11 @@ exports.resolvers = {
         latinname,
         imageUrl,
         imageCredit
-      }).save();
+      }, { $addToSet: { locations: ObjectId(location) }}).save();
 
       const userWithNewMushroom = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $addToSet: { mushrooms: newMushroom._id }}).populate('mushrooms');
+
+      const locationWithNewMushroom = await Location.findOneAndUpdate({ _id: ObjectId(location) }, { $addToSet: { mushrooms: newMushroom._id }}).populate('mushrooms');
 
       return newMushroom;
     },

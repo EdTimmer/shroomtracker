@@ -40,10 +40,10 @@ const SightingPage = ({ match }) => {
                 <div className="sighting-header">
                   
                   <h2 className="sighting-name">
-                    <strong>{data.getSighting.commonname}</strong>
+                    <strong>{data.getSighting.mushroom.commonname}</strong>
                   </h2>
                   <h5>
-                    <strong><i>{data.getSighting.latinname}</i></strong>
+                    <strong><i>{data.getSighting.mushroom.latinname}</i></strong>
                   </h5>
                   <h5>
                     <i>Location: </i> {data.getSighting.location.locationname}

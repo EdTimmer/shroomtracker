@@ -11,9 +11,10 @@ import Error from '../Error';
 const initialState = {
   user: '',
   commonname: '',
-  latinname: '',
+  latinname: '', 
   imageUrl: '',
-  imageCredit: ''
+  imageCredit: '',
+  location: '',
 }
 
 class AddMushroom extends React.Component {
@@ -25,7 +26,12 @@ class AddMushroom extends React.Component {
 
   componentDidMount() {
     this.setState({
-      user: this.props.session.getCurrentUser._id
+      user: this.props.session.getCurrentUser._id,
+      location: this.props.location.state.location,
+      commonname: this.props.location.state ? this.props.location.state.commonname : '',
+      latinname: this.props.location.state ? this.props.location.state.latinname : '', 
+      imageUrl: this.props.location.state ? this.props.location.state.imageUrl : '',
+      imageCredit: this.props.location.state ? this.props.location.state.imageCredit : '',
     });
   }
 
@@ -36,13 +42,23 @@ class AddMushroom extends React.Component {
     });
   }
 
-
   handleSubmit = (event, addMushroom) => {
     event.preventDefault();
     addMushroom().then(({ data }) => {
       // console.log(data); 
-      this.clearState();     
-      this.props.history.push("/addpagezero");
+      // this.clearState();     
+      this.props.history.push({
+        pathname: "/sighting/add",
+        state: {
+          location: this.props.location.state.location,
+          locationname: this.props.location.state.locationname,
+          mushroom: data.addMushroom._id,
+          commonname: data.addMushroom.commonname,
+          latinname: data.addMushroom.latinname,
+          imageUrl: data.addMushroom.imageUrl,
+          imageCredit: data.addMushroom.imageCredit
+        }
+      });
     });
   }
 
@@ -65,12 +81,12 @@ class AddMushroom extends React.Component {
   // }
 
   render() {
-    const { commonname, latinname, imageUrl, imageCredit, user } = this.state;
+    const { commonname, latinname, imageUrl, imageCredit, user, location } = this.state;
 
     return (
       <Mutation
         mutation={ADD_MUSHROOM}
-        variables={{ commonname, latinname, imageUrl, imageCredit, user }}
+        variables={{ commonname, latinname, imageUrl, imageCredit, user, location }}
         refetchQueries={() => [
           { query: GET_MY_MUSHROOMS, variables: { user } }
         ]}

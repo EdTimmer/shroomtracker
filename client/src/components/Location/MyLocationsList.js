@@ -27,7 +27,7 @@ const MyLocationsList = ({ user }) => {
                         data.getMyLocations.map(location => 
                           <li key={location._id} value={location.locationname}> 
                           
-                            <Link to={{ pathname: '/addpagetwo', state: { location: location._id, locationname: location.locationname } }}>
+                            <Link to={{ pathname: '/selectmushroom', state: { location: location._id, locationname: location.locationname } }}>
                               <h4>{location.locationname}</h4> 
                             </Link>                          
                           

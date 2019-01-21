@@ -12,30 +12,31 @@ class AddSighting extends React.Component {
   state = {
     user: '',
     location: this.props.location.state.location,
+    mushroom: this.props.location.state.mushroom,
     locationname: this.props.location.state.locationname,
-    commonname: '',
-    latinname: '',
-    imageUrl: '',
-    imageCredit: '',
+    commonname: this.props.location.state.commonname,
+    latinname: this.props.location.state.latinname,
+    imageUrl: this.props.location.state.imageUrl,
+    imageCredit: this.props.location.state.imageCredit,
     date: '',
     latitude: '',
     longitude: ''
   };
 
-  clearState = () => {
-    this.setState({
-      user: '',
-      location: this.props.location.state.location,
-      locationname: this.props.location.state.locationname,
-      commonname: '',
-      latinname: '',
-      imageUrl: '',
-      imageCredit: '',
-      date: '',
-      latitude: '',
-      longitude: ''
-    });
-  }
+  // clearState = () => {
+  //   this.setState({
+  //     user: '',
+  //     location: this.props.location.state.location,
+  //     locationname: this.props.location.state.locationname,
+  //     commonname: '',
+  //     latinname: '',
+  //     imageUrl: '',
+  //     imageCredit: '',
+  //     date: '',
+  //     latitude: '',
+  //     longitude: ''
+  //   });
+  // }
 
   componentDidMount() {
     this.setState({
@@ -54,7 +55,7 @@ class AddSighting extends React.Component {
     event.preventDefault();
     addSighting().then(({ data }) => {
       console.log(data);
-      this.clearState();
+      // this.clearState();
       this.props.history.push(`/sightings/${data.addSighting._id}`);
     });
   }
@@ -78,7 +79,7 @@ class AddSighting extends React.Component {
   // }
 
   render() {
-    const { user, location, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
+    const { user, location, mushroom, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
     // const {passedlocationname} = this.props.location.state
     // console.log('props are:', this.props)
     // console.log(passedlocationname) // "bar"
@@ -86,7 +87,7 @@ class AddSighting extends React.Component {
     return (
       <Mutation
         mutation={ADD_SIGHTING}
-        variables={{ user, location, commonname, latinname, imageUrl, date, latitude, longitude }}
+        variables={{ user, location, mushroom, date, latitude, longitude }}
       // refetchQueries={() => [
       //   { query: GET_CURRENT_USER },
       //   // { query: GET_ALL_LOCATIONS, variables: { username } },

@@ -291,6 +291,7 @@ export const UPDATE_SIGHTING = gql`
 export const ADD_MUSHROOM = gql`
   mutation(
     $user: ID!,
+    $locations: ID!,
     $commonname: String!,
     $latinname: String,
     $imageUrl: String!, 
@@ -298,6 +299,7 @@ export const ADD_MUSHROOM = gql`
   ) {
     addMushroom(
       user: $user,
+      locations: $locations,
       commonname: $commonname,
       latinname: $latinname,
       imageUrl: $imageUrl,  

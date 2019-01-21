@@ -16,9 +16,9 @@ import Navbar from './components/Navbar';
 import Signin from './components/Auth/Signin';
 import Signup from './components/Auth/Signup';
 import withSession from "./components/withSession";
-import AddPageZero from "./components/AddPageZero";
-import AddPageOne from "./components/AddPageOne";
-import AddPageTwo from "./components/AddPageTwo";
+// import AddPageZero from "./components/AddPageZero";
+import SelectLocation from "./components/CreateEntry/SelectLocation";
+import SelectMushroom from "./components/CreateEntry/SelectMushroom";
 import AllLocationsPage from './components/Location/AllLocationsPage';
 import AllSightingsPage from './components/Sighting/AllSightingsPage';
 import LocationPage from './components/Location/LocationPage';
@@ -75,15 +75,15 @@ const Root = ({ refetch, session }) => (
       <Navbar session={session} />
       <Switch>
         <Route path="/" exact component={App} />
-        <Route path="/addpagezero" render={() => <AddPageZero session={session} />} />
-        <Route path="/addpageone" render={() => <AddPageOne session={session} />} />
-        <Route path="/addpagetwo" render={() => <AddPageTwo session={session} />} />
+        {/*<Route path="/addpagezero" render={() => <AddPageZero session={session} />} />*/}
+        <Route path="/selectlocation" render={() => <SelectLocation session={session} />} />
+        <Route path="/selectmushroom" render={() => <SelectMushroom session={session} />} />
         <Route path="/locations/:_id" render={() => <LocationPage session={session} />} />
         <Route path="/sightings/:_id" render={() => <SightingPage session={session} />} />
         <Route path="/sightingsedit/:_id" render={() => <SightingEditPage session={session} />} />
         <Route path="/location/add" render={() => <AddLocation session={session} />} />
-        <Route path="/sighting/add" render={() => <AddSighting session={session} />} />
-        <Route path="/sightingsavedmushroom/add" render={() => <AddSightingSavedMushroom session={session} />} />
+        {/*<Route path="/sighting/add" render={() => <AddSighting session={session} />} />*/}
+        <Route path="/sighting/add" render={() => <AddSightingSavedMushroom session={session} />} />
         <Route path="/locations" render={() => <AllLocationsPage session={session} />} />
         <Route path="/sightings" render={() => <AllSightingsPage session={session} />} />
         {/*<Route path="/search" render={() => <Search session={session} />} />*/}

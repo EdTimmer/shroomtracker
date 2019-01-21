@@ -1,18 +1,18 @@
 import React from 'react';
-import withAuth from './withAuth';
+import withAuth from '../withAuth';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 import { Query } from 'react-apollo';
-import { GET_MY_LOCATIONS } from '../queries';
-import Spinner from './Spinner';
-import Error from './Error';
-import MyLocationsList from './Location/MyLocationsList'
+import { GET_MY_LOCATIONS } from '../../queries';
+import Spinner from '../Spinner';
+import Error from '../Error';
+import MyLocationsList from '../Location/MyLocationsList'
 
-import mushrooms4 from '../images/mushrooms4.jpg';
+import mushrooms4 from '../../images/mushrooms4.jpg';
 
-class AddPageOne extends React.Component {
+class SelectLocation extends React.Component {
   state = {
     locations: '',
     user: '',
@@ -31,20 +31,15 @@ class AddPageOne extends React.Component {
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
       
         <h1 className="main-title">
-          <strong>Add A Mushroom Sighting</strong>
+          <strong>Select Location</strong>
         </h1>
         
         <ul>
-          <li>
-              <h3>New Location?</h3>
-              <h4><NavLink to="/location/add" exact>Add A New Location</NavLink></h4>
+          <li>              
+              <h3><NavLink to="/location/add" exact>Add A New Location</NavLink></h3>
           </li>
           <li>
-              <h3>New Mushroom?</h3>
-              <h4><NavLink to="/mushroom/add" exact>Add A New Mushroom</NavLink></h4>
-          </li>
-          <li>
-              <h3>To A Saved Location:</h3>
+              <h3>My Saved Locations:</h3>
           </li>
         </ul>
 
@@ -77,4 +72,4 @@ class AddPageOne extends React.Component {
   
 
 
-export default withAuth(session => session && session.getCurrentUser)(withRouter(AddPageOne));
+export default withAuth(session => session && session.getCurrentUser)(withRouter(SelectLocation));
