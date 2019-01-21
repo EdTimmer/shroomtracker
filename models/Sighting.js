@@ -19,6 +19,10 @@ const SightingSchema = new Schema({
   location: {
     type: Schema.Types.ObjectId,
     ref: 'Location'
+  },
+  mushroom: {
+    type: Schema.Types.ObjectId,
+    ref: 'Mushroom'
   }
 });
 

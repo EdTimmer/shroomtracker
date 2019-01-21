@@ -17,7 +17,7 @@ const LocationPage = ({ match }) => {
         ({ data, loading, error }) => {
           if (loading) return <Spinner />
           if (error) return <Error error={error} />
-          console.log('data.getLocation is:', data.getLocation);
+          // console.log('data.getLocation is:', data.getLocation);
           return (
             
             <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
@@ -31,7 +31,13 @@ const LocationPage = ({ match }) => {
               >
                 {
                   data.getLocation.sightings.map(sighting => (
-                    <SightingItemLocation key={sighting._id} {...sighting} />
+                    <SightingItemLocation 
+                      key={sighting._id} 
+                      _id={sighting._id} 
+                      date={sighting.date} 
+                      commonname={sighting.mushroom.commonname}
+                      imageUrl={sighting.mushroom.imageurl}
+                    />
                   ))
                 }
               </div>

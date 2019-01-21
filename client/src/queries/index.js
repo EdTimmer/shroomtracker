@@ -23,6 +23,9 @@ export const GET_CURRENT_USER = gql`
       mushrooms {
         _id
         commonname
+        latinname
+        imageUrl
+        imageCredit
       }
     }
   }
@@ -288,8 +291,6 @@ export const UPDATE_SIGHTING = gql`
 export const ADD_MUSHROOM = gql`
   mutation(
     $user: ID!,
-    $location: ID!,
-    $sighting: ID!,
     $commonname: String!,
     $latinname: String,
     $imageUrl: String!, 
@@ -297,8 +298,6 @@ export const ADD_MUSHROOM = gql`
   ) {
     addMushroom(
       user: $user,
-      location: $location,
-      sighting: $sighting,
       commonname: $commonname,
       latinname: $latinname,
       imageUrl: $imageUrl,  

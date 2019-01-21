@@ -98,9 +98,9 @@ exports.typeDefs = `
       user: ID!
       commonname: String!
       latinname: String
-      imageUrl: String
+      imageUrl: String!
       imageCredit: String
-    ): Sighting
+    ): Mushroom
 
     deleteMushroom(_id: ID, user: ID!, location: ID!, sighting: ID!): Mushroom
 

@@ -64,7 +64,7 @@ class AddPageTwo extends React.Component {
         <div>
           <div>
             <h3>
-              <Link to={{ pathname: '/sighting/add', state: { location: location, locationname: locationname } }}>
+              <Link to={'/mushroom/add'}>
                 Add New Mushroom
               </Link>
             </h3>

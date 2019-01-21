@@ -22,18 +22,6 @@ import mushrooms from '../images/mushrooms1.jpg'
 
 class App extends Component {
 
-  // state = {
-  //   on: false
-  // }
-
-  // componentDidMount() {
-  //   setTimeout(this.slideIn, 200);
-  // }
-
-  // slideIn = () => {
-  //   this.setState({ on: !this.state.on});
-  // }
-
   render() {
     return (
       <div>
@@ -42,7 +30,6 @@ class App extends Component {
             <strong>Mushroom Tracker</strong>
           </h1>          
         </div>
-        <div />
       </div>
       
     )

@@ -10,16 +10,22 @@ const LocationSchema = new Schema({
     type: String,
     required: true
   },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
+  },
   sightings: [
     {
       type: [Schema.Types.ObjectId],
       ref: 'Sighting'
     }
   ],
-  user: {
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  }
+  mushrooms: [
+    {
+      type: [Schema.Types.ObjectId],
+      ref: 'Mushroom'
+    }
+  ],
 });
 
 module.exports = mongoose.model('Location', LocationSchema);

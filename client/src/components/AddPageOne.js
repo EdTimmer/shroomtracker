@@ -12,7 +12,7 @@ import MyLocationsList from './Location/MyLocationsList'
 
 import mushrooms4 from '../images/mushrooms4.jpg';
 
-class AddPage extends React.Component {
+class AddPageOne extends React.Component {
   state = {
     locations: '',
     user: '',
@@ -36,14 +36,19 @@ class AddPage extends React.Component {
         
         <ul>
           <li>
-              <h3><NavLink to="/location/add" exact>To A New Location</NavLink></h3>
+              <h3>New Location?</h3>
+              <h4><NavLink to="/location/add" exact>Add A New Location</NavLink></h4>
+          </li>
+          <li>
+              <h3>New Mushroom?</h3>
+              <h4><NavLink to="/mushroom/add" exact>Add A New Mushroom</NavLink></h4>
           </li>
           <li>
               <h3>To A Saved Location:</h3>
           </li>
         </ul>
 
-        <MyLocationsList user={user} />
+            <MyLocationsList user={user} />
 
         {/*<div>                          
           {
@@ -72,4 +77,4 @@ class AddPage extends React.Component {
   
 
 
-export default withAuth(session => session && session.getCurrentUser)(withRouter(AddPage));
+export default withAuth(session => session && session.getCurrentUser)(withRouter(AddPageOne));

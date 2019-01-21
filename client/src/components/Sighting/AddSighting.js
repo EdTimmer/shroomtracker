@@ -6,7 +6,7 @@ import Error from '../Error';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 import { Mutation } from 'react-apollo';
-import { ADD_SIGHTING } from '../../queries';
+import { ADD_SIGHTING, ADD_MUSHROOM } from '../../queries';
 
 class AddSighting extends React.Component {
   state = {

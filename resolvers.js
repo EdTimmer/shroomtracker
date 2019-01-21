@@ -177,7 +177,7 @@ exports.resolvers = {
         user
       }).save()
 
-      const userWithNewLocation = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $addToSet: { locations: newLocation._id }}).populate('locatoins');
+      const userWithNewLocation = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $addToSet: { locations: newLocation._id }}).populate('locations');
 
       return newLocation;
     },
@@ -202,6 +202,7 @@ exports.resolvers = {
     },
 
     addMushroom: async (root, { user, commonname, latinname, imageUrl, imageCredit }, { User, Mushroom }) => {
+      console.log('addMushroom got called in the resolvers')
       const newMushroom = await new Mushroom({
         user,
         commonname,
