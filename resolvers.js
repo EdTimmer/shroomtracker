@@ -88,7 +88,7 @@ exports.resolvers = {
           model: 'Location'
         })
         .populate({
-          path: 'mushrooms',
+          path: 'mushroom',
           model: 'Mushroom'
         });
       return sighting;
@@ -204,17 +204,21 @@ exports.resolvers = {
 
     addMushroom: async (root, { user, location, commonname, latinname, imageUrl, imageCredit }, { User, Location, Mushroom }) => {
       console.log('addMushroom got called in the resolvers')
+      console.log('user in addMushroom resolver is:', user)
+      console.log('location in addMushroom resolver is:', location)
       const newMushroom = await new Mushroom({
         user,
         commonname,
         latinname,
         imageUrl,
         imageCredit
-      }, { $addToSet: { locations: ObjectId(location) }}).save();
+      }).save();
 
       const userWithNewMushroom = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $addToSet: { mushrooms: newMushroom._id }}).populate('mushrooms');
 
       const locationWithNewMushroom = await Location.findOneAndUpdate({ _id: ObjectId(location) }, { $addToSet: { mushrooms: newMushroom._id }}).populate('mushrooms');
+
+      // const updatedNewMushroom = await Mushroom.findOneAndUpdate({ _id: ObjectId(newMushroom._id)}, { $addToSet: { locations: ObjectId(location) }}).populate('locations');
 
       return newMushroom;
     },

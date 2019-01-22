@@ -40,7 +40,7 @@ class AllSightingsPage extends Component {
                           <div className="cards">                  
                             {
                               data.getMySightings.map(sighting => (
-                                <SightingItem key={sighting._id} locationname={sighting.location.locationname} commonname={sighting.mushroom.commonname} imageUrl={sighting.mushroom.imageUrl} date={sighting.date} />
+                                <SightingItem key={sighting._id} _id={sighting._id} locationname={sighting.location.locationname} commonname={sighting.mushroom.commonname} imageUrl={sighting.mushroom.imageUrl} date={sighting.date} />
                               ))
                             }
                           </div>

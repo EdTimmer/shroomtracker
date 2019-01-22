@@ -34,7 +34,7 @@ class SelectMushroom extends React.Component {
   render() {
     const { locationname, location, sightings, myMushrooms } = this.state;
     
-
+    console.log('location in SelectMushroom is:', location)
     if (!sightings) {
       return null;
     }

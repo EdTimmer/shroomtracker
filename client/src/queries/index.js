@@ -118,10 +118,6 @@ export const GET_MUSHROOM = gql`
       latinname
       imageUrl
       imageCredit
-      location {
-        _id
-        locationname
-      }
     }
   }  
 `;
@@ -134,10 +130,6 @@ export const GET_MY_MUSHROOMS = gql`
       latinname
       imageUrl
       imageCredit
-      location {
-        _id
-        locationname
-      }
     }
   }
 `;
@@ -291,7 +283,7 @@ export const UPDATE_SIGHTING = gql`
 export const ADD_MUSHROOM = gql`
   mutation(
     $user: ID!,
-    $locations: ID!,
+    $location: ID!,
     $commonname: String!,
     $latinname: String,
     $imageUrl: String!, 
@@ -299,7 +291,7 @@ export const ADD_MUSHROOM = gql`
   ) {
     addMushroom(
       user: $user,
-      locations: $locations,
+      location: $location,
       commonname: $commonname,
       latinname: $latinname,
       imageUrl: $imageUrl,  

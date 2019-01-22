@@ -19,12 +19,12 @@ const MushroomSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-  locations: [
-    {
-      type: [Schema.Types.ObjectId],
-      ref: 'Location'
-    }
-  ],
+  // locations: [
+  //   {
+  //     type: [Schema.Types.ObjectId],
+  //     ref: 'Location'
+  //   }
+  // ],
   sightings: [
     {
       type: [Schema.Types.ObjectId],

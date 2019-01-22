@@ -26,12 +26,12 @@ const SightingPage = ({ match }) => {
             <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px', color: 'brown'}}>
               <div className="container">
                 <div
-                  style={{ background: `url(${data.getSighting.imageUrl}) center center / cover no-repeat` }}
+                  style={{ background: `url(${data.getSighting.mushroom.imageUrl}) center center / cover no-repeat` }}
                   className="sighting-image">
                 </div>
                 <div className="bottom-left">
                   {
-                    data.getSighting.imageCredit ? (<p>Photograph credit: {data.getSighting.imageCredit}</p>) : (null)
+                    data.getSighting.mushroom.imageCredit ? (<p>Photograph credit: {data.getSighting.mushroom.imageCredit}</p>) : (null)
                   }
                 </div>
               </div>

@@ -39,7 +39,6 @@ exports.typeDefs = `
     imageUrl: String
     imageCredit: String
     user: User!
-    locations: [Location!]!
     sightings: [Sighting!]!
   }
 
@@ -98,7 +97,7 @@ exports.typeDefs = `
 
     addMushroom(
       user: ID!
-      locations: ID!
+      location: ID!
       commonname: String!
       latinname: String
       imageUrl: String!
