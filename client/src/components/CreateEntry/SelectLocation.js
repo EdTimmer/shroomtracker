@@ -63,10 +63,11 @@ class SelectLocation extends React.Component {
                   <div>          
                     <div>
                       <MyLocationsList user={user} filteredMushrooms={filteredMushrooms}/>
-                    </div>     
-                    <li>              
+                    </div>    
+                      <h4>or</h4> 
+                    <div>              
                       <h3>
-                        <NavLink to={{
+                        <NavLink style={{color: 'white'}} to={{
                           pathname: "/location/add",
                           state: {
                             filteredMushrooms
@@ -75,7 +76,7 @@ class SelectLocation extends React.Component {
                           Add A New Location
                         </NavLink>
                       </h3>
-                    </li>
+                    </div>
                   </div>               
                 )
               }

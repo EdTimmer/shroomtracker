@@ -1,11 +1,11 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Query } from 'react-apollo';
-import { GET_LOCATION, GET_LOCATION_SIGHTINGS } from '../../queries';
+import { GET_LOCATION } from '../../queries';
 import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 import Error from '../Error';
-import SightingItemLocation from '../Sighting/SightingItemLocation';
+import SightingItemForLocation from '../Sighting/SightingItemForLocation';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 const LocationPage = ({ match }) => {
@@ -31,12 +31,10 @@ const LocationPage = ({ match }) => {
               >
                 {
                   data.getLocation.sightings.map(sighting => (
-                    <SightingItemLocation 
+                    <SightingItemForLocation 
                       key={sighting._id} 
                       _id={sighting._id} 
                       date={sighting.date} 
-                      commonname={sighting.mushroom.commonname}
-                      imageUrl={sighting.mushroom.imageurl}
                     />
                   ))
                 }
