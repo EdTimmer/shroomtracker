@@ -14,7 +14,8 @@ const initialState = {
   user: '',
   locationname: '',
   address: '',
-  location: ''
+  location: '',
+  filteredMushrooms: ''
 }
 
 class AddLocation extends React.Component {
@@ -26,7 +27,8 @@ class AddLocation extends React.Component {
 
   componentDidMount() {
     this.setState({
-      user: this.props.session.getCurrentUser._id
+      user: this.props.session.getCurrentUser._id,
+      filteredMushrooms: this.props.location.state.filteredMushrooms
     });
   }
 
@@ -47,7 +49,8 @@ class AddLocation extends React.Component {
         pathname: '/selectmushroom',
         state: {
           locationname: this.state.locationname,
-          location: data.addLocation._id
+          location: data.addLocation._id,
+          filteredMushrooms: this.state.filteredMushrooms
         }
       });
 
@@ -74,9 +77,15 @@ class AddLocation extends React.Component {
   // }
 
   render() {
-    const { locationname, address, user } = this.state;
+
+
+    const { locationname, address, user, filteredMushrooms } = this.state;
+
+    if (!filteredMushrooms) {
+      return null;
+    }
     // console.log(this.props.session.getCurrentUser);
-    console.log('this.state.user is:', this.state.user);
+    // console.log('this.state.user is:', this.state.user);
     return (
       <Mutation
         mutation={ADD_LOCATION}

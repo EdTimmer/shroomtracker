@@ -1,4 +1,4 @@
-const mushrooms = [
+const templateMushrooms = [
   {
     _id: 1,
     commonname: "Fly Agaric",
@@ -207,4 +207,4 @@ const mushrooms = [
 
 // imageCredit: "By Amanita_muscaria_3_vliegenzwammen_op_rij.jpg: Onderwijsgekderivative work: Ak ccm - This file was derived from: Amanita muscaria 3 vliegenzwammen op rij.jpg:, CC BY-SA 3.0 nl, https://commons.wikimedia.org/w/index.php?curid=21983879"
 
-module.exports = mushrooms;
+module.exports = templateMushrooms;

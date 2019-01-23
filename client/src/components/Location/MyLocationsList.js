@@ -9,7 +9,7 @@ import Error from '../Error';
 // import SightingItemLocation from '../Sighting/SightingItemLocation';
 // import mushrooms4 from '../../images/mushrooms4.jpg';
 
-const MyLocationsList = ({ user }) => {
+const MyLocationsList = ({ user, filteredMushrooms }) => {
   
   return (
     <Query query={GET_MY_LOCATIONS} variables={{ user }}>
@@ -27,7 +27,14 @@ const MyLocationsList = ({ user }) => {
                         data.getMyLocations.map(location => 
                           <li key={location._id} value={location.locationname}> 
                           
-                            <Link to={{ pathname: '/selectmushroom', state: { location: location._id, locationname: location.locationname } }}>
+                            <Link to={{ 
+                              pathname: '/selectmushroom', 
+                              state: { 
+                                location: location._id, 
+                                locationname: location.locationname,
+                                filteredMushrooms 
+                              } 
+                            }}>
                               <h4>{location.locationname}</h4> 
                             </Link>                          
                           

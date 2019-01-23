@@ -39,7 +39,7 @@ exports.typeDefs = `
     imageUrl: String
     imageCredit: String
     user: User!
-    sightings: [Sighting!]!
+    sightings: [Sighting!]!    
   }
 
   type Query {

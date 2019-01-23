@@ -3,7 +3,7 @@ import withAuth from '../withAuth';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // import { NavLink } from 'react-router-dom';
-import mushrooms from '../mushrooms';
+
 
 // import Spinner from './Spinner';
 
@@ -15,31 +15,28 @@ import mushrooms4 from '../../images/mushrooms4.jpg';
 import SortedMushrooms from '../Mushroom/SortedMushrooms';
 
 class SelectMushroom extends React.Component {
-  state = {
-    sightings: '',
+  state = {    
     locationname: '',
     location: '',
-    myMushrooms: ''
+    filteredMushrooms: ''
   }
 
   componentDidMount() {
     this.setState({
-      sightings: this.props.session.getCurrentUser.sightings,
       locationname: this.props.location.state.locationname,
       location: this.props.location.state.location,
-      myMushrooms: this.props.session.getCurrentUser.mushrooms
+      filteredMushrooms: this.props.location.state.filteredMushrooms
     });
   }
 
   render() {
-    const { locationname, location, sightings, myMushrooms } = this.state;
+    const { locationname, location, filteredMushrooms } = this.state;
     
-    console.log('location in SelectMushroom is:', location)
-    if (!sightings) {
+    // console.log('location in SelectMushroom is:', location)
+    if (!filteredMushrooms) {
       return null;
     }
 
-    
     // console.log('state in SelectMushroom is:', this.state)
 
     // const combinedMushroomArrays = sightings.concat(mushrooms);
@@ -84,7 +81,7 @@ class SelectMushroom extends React.Component {
             <h3>Choose A Mushroom:</h3>
           </div>
         </div>
-              <SortedMushrooms myMushrooms={myMushrooms} location={location} locationname={locationname}/>
+              <SortedMushrooms location={location} locationname={locationname} filteredMushrooms={filteredMushrooms} />
               {/*<div>
               {                
                 <ul className="all-mushrooms">                

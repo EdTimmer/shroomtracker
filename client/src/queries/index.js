@@ -26,6 +26,9 @@ export const GET_CURRENT_USER = gql`
         latinname
         imageUrl
         imageCredit
+        user {
+          _id
+        }
       }
     }
   }
@@ -130,6 +133,9 @@ export const GET_MY_MUSHROOMS = gql`
       latinname
       imageUrl
       imageCredit
+      user {
+        _id
+      }
     }
   }
 `;

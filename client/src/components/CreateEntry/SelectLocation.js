@@ -5,12 +5,13 @@ import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 import { Query } from 'react-apollo';
-import { GET_MY_LOCATIONS } from '../../queries';
+import { GET_MY_MUSHROOMS } from '../../queries';
 import Spinner from '../Spinner';
 import Error from '../Error';
 import MyLocationsList from '../Location/MyLocationsList'
 
 import mushrooms4 from '../../images/mushrooms4.jpg';
+import templateMushrooms from '../templateMushrooms';
 
 class SelectLocation extends React.Component {
   state = {
@@ -19,14 +20,16 @@ class SelectLocation extends React.Component {
   }
 
   componentDidMount() {
+    const myMushrooms = this.props.session.getCurrentUser.mushrooms
     this.setState({      
       locations: this.props.session.getCurrentUser.locations,
-      user: this.props.session.getCurrentUser._id
+      user: this.props.session.getCurrentUser._id,
     });
   }
 
   render() {
     const { locations, user } = this.state;
+
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
       
@@ -35,34 +38,50 @@ class SelectLocation extends React.Component {
         </h1>
         
         <ul>
-          <li>              
-              <h3><NavLink to="/location/add" exact>Add A New Location</NavLink></h3>
-          </li>
           <li>
               <h3>My Saved Locations:</h3>
           </li>
         </ul>
 
-            <MyLocationsList user={user} />
+          <Query query={GET_MY_MUSHROOMS} variables={{ user }}>
+            {
+              ({ data, loading, error }) => {
+                if (loading) return <Spinner />
+                if (error) return <Error error={error} />
 
-        {/*<div>                          
-          {
-            locations.length ? (
-              <ul>                  
-                {
-                  locations.map(location => 
-                    <li key={location._id} value={location.locationname}> 
-                    
-                      <Link to={{ pathname: '/addpagetwo', state: { location: location._id, locationname: location.locationname } }}>
-                        {location.locationname} 
-                      </Link>                          
-                    
-                    </li>)
-                }
-              </ul>
-            ) : (<div><p>You have no saved locations</p></div>)            
-          }
-        </div>*/}
+                const myMushrooms = data.getMyMushrooms;
+                const combinedMushroomArrays = myMushrooms.concat(templateMushrooms);   
+                const filteredMushrooms = combinedMushroomArrays.filter(mushroom => {
+                  if (myMushrooms[mushroom.commonname]) {
+                    return false;
+                  }
+                  myMushrooms[mushroom.commonname] = true;
+                  return true;
+                });
+
+                return (  
+                  <div>          
+                    <div>
+                      <MyLocationsList user={user} filteredMushrooms={filteredMushrooms}/>
+                    </div>     
+                    <li>              
+                      <h3>
+                        <NavLink to={{
+                          pathname: "/location/add",
+                          state: {
+                            filteredMushrooms
+                          }                    
+                        }}>
+                          Add A New Location
+                        </NavLink>
+                      </h3>
+                    </li>
+                  </div>               
+                )
+              }
+            }
+          </Query>
+        
 
   
       </div>
