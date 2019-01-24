@@ -18,7 +18,7 @@ const initialState = {
   imageCredit: ''  
 }
 
-class AddMushroom extends React.Component {
+class AddNewMushroom extends React.Component {
   state = { ...initialState };
 
   clearState = () => {
@@ -28,11 +28,11 @@ class AddMushroom extends React.Component {
   componentDidMount() {
     this.setState({
       user: this.props.session.getCurrentUser._id,
-      location: this.props.location.state ? this.props.location.state.location.state.location : '',
-      commonname: this.props.location.state ? this.props.location.state.commonname : '',
-      latinname: this.props.location.state ? this.props.location.state.latinname : '', 
-      imageUrl: this.props.location.state ? this.props.location.state.imageUrl : '',
-      imageCredit: this.props.location.state ? this.props.location.state.imageCredit : '',
+      location: this.props.location.state ? this.props.location.state.location : '',
+      // commonname: this.props.location.state ? this.props.location.state.commonname : '',
+      // latinname: this.props.location.state ? this.props.location.state.latinname : '', 
+      // imageUrl: this.props.location.state ? this.props.location.state.imageUrl : '',
+      // imageCredit: this.props.location.state ? this.props.location.state.imageCredit : '',
     });
   }
 
@@ -83,8 +83,8 @@ class AddMushroom extends React.Component {
 
   render() {
     const { commonname, latinname, imageUrl, imageCredit, user, location } = this.state;
-    console.log('this.state in AddMushroom is:', this.state)
-    console.log('location in AddMushroom is:', location)
+    console.log('this.state in AddNewMushroom is:', this.state)
+    console.log('location in AddNewMushroom is:', location)
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
         <Mutation
@@ -101,21 +101,9 @@ class AddMushroom extends React.Component {
                 <div className="App">
                   <h2 className="App">Add Mushroom</h2>
 
-                    <div>
-                      <img src={imageUrl} style={{width: '600px'}} alt="mushroom" />                    
-                    </div>
-
-                    <div>
-                      <h4>Common Name: {commonname}</h4>
-                    </div>
-
-                    <div>
-                      <h4>Latin Name: {latinname}</h4>
-                    </div>
-
                   <form className="form" onSubmit={event => this.handleSubmit(event, addMushroom)}>
 
-                    {/*<input
+                    <input
                       type="text"
                       name="commonname"
                       placeholder="Common Name"
@@ -145,14 +133,14 @@ class AddMushroom extends React.Component {
                       placeholder="Image Credit"
                       onChange={this.handleChange}
                       value={imageCredit}
-                    />*/}                  
+                    />                  
 
                     <button
                       type="submit"
-                      disabled={loading || this.validateForm()}                     
+                      disabled={loading || this.validateForm()}
                       className="button-primary"
                     >
-                      Confirm Mushroom
+                      Submit
                     </button>
 
                     {error && <Error error={error} />}
@@ -169,4 +157,4 @@ class AddMushroom extends React.Component {
   }
 }
 
-export default withAuth(session => session && session.getCurrentUser)(withRouter(AddMushroom));
+export default withAuth(session => session && session.getCurrentUser)(withRouter(AddNewMushroom));

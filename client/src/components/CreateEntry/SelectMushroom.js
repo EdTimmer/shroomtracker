@@ -66,7 +66,7 @@ class SelectMushroom extends React.Component {
           <div>
             <h3>
               <Link to={{
-                pathname: '/mushroom/add',
+                pathname: '/mushroom/newadd',
                 state: {
                   location: this.state.location,
                   locationname: this.state.locationname

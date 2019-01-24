@@ -85,100 +85,102 @@ class AddSighting extends React.Component {
     // console.log(passedlocationname) // "bar"
     // console.log('first username is', username)
     return (
-      <Mutation
-        mutation={ADD_SIGHTING}
-        variables={{ user, location, mushroom, date, latitude, longitude }}
-      // refetchQueries={() => [
-      //   { query: GET_CURRENT_USER },
-      //   // { query: GET_ALL_LOCATIONS, variables: { username } },
-      //   { query: GET_ALL_SIGHTINGS, variables: { username } },
-      //   { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } },
-      // ]}
-      // update={this.updateCache}
-      >
-        {
-          (addSighting, { data, loading, error }) => {
-            if (loading) return <Spinner />
-            if (error) return <Error error={error} />
-            return (
-              <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px' }}>
-                <h2 className="App">Add Sighting</h2>
+      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
+        <Mutation
+          mutation={ADD_SIGHTING}
+          variables={{ user, location, mushroom, date, latitude, longitude }}
+        // refetchQueries={() => [
+        //   { query: GET_CURRENT_USER },
+        //   // { query: GET_ALL_LOCATIONS, variables: { username } },
+        //   { query: GET_ALL_SIGHTINGS, variables: { username } },
+        //   { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } },
+        // ]}
+        // update={this.updateCache}
+        >
+          {
+            (addSighting, { data, loading, error }) => {
+              if (loading) return <Spinner />
+              if (error) return <Error error={error} />
+              return (
+                <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px' }}>
+                  <h2 className="App">Add Sighting</h2>
 
-                <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>
+                  <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>
 
-                  <div>
-                    <h4>Location: {locationname}</h4>
-                  </div>
+                    <div>
+                      <h4>Location: {locationname}</h4>
+                    </div>
 
-                  <input
-                    type="text"
-                    name="commonname"
-                    placeholder="Common Name"
-                    onChange={this.handleChange}
-                    value={commonname}
-                  />
+                    <input
+                      type="text"
+                      name="commonname"
+                      placeholder="Common Name"
+                      onChange={this.handleChange}
+                      value={commonname}
+                    />
 
-                  <input
-                    type="text"
-                    name="latinname"
-                    placeholder="Latin Name"
-                    onChange={this.handleChange}
-                    value={latinname}
-                  />
+                    <input
+                      type="text"
+                      name="latinname"
+                      placeholder="Latin Name"
+                      onChange={this.handleChange}
+                      value={latinname}
+                    />
 
-                  <input
-                    type="text"
-                    name="imageUrl"
-                    placeholder="Mushroom Image"
-                    onChange={this.handleChange}
-                    value={imageUrl}
-                  />
+                    <input
+                      type="text"
+                      name="imageUrl"
+                      placeholder="Mushroom Image"
+                      onChange={this.handleChange}
+                      value={imageUrl}
+                    />
 
-                  <input
-                    type="text"
-                    name="imageCredit"
-                    placeholder="Image Credit"
-                    onChange={this.handleChange}
-                    value={imageCredit}
-                  />
+                    <input
+                      type="text"
+                      name="imageCredit"
+                      placeholder="Image Credit"
+                      onChange={this.handleChange}
+                      value={imageCredit}
+                    />
 
-                  <input
-                    type="text"
-                    name="date"
-                    placeholder="Date"
-                    onChange={this.handleChange}
-                    value={date}
-                  />
+                    <input
+                      type="text"
+                      name="date"
+                      placeholder="Date"
+                      onChange={this.handleChange}
+                      value={date}
+                    />
 
-                  <input
-                    type="text"
-                    name="latitude"
-                    placeholder="Latitude"
-                    onChange={this.handleChange}
-                    value={latitude}
-                  />
+                    <input
+                      type="text"
+                      name="latitude"
+                      placeholder="Latitude"
+                      onChange={this.handleChange}
+                      value={latitude}
+                    />
 
-                  <input
-                    type="text"
-                    name="longitude"
-                    placeholder="Longitude"
-                    onChange={this.handleChange}
-                    value={longitude}
-                  />
+                    <input
+                      type="text"
+                      name="longitude"
+                      placeholder="Longitude"
+                      onChange={this.handleChange}
+                      value={longitude}
+                    />
 
-                  <button
-                    disabled={loading || this.validateForm()}
-                    type="submit" className="botton-primary"
-                  >
-                    Submit
-                  </button>
+                    <button
+                      disabled={loading || this.validateForm()}
+                      type="submit" className="botton-primary"
+                    >
+                      Submit
+                    </button>
 
-                </form>
-              </div>
-            )
+                  </form>
+                </div>
+              )
+            }
           }
-        }
-      </Mutation>
+        </Mutation>
+      </div>
     )
   }
 }
