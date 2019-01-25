@@ -41,7 +41,7 @@ class AllMushroomsPage extends Component {
 
             return (
               
-              <div>
+              <div className='all-mushrooms'>
                 {
                   data.getMyMushrooms.map(mushroom => (
                     <MushroomItem key={mushroom._id} imageUrl={mushroom.imageUrl} sightings={mushroom.sightings} commonname={mushroom.commonname} _id={mushroom._id} />

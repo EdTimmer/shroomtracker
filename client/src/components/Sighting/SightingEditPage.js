@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import withAuth from '../withAuth';
 
 import { Query, Mutation } from 'react-apollo';
-import { DELETE_SIGHTING, GET_ALL_LOCATIONS, UPDATE_SIGHTING, GET_ALL_SIGHTINGS } from '../../queries';
+import { DELETE_SIGHTING, GET_MY_SIGHTINGS, UPDATE_SIGHTING } from '../../queries';
 import Spinner from '../Spinner';
 import Error from '../Error';
 // import { get } from 'https';

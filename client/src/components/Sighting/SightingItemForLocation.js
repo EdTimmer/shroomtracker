@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { GET_SIGHTING } from '../../queries';
-import withAuth from '../withAuth';
+// import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 import Error from '../Error';
 

@@ -27,7 +27,7 @@ import AddLocation from './components/Location/AddLocation';
 import AddMushroom from './components/Mushroom/AddMushroom';
 import AddNewMushroom from './components/Mushroom/AddNewMushroom';
 import AllMushroomsPage from './components/Mushroom/AllMushroomsPage';
-import AddSighting from './components/Sighting/AddSighting';
+// import AddSighting from './components/Sighting/AddSighting';
 import AddSightingSavedMushroom from './components/Sighting/AddSightingSavedMushroom';
 import SightingPage from './components/Sighting/SightingPage';
 import SightingEditPage from './components/Sighting/SightingEditPage';

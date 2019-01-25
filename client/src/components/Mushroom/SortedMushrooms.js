@@ -1,5 +1,5 @@
 import React from 'react';
-import withAuth from '../withAuth';
+// import withAuth from '../withAuth';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // import { NavLink } from 'react-router-dom';

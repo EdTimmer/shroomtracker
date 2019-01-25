@@ -4,14 +4,14 @@ import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
 import { Mutation } from 'react-apollo';
-import { ADD_SIGHTING, GET_MY_SIGHTINGS } from '../../queries';
+import { ADD_SIGHTING, GET_MY_SIGHTINGS, GET_MY_MUSHROOMS } from '../../queries';
 import Error from '../Error';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 class AddSightingSavedMushroom extends React.Component {
   state = { 
     user: '',
-    location: this.props.location.state.location.state.location,
+    location: this.props.location.state.location,
     mushroom: this.props.location.state.mushroom,
     locationname: this.props.location.state.locationname,
     commonname: this.props.location.state.commonname,
@@ -105,6 +105,7 @@ class AddSightingSavedMushroom extends React.Component {
           variables={{ user, location, mushroom, date, latitude, longitude }}
           refetchQueries={() => [
             { query: GET_MY_SIGHTINGS, variables: { user } },
+            { query: GET_MY_MUSHROOMS, variables: { user } },
           ]}
           // update={this.updateCache}
         >

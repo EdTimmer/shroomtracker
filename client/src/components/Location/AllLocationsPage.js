@@ -29,7 +29,7 @@ class AllLocationsPage extends Component {
   }
 
   render() {
-    const { locations, user } = this.state;
+    const { user } = this.state;
 
     // if (!locations) {
     //   return null;

@@ -1,7 +1,7 @@
 import React from 'react';
 import withAuth from '../withAuth';
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 import { Query } from 'react-apollo';
@@ -20,7 +20,7 @@ class SelectLocation extends React.Component {
   }
 
   componentDidMount() {
-    const myMushrooms = this.props.session.getCurrentUser.mushrooms
+    // const myMushrooms = this.props.session.getCurrentUser.mushrooms
     this.setState({      
       locations: this.props.session.getCurrentUser.locations,
       user: this.props.session.getCurrentUser._id,
@@ -28,7 +28,7 @@ class SelectLocation extends React.Component {
   }
 
   render() {
-    const { locations, user } = this.state;
+    const { user } = this.state;
 
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>

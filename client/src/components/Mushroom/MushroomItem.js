@@ -2,10 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 export default ({ _id, imageUrl, commonname, sightings }) => (
-  <div>    
+  <div className="mushroom">    
     <div>
       <div>
-        <img src={imageUrl} style={{width: '400px'}} alt="mushroom" />                    
+        <img src={imageUrl} style={{height: '400px'}} alt="mushroom" />                    
       </div>
       <Link to={`/mushrooms/${_id}`}>{commonname}</Link>          
         {
