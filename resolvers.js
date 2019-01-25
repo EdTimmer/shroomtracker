@@ -95,18 +95,19 @@ exports.resolvers = {
     },
 
     getMyMushrooms: async (root, { user }, { Mushroom }) => {
+      console.log('getMyMushrooms got called in the resolvers')
       const myMushrooms = await Mushroom.find({ user }).sort({ commonname: 1 })
         .populate({
           path: 'user',
           model: 'User'
         })
         .populate({
-          path: 'location',
-          model: 'Location'
-        })
-        .populate({
-          path: 'sighting',
-          model: 'Sighting'
+          path: 'sightings',
+          model: 'Sighting',
+          populate: {
+            path: 'location',
+            model: 'Location'
+          }
         });
       return myMushrooms;
     },

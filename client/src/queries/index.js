@@ -140,6 +140,13 @@ export const GET_MY_MUSHROOMS = gql`
       latinname
       imageUrl
       imageCredit
+      sightings {
+        _id        
+        date
+        location {
+          locationname
+        }
+      }
       user {
         _id
       }

@@ -1,43 +1,58 @@
-// import React, { Component } from 'react';
-// import { withRouter } from 'react-router-dom';
-// import withAuth from '../withAuth';
-// import '../App.css';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import withAuth from '../withAuth';
+import '../App.css';
 
-// import { Query } from 'react-apollo';
-// import { GET_ALL_MUSHROOMS } from '../../queries';
+import { Query } from 'react-apollo';
+import { GET_MY_MUSHROOMS } from '../../queries';
+import MushroomItem from './MushroomItem';
+import Spinner from '../Spinner';
+import mushrooms4 from '../../images/mushrooms4.jpg';
 
-// import MushroomItem from './MushroomItem';
-// import Spinner from '../Spinner';
+class AllMushroomsPage extends Component {
+  state = {
+    user: ''
+  }
 
-// class AllMushroomsPage extends Component {
-//   ;
-//   render() {
-//     const username = this.props.session.getCurrentUser.username;
-//     // console.log(this.props.session.getCurrentUser.username)
-//     return (
-//       <div className="App">
-//         <h1 className="main-title">
-//           My <strong>Myshrooms</strong>
-//         </h1>
-//         <Query query={GET_ALL_MUSHROOMS} variables={{username}}>
-//           {({ data, loading, error }) => {
-//             if (loading) return <Spinner />
-//             if (error) return <div>Error</div>
+  componentDidMount() {
+    this.setState({
+      user: this.props.session.getCurrentUser._id,
+    });
+  }
+  
+  render() {
+    // const username = this.props.session.getCurrentUser.username;
+    const {user} = this.state;
 
-//             return (
-//               <div>
-//                 {
-//                   data.getAllMushrooms.map(mushroom => (
-//                     <MushroomItem key={mushroom._id} {...mushroom} />
-//                   ))
-//                 }
-//               </div>
-//             )
-//           }}
-//         </Query>
-//       </div>
-//     )
-//   }
-// }
+    if (!user) {
+      return null;
+    }
+    // console.log(this.props.session.getCurrentUser.username)
+    return (
+      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
+        <h1 className="main-title">
+          <strong>My Myshrooms</strong>
+        </h1>
+        <Query query={GET_MY_MUSHROOMS} variables={{user}}>
+          {({ data, loading, error }) => {
+            if (loading) return <Spinner />
+            if (error) return <div>Error</div>
 
-// export default withAuth(session => session && session.getCurrentUser)(withRouter(AllMushroomsPage));
+            return (
+              
+              <div className="cards">
+                {
+                  data.getMyMushrooms.map(mushroom => (
+                    <MushroomItem key={mushroom._id} imageUrl={mushroom.imageUrl} sightings={mushroom.sightings} commonname={mushroom.commonname} />
+                  ))
+                }
+              </div>
+            )
+          }}
+        </Query>
+      </div>
+    )
+  }
+}
+
+export default withAuth(session => session && session.getCurrentUser)(withRouter(AllMushroomsPage));

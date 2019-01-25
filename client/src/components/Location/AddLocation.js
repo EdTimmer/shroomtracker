@@ -127,7 +127,7 @@ class AddLocation extends React.Component {
 
                   <button
                     disabled={loading || this.validateForm()}
-                    type="submit" className="botton-primary"
+                    type="submit" className="button-primary"
                     style={{color: 'white'}}
                   >
                     Submit

@@ -4,14 +4,14 @@ import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
 import { Mutation } from 'react-apollo';
-import { ADD_SIGHTING } from '../../queries';
+import { ADD_SIGHTING, GET_MY_SIGHTINGS } from '../../queries';
 import Error from '../Error';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 class AddSightingSavedMushroom extends React.Component {
   state = { 
     user: '',
-    location: this.props.location.state.location,
+    location: this.props.location.state.location.state.location,
     mushroom: this.props.location.state.mushroom,
     locationname: this.props.location.state.locationname,
     commonname: this.props.location.state.commonname,
@@ -96,19 +96,16 @@ class AddSightingSavedMushroom extends React.Component {
 
 
     // console.log('state is:', this.state)
-    // console.log(this.props.location.state)
+    console.log(location)
 
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
         <Mutation
           mutation={ADD_SIGHTING}
           variables={{ user, location, mushroom, date, latitude, longitude }}
-          // refetchQueries={() => [
-          //   { query: GET_CURRENT_USER },
-          //   // { query: GET_ALL_LOCATIONS, variables: { username } },
-          //   { query: GET_ALL_SIGHTINGS, variables: { username } },
-          //   { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } }
-          // ]}
+          refetchQueries={() => [
+            { query: GET_MY_SIGHTINGS, variables: { user } },
+          ]}
           // update={this.updateCache}
         >
           {
@@ -162,7 +159,7 @@ class AddSightingSavedMushroom extends React.Component {
 
                     <button
                       disabled={loading || this.validateForm()}
-                      type="submit" className="botton-primary"
+                      type="submit" className="button-primary"
                     >
                       Submit
                     </button>

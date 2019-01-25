@@ -169,7 +169,7 @@ class AddSighting extends React.Component {
 
                     <button
                       disabled={loading || this.validateForm()}
-                      type="submit" className="botton-primary"
+                      type="submit" className="button-primary"
                     >
                       Submit
                     </button>
