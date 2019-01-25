@@ -7,6 +7,7 @@ import { Query } from 'react-apollo';
 import { GET_MY_MUSHROOMS } from '../../queries';
 import MushroomItem from './MushroomItem';
 import Spinner from '../Spinner';
+import Error from '../Error';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 class AllMushroomsPage extends Component {
@@ -29,21 +30,21 @@ class AllMushroomsPage extends Component {
     }
     // console.log(this.props.session.getCurrentUser.username)
     return (
-      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
+      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, backgroundRepeat: "repeat" }}>
         <h1 className="main-title">
           <strong>My Myshrooms</strong>
         </h1>
         <Query query={GET_MY_MUSHROOMS} variables={{user}}>
           {({ data, loading, error }) => {
             if (loading) return <Spinner />
-            if (error) return <div>Error</div>
+            if (error) return <Error error={error} />
 
             return (
               
-              <div className="cards">
+              <div>
                 {
                   data.getMyMushrooms.map(mushroom => (
-                    <MushroomItem key={mushroom._id} imageUrl={mushroom.imageUrl} sightings={mushroom.sightings} commonname={mushroom.commonname} />
+                    <MushroomItem key={mushroom._id} imageUrl={mushroom.imageUrl} sightings={mushroom.sightings} commonname={mushroom.commonname} _id={mushroom._id} />
                   ))
                 }
               </div>

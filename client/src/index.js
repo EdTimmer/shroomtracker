@@ -22,7 +22,7 @@ import SelectMushroom from "./components/CreateEntry/SelectMushroom";
 import AllLocationsPage from './components/Location/AllLocationsPage';
 import AllSightingsPage from './components/Sighting/AllSightingsPage';
 import LocationPage from './components/Location/LocationPage';
-// import MushroomPage from './components/Mushroom/MushroomPage';
+import MushroomPage from './components/Mushroom/MushroomPage';
 import AddLocation from './components/Location/AddLocation';
 import AddMushroom from './components/Mushroom/AddMushroom';
 import AddNewMushroom from './components/Mushroom/AddNewMushroom';
@@ -87,7 +87,8 @@ const Root = ({ refetch, session }) => (
         {/*<Route path="/sighting/add" render={() => <AddSighting session={session} />} />*/}
         <Route path="/sighting/add" render={() => <AddSightingSavedMushroom session={session} />} />
         <Route path="/locations" render={() => <AllLocationsPage session={session} />} />
-        <Route path="/sightings" render={() => <AllSightingsPage session={session} />} />
+        <Route path="/sightings" render={() => <AllSightingsPage session={session} />} />        
+        <Route path="/mushrooms/:_id" render={() => <MushroomPage session={session} />} />
         <Route path="/mushrooms" render={() => <AllMushroomsPage session={session} />} />
         {/*<Route path="/search" render={() => <Search session={session} />} />*/}
         <Route path="/mushroom/add" render={() => <AddMushroom session={session} />} />

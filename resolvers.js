@@ -119,12 +119,12 @@ exports.resolvers = {
           model: 'User'
         })
         .populate({
-          path: 'location',
-          model: 'Location'
-        })
-        .populate({
-          path: 'sighting',
-          model: 'Sighting'
+          path: 'sightings',
+          model: 'Sighting',
+          populate: {
+            path: 'location',
+            model: 'Location'
+          }
         });
       return mushroom;
     },

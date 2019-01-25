@@ -97,6 +97,8 @@ class AddMushroom extends React.Component {
         >
           {
             (addMushroom, { data, loading, error }) => {
+              if (loading) return <Spinner />
+              if (error) return <Error error={error} />
               return (
                 <div className="App">
                   <h2 className="App">Add Mushroom</h2>
