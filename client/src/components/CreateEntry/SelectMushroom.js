@@ -32,7 +32,7 @@ class SelectMushroom extends React.Component {
   render() {
     const { locationname, location, filteredMushrooms } = this.state;
     
-    // console.log('location in SelectMushroom is:', location)
+    console.log('location in SelectMushroom is:', location)
     if (!filteredMushrooms) {
       return null;
     }

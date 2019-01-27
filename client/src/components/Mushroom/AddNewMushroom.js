@@ -21,14 +21,15 @@ const initialState = {
 class AddNewMushroom extends React.Component {
   state = { ...initialState };
 
-  clearState = () => {
-    this.setState({ ...initialState });
-  }
+  // clearState = () => {
+  //   this.setState({ ...initialState });
+  // }
 
   componentDidMount() {
     this.setState({
       user: this.props.session.getCurrentUser._id,
-      location: this.props.location.state ? this.props.location.state.location : '',
+      // location: this.props.location.state ? this.props.location.state.location : '',
+      location: this.props.location.state ? this.props.location.state.location.state.location : '',
       // commonname: this.props.location.state ? this.props.location.state.commonname : '',
       // latinname: this.props.location.state ? this.props.location.state.latinname : '', 
       // imageUrl: this.props.location.state ? this.props.location.state.imageUrl : '',
@@ -83,7 +84,7 @@ class AddNewMushroom extends React.Component {
 
   render() {
     const { commonname, latinname, imageUrl, imageCredit, user, location } = this.state;
-    console.log('this.state in AddNewMushroom is:', this.state)
+    // console.log('this.state in AddNewMushroom is:', this.state)
     console.log('location in AddNewMushroom is:', location)
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>

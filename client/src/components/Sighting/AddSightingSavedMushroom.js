@@ -11,7 +11,9 @@ import mushrooms4 from '../../images/mushrooms4.jpg';
 class AddSightingSavedMushroom extends React.Component {
   state = { 
     user: '',
-    location: this.props.location.state.location,
+    // location: this.props.location.state.location.state.location ? this.props.location.state.location.state.location : this.props.location.state.location,
+    // location: this.props.location.state.location,
+    location: '',
     mushroom: this.props.location.state.mushroom,
     locationname: this.props.location.state.locationname,
     commonname: this.props.location.state.commonname,
@@ -40,7 +42,8 @@ class AddSightingSavedMushroom extends React.Component {
 
   componentDidMount() {
     this.setState({
-      user: this.props.session.getCurrentUser._id
+      user: this.props.session.getCurrentUser._id,
+      location: this.props.location.state.location.state ? this.props.location.state.location.state.location : this.props.location.state.location,
     });
   }
 
@@ -96,7 +99,7 @@ class AddSightingSavedMushroom extends React.Component {
 
 
     // console.log('state is:', this.state)
-    console.log(location)
+    console.log('location is', location)
 
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
