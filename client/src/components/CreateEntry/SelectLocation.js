@@ -17,6 +17,7 @@ class SelectLocation extends React.Component {
   state = {
     locations: '',
     user: '',
+    // myMushrooms: ''
   }
 
   componentDidMount() {
@@ -24,6 +25,7 @@ class SelectLocation extends React.Component {
     this.setState({      
       locations: this.props.session.getCurrentUser.locations,
       user: this.props.session.getCurrentUser._id,
+      // myMushrooms: this.props.getCurrentUser.mushrooms
     });
   }
 

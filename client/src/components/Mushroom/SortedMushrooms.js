@@ -39,8 +39,7 @@ const SortedMushrooms = ({ location, locationname, filteredMushrooms }) => {
   return (
     <div>                          
       <ul className="all-mushrooms">                
-        {
-          
+        {          
           filteredMushrooms.map(mushroom =>
             
             <li key={mushroom._id} className="mushroom">   
@@ -61,41 +60,10 @@ const SortedMushrooms = ({ location, locationname, filteredMushrooms }) => {
                 </div>
                 {mushroom.commonname}
               </Link>
-
             </li>
           )
         }
-      </ul>
-         
-
-      {/*<h4><i>From Mushroom Templates</i></h4>
-      {                
-        <ul className="all-mushrooms">                
-          {
-            templateMushrooms.map(mushroom =>
-              <li key={mushroom._id} className="mushroom">
-
-                <Link to={{
-                  pathname: '/mushroom/add', state: {
-                    mushroom: mushroom._id,
-                    commonname: mushroom.commonname, 
-                    latinname: mushroom.latinname,
-                    imageUrl: mushroom.imageUrl, 
-                    imageCredit: mushroom.imageCredit,
-                    location: location, locationname: locationname
-                  }
-                }}>
-                  <div>
-                    <img src={mushroom.imageUrl} style={{ height: '200px' }} alt="mushroom" />
-                  </div>
-                  {mushroom.commonname}
-                </Link>
-
-              </li>
-            )
-          }
-        </ul>*/}
-           
+      </ul>           
     </div>
   )
 }
