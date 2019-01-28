@@ -217,7 +217,7 @@ exports.resolvers = {
       return sighting;
     },
 
-    updateSighting: async (root, { _id, location, date, latitude, longitude }, { Sighting }) => {
+    updateSighting: async (root, { _id, location, mushroom, date, latitude, longitude }, { Sighting }) => {
       const updatedSighting = await Sighting.findOneAndUpdate(
         { _id },
         { $set: { location, date, latitude, longitude }},

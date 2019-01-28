@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import withAuth from '../withAuth';
 
 import { Query, Mutation } from 'react-apollo';
-import { DELETE_SIGHTING, GET_MY_SIGHTINGS, UPDATE_SIGHTING } from '../../queries';
+import { DELETE_SIGHTING, GET_SIGHTING, UPDATE_SIGHTING } from '../../queries';
 import Spinner from '../Spinner';
 import Error from '../Error';
 // import { get } from 'https';
@@ -17,10 +17,7 @@ class SightingEditPage extends React.Component {
     user: '',
     location: this.props.location.state.location,
     locationname: this.props.location.state.locationname,
-    commonname: this.props.location.state.commonname,
-    latinname: this.props.location.state.latinname ? this.props.location.state.latinname : '',
-    imageUrl: this.props.location.state.imageUrl ? this.props.location.state.imageUrl : '',
-    imageCredit: this.props.location.state.imageCredit ? this.props.location.state.imageCredit : '',
+    mushroom: this.props.location.state.mushroom.commonname,
     date: this.props.location.state.date,
     latitude: this.props.location.state.latitude ? this.props.location.state.latitude : '',
     longitude: this.props.location.state.longitude ? this.props.location.state.longitude : ''
@@ -58,154 +55,187 @@ class SightingEditPage extends React.Component {
 
   render() {
     // console.log('state is:', this.state);
-    const { _id, location, user, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
+    const { _id, location, user, mushroom, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
     const { handleChange, handleSubmit } = this;
     const locations = this.props.session.getCurrentUser.locations;
+    const mushrooms = this.props.session.getCurrentUser.mushrooms;
     return (
       <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px', color: 'white' }}
       >
-        <Mutation
-          mutation={UPDATE_SIGHTING}
-          variables={{
-            _id,
-            location,
-            commonname,
-            latinname,
-            imageUrl,
-            imageCredit,
-            date,
-            latitude,
-            longitude
-          }}
-        >
+
+        <Query query={GET_SIGHTING} variables={{ _id }}>
           {
-            updateSighting => (
+            ({ data, loading, error }) => {
 
-              <form
-                onSubmit={(event) => handleSubmit(event, updateSighting)}
-              >
-                <h4>Edit Sighting</h4>
-
-
-                <div style={{ color: 'black' }}>
-                  <select
-                    name="location"
-                    onChange={handleChange}
-                  >
-                    <option value='-1'>{locationname}</option>
-                    {
-                      locations.map(location => (
-                        <option key={location._id} value={location.locationname}>
-                          {location.locationname}
-                        </option>
-                      ))
-                    }
-                  </select>
-
-                </div>
-
-
-                <div>
-                  <input
-                    type="text"
-                    name="commonname"
-                    placeholder={commonname}
-                    onChange={handleChange}
-                    value={commonname}
-                  />
-                </div>
-
-                <div>
-                  <input
-                    type="text"
-                    name="latinname"
-                    placeholder={latinname}
-                    onChange={handleChange}
-                    value={latinname}
-                  />
-                </div>
-
-                <div>
-                  <input
-                    type="text"
-                    name="imageUrl"
-                    placeholder={imageUrl}
-                    onChange={handleChange}
-                    value={imageUrl}
-                  />
-                </div>
-
-                <div>
-                  <input
-                    type="text"
-                    name="imageCredit"
-                    placeholder={imageCredit}
-                    onChange={handleChange}
-                    value={imageCredit}
-                  />
-                </div>
-
-                <div>
-                  <input
-                    type="text"
-                    name="date"
-                    placeholder={date}
-                    onChange={handleChange}
-                    value={date}
-                  />
-                </div>
-
-                <div>
-                  <input
-                    type="text"
-                    name="latitude"
-                    placeholder={latitude}
-                    onChange={handleChange}
-                    value={latitude}
-                  />
-                </div>
-
-                <div>
-                  <input
-                    type="text"
-                    name="longitude"
-                    placeholder={longitude}
-                    onChange={handleChange}
-                    value={longitude}
-                  />
-                </div>
-
-                <button type="submit" className="button-primary">Update</button>
-
-              </form>
-
-            )
-          }
-        </Mutation>
-
-        <Mutation
-          mutation={DELETE_SIGHTING} variables={{ _id, user, location }}
-          // refetchQueries={() => [
-          //   { query: GET_ALL_SIGHTINGS, variables: { username } }
-          // ]}
-        >
-          {
-            (deleteSighting, attrs = {}) => {
-
+              if (loading) return <Spinner />
+              if (error) return <Error error={error} />
+              // console.log(data);
               return (
-                <div>
-                  <button
-                    className="delete-button"
-                    onClick={() => this.handleDelete(deleteSighting)}
-                  >
-                    Delete Sighting
-                  </button>
+                <div className="App">
+                
+                <Mutation
+                  mutation={UPDATE_SIGHTING}
+                  variables={{
+                    _id,
+                    location,
+                    mushroom,
+                    date,
+                    latitude,
+                    longitude
+                  }}
+                >
+                  {
+                    updateSighting => (
+        
+                      <form
+                        onSubmit={(event) => handleSubmit(event, updateSighting)}
+                      >
+                        <h4>Edit Sighting</h4>
+        
+        
+                        <div style={{ color: 'black' }}>
+                          <select
+                            name="location"
+                            onChange={handleChange}
+                          >
+                            <option value='-1'>{locationname}</option>
+                            {
+                              locations.map(location => (
+                                <option key={location._id} value={location.locationname}>
+                                  {location.locationname}
+                                </option>
+                              ))
+                            }
+                          </select>
+                        </div>
+        
+                        <div style={{ color: 'black' }}>
+                          <select
+                            name="mushroom"
+                            onChange={handleChange}
+                          >
+                            <option value='-1'>{mushroom.commonname}</option>
+                            {
+                              locations.map(location => (
+                                <option key={location._id} value={location.locationname}>
+                                  {location.locationname}
+                                </option>
+                              ))
+                            }
+                          </select>
+                        </div>
+        
+        
+                        <div>
+                          <input
+                            type="text"
+                            name="commonname"
+                            placeholder={commonname}
+                            onChange={handleChange}
+                            value={commonname}
+                          />
+                        </div>
+        
+                        <div>
+                          <input
+                            type="text"
+                            name="latinname"
+                            placeholder={latinname}
+                            onChange={handleChange}
+                            value={latinname}
+                          />
+                        </div>
+        
+                        <div>
+                          <input
+                            type="text"
+                            name="imageUrl"
+                            placeholder={imageUrl}
+                            onChange={handleChange}
+                            value={imageUrl}
+                          />
+                        </div>
+        
+                        <div>
+                          <input
+                            type="text"
+                            name="imageCredit"
+                            placeholder={imageCredit}
+                            onChange={handleChange}
+                            value={imageCredit}
+                          />
+                        </div>
+        
+                        <div>
+                          <input
+                            type="text"
+                            name="date"
+                            placeholder={date}
+                            onChange={handleChange}
+                            value={date}
+                          />
+                        </div>
+        
+                        <div>
+                          <input
+                            type="text"
+                            name="latitude"
+                            placeholder={latitude}
+                            onChange={handleChange}
+                            value={latitude}
+                          />
+                        </div>
+        
+                        <div>
+                          <input
+                            type="text"
+                            name="longitude"
+                            placeholder={longitude}
+                            onChange={handleChange}
+                            value={longitude}
+                          />
+                        </div>
+        
+                        <button type="submit" className="button-primary">Update</button>
+        
+                      </form>
+        
+                    )
+                  }
+                </Mutation>
+      
+              <Mutation
+                mutation={DELETE_SIGHTING} variables={{ _id, user, location }}
+                // refetchQueries={() => [
+                //   { query: GET_ALL_SIGHTINGS, variables: { username } }
+                // ]}
+              >
+                {
+                  (deleteSighting, attrs = {}) => {
+      
+                    return (
+                      <div>
+                        <button
+                          className="delete-button"
+                          onClick={() => this.handleDelete(deleteSighting)}
+                        >
+                          Delete Sighting
+                        </button>
+                      </div>
+                    )
+                  }
+                }
+      
+              </Mutation>
+
                 </div>
               )
             }
           }
+        </Query>
 
-        </Mutation>
+
+        
       </div>
 
     )
