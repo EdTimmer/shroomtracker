@@ -127,45 +127,7 @@ exports.resolvers = {
           }
         });
       return mushroom;
-    },
-
-
-    // getAllSightings: async (root, { username }, { Sighting }) => {
-    //   const allSightings = await Sighting.find({ username }).sort({createdDate: 'desc'});
-    //   return allSightings;
-    // },
-
-    // getLocationSightings: async (root, { locationname, username }, { Sighting }) => {
-    //   const locationSightings = await Sighting.find({ locationname, username }).sort({ createdDate: 'desc' });
-    //   return locationSightings;
-    // },
-
-    // getLocationMushroomSightings: async (root, { commonname, locationname, username }, { Sighting }) => {
-    //   const locationMushroomSightings = await Sighting.find({ commonname, locationname, username }).sort({ createdDate: 'desc'});
-    //   return locationMushroomSightings;
-    // },
-
-    // getAllMushrooms: async (root, { username }, { Mushroom }) => {
-    //   const allMushrooms = await Mushroom.find({ username }).sort({ commonname: 1 });
-    //   return allMushrooms;
-    // },
-
-    // searchSightings: async (root, { searchTerm, username }, { Sighting }) => {
-    //   if (searchTerm) {
-    //     const searchResults = await Sighting.find({
-    //       $text: { $search: searchTerm }, username
-    //     }, {
-    //       score: { $meta: "textScore" }
-    //     }).sort({
-    //       score: { $meta: "textScore" }
-    //     });
-    //     return searchResults;
-    //   }
-    //   else {
-    //     const sightings = await Sighting.find({ username });
-    //     return sightings;
-    //   }
-    // },
+    }
   },
 
   Mutation: {

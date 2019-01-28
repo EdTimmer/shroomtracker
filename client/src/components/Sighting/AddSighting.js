@@ -2,16 +2,18 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import withAuth from '../withAuth';
 import Spinner from '../Spinner';
+
+import { Mutation } from 'react-apollo';
+import { ADD_SIGHTING, GET_MY_SIGHTINGS, GET_MY_MUSHROOMS } from '../../queries';
 import Error from '../Error';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
-import { Mutation } from 'react-apollo';
-import { ADD_SIGHTING, ADD_MUSHROOM } from '../../queries';
-
 class AddSighting extends React.Component {
-  state = {
+  state = { 
     user: '',
-    location: this.props.location.state.location,
+    // location: this.props.location.state.location.state.location ? this.props.location.state.location.state.location : this.props.location.state.location,
+    // location: this.props.location.state.location,
+    location: '',
     mushroom: this.props.location.state.mushroom,
     locationname: this.props.location.state.locationname,
     commonname: this.props.location.state.commonname,
@@ -28,10 +30,10 @@ class AddSighting extends React.Component {
   //     user: '',
   //     location: this.props.location.state.location,
   //     locationname: this.props.location.state.locationname,
-  //     commonname: '',
-  //     latinname: '',
-  //     imageUrl: '',
-  //     imageCredit: '',
+  //     commonname: this.props.location.state.commonname,
+  //     latinname: this.props.location.state.latinname,
+  //     imageUrl: this.props.location.state.imageUrl,
+  //     imageCredit: this.props.location.state.imageCredit,
   //     date: '',
   //     latitude: '',
   //     longitude: ''
@@ -40,7 +42,8 @@ class AddSighting extends React.Component {
 
   componentDidMount() {
     this.setState({
-      user: this.props.session.getCurrentUser._id
+      user: this.props.session.getCurrentUser._id,
+      location: this.props.location.state.location.state ? this.props.location.state.location.state.location : this.props.location.state.location,
     });
   }
 
@@ -51,11 +54,24 @@ class AddSighting extends React.Component {
     });
   }
 
+  // handleMushroomChange = event => {
+    
+  //   const { value } = event.target;
+  //   // console.log('value is', value);
+  //   const valueArray = value.split(",")
+  //   this.setState({
+  //     commonname: valueArray[0],
+  //     latinname: valueArray[1],
+  //     imageUrl: valueArray[2]
+  //   });
+  // }
+
+
   handleSubmit = (event, addSighting) => {
     event.preventDefault();
     addSighting().then(({ data }) => {
-      console.log(data);
-      // this.clearState();
+      // console.log(data); 
+      // this.clearState();     
       this.props.history.push(`/sightings/${data.addSighting._id}`);
     });
   }
@@ -66,82 +82,60 @@ class AddSighting extends React.Component {
     return isInvalid;
   }
 
-  // updateCache = (cache, { data: { addSighting, username } }) => {
+  // updateCache = (cache, { data: { AddSightingSavedMushroom, username } }) => {
   //   const { getAllSightings } = cache.readQuery({ query: GET_ALL_SIGHTINGS, variables: { username } });
 
   //   cache.writeQuery({
   //     query: GET_ALL_SIGHTINGS,
   //     variables: {username},
   //     data: {
-  //       getAllMushrooms: [addSighting, ...getAllSightings]
+  //       getAllMushrooms: [AddSightingSavedMushroom, ...getAllSightings]
   //     }
   //   })
   // }
 
   render() {
     const { user, location, mushroom, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
-    // const {passedlocationname} = this.props.location.state
-    // console.log('props are:', this.props)
-    // console.log(passedlocationname) // "bar"
-    // console.log('first username is', username)
+
+
+    // console.log('state is:', this.state)
+    console.log('location is', location)
+
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
         <Mutation
           mutation={ADD_SIGHTING}
           variables={{ user, location, mushroom, date, latitude, longitude }}
-        // refetchQueries={() => [
-        //   { query: GET_CURRENT_USER },
-        //   // { query: GET_ALL_LOCATIONS, variables: { username } },
-        //   { query: GET_ALL_SIGHTINGS, variables: { username } },
-        //   { query: GET_LOCATION_SIGHTINGS, variables: { username, locationname } },
-        // ]}
-        // update={this.updateCache}
+          refetchQueries={() => [
+            { query: GET_MY_SIGHTINGS, variables: { user } },
+            { query: GET_MY_MUSHROOMS, variables: { user } },
+          ]}
+          // update={this.updateCache}
         >
           {
             (addSighting, { data, loading, error }) => {
               if (loading) return <Spinner />
               if (error) return <Error error={error} />
               return (
-                <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px' }}>
+                <div className="App">
                   <h2 className="App">Add Sighting</h2>
 
                   <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>
+                    <div>
+                      <img src={imageUrl} style={{width: '200px'}} alt="mushroom" />                    
+                    </div>
 
                     <div>
                       <h4>Location: {locationname}</h4>
                     </div>
 
-                    <input
-                      type="text"
-                      name="commonname"
-                      placeholder="Common Name"
-                      onChange={this.handleChange}
-                      value={commonname}
-                    />
+                    <div>
+                      <h4>Common Name: {commonname}</h4>
+                    </div>
 
-                    <input
-                      type="text"
-                      name="latinname"
-                      placeholder="Latin Name"
-                      onChange={this.handleChange}
-                      value={latinname}
-                    />
-
-                    <input
-                      type="text"
-                      name="imageUrl"
-                      placeholder="Mushroom Image"
-                      onChange={this.handleChange}
-                      value={imageUrl}
-                    />
-
-                    <input
-                      type="text"
-                      name="imageCredit"
-                      placeholder="Image Credit"
-                      onChange={this.handleChange}
-                      value={imageCredit}
-                    />
+                    <div>
+                      <h4>Latin Name: {latinname}</h4>
+                    </div>                  
 
                     <input
                       type="text"
@@ -173,7 +167,7 @@ class AddSighting extends React.Component {
                     >
                       Submit
                     </button>
-
+                    
                   </form>
                 </div>
               )

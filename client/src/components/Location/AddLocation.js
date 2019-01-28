@@ -4,7 +4,7 @@ import { Mutation } from 'react-apollo';
 import withAuth from '../withAuth';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
-import { ADD_LOCATION, GET_MY_LOCATIONS, GET_ALL_LOCATIONS, GET_CURRENT_USER } from '../../queries';
+import { ADD_LOCATION, GET_MY_LOCATIONS } from '../../queries';
 
 import Spinner from '../Spinner';
 import Error from '../Error';
@@ -14,8 +14,7 @@ const initialState = {
   user: '',
   locationname: '',
   address: '',
-  location: '',
-  filteredMushrooms: ''
+  location: ''
 }
 
 class AddLocation extends React.Component {
@@ -27,8 +26,7 @@ class AddLocation extends React.Component {
 
   componentDidMount() {
     this.setState({
-      user: this.props.session.getCurrentUser._id,
-      filteredMushrooms: this.props.location.state.filteredMushrooms
+      user: this.props.session.getCurrentUser._id      
     });
   }
 
@@ -49,8 +47,7 @@ class AddLocation extends React.Component {
         pathname: '/selectmushroom',
         state: {
           locationname: this.state.locationname,
-          location: data.addLocation._id,
-          filteredMushrooms: this.state.filteredMushrooms
+          location: data.addLocation._id          
         }
       });
 
@@ -78,14 +75,8 @@ class AddLocation extends React.Component {
 
   render() {
 
+    const { locationname, address, user } = this.state;
 
-    const { locationname, address, user, filteredMushrooms } = this.state;
-
-    if (!filteredMushrooms) {
-      return null;
-    }
-    // console.log(this.props.session.getCurrentUser);
-    // console.log('this.state.user is:', this.state.user);
     return (
       <Mutation
         mutation={ADD_LOCATION}

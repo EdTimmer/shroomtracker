@@ -16,7 +16,6 @@ import Navbar from './components/Navbar';
 import Signin from './components/Auth/Signin';
 import Signup from './components/Auth/Signup';
 import withSession from "./components/withSession";
-// import AddPageZero from "./components/AddPageZero";
 import SelectLocation from "./components/CreateEntry/SelectLocation";
 import SelectMushroom from "./components/CreateEntry/SelectMushroom";
 import AllLocationsPage from './components/Location/AllLocationsPage';
@@ -27,11 +26,9 @@ import AddLocation from './components/Location/AddLocation';
 import AddMushroom from './components/Mushroom/AddMushroom';
 import AddNewMushroom from './components/Mushroom/AddNewMushroom';
 import AllMushroomsPage from './components/Mushroom/AllMushroomsPage';
-// import AddSighting from './components/Sighting/AddSighting';
-import AddSightingSavedMushroom from './components/Sighting/AddSightingSavedMushroom';
+import AddSighting from './components/Sighting/AddSighting';
 import SightingPage from './components/Sighting/SightingPage';
 import SightingEditPage from './components/Sighting/SightingEditPage';
-// import Search from './components/Sighting/Search';
 import Profile from './components/Profile/Profile';
 
 // Required for 2.0
@@ -76,21 +73,18 @@ const Root = ({ refetch, session }) => (
     <Fragment>
       <Navbar session={session} />
       <Switch>
-        <Route path="/" exact component={App} />
-        {/*<Route path="/addpagezero" render={() => <AddPageZero session={session} />} />*/}
+        <Route path="/" exact component={App} />        
         <Route path="/selectlocation" render={() => <SelectLocation session={session} />} />
         <Route path="/selectmushroom" render={() => <SelectMushroom session={session} />} />
         <Route path="/locations/:_id" render={() => <LocationPage session={session} />} />
         <Route path="/sightings/:_id" render={() => <SightingPage session={session} />} />
         <Route path="/sightingsedit/:_id" render={() => <SightingEditPage session={session} />} />
-        <Route path="/location/add" render={() => <AddLocation session={session} />} />
-        {/*<Route path="/sighting/add" render={() => <AddSighting session={session} />} />*/}
-        <Route path="/sighting/add" render={() => <AddSightingSavedMushroom session={session} />} />
+        <Route path="/location/add" render={() => <AddLocation session={session} />} />        
+        <Route path="/sighting/add" render={() => <AddSighting session={session} />} />
         <Route path="/locations" render={() => <AllLocationsPage session={session} />} />
         <Route path="/sightings" render={() => <AllSightingsPage session={session} />} />        
         <Route path="/mushrooms/:_id" render={() => <MushroomPage session={session} />} />
-        <Route path="/mushrooms" render={() => <AllMushroomsPage session={session} />} />
-        {/*<Route path="/search" render={() => <Search session={session} />} />*/}
+        <Route path="/mushrooms" render={() => <AllMushroomsPage session={session} />} />        
         <Route path="/mushroom/add" render={() => <AddMushroom session={session} />} />
         <Route path="/mushroom/newadd" render={() => <AddNewMushroom session={session} />} />
         <Route path="/signin" render={() => <Signin refetch={refetch} />} />

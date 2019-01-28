@@ -9,7 +9,7 @@ import Error from '../Error';
 // import SightingItemLocation from '../Sighting/SightingItemLocation';
 // import mushrooms4 from '../../images/mushrooms4.jpg';
 
-const MyLocationsList = ({ user, filteredMushrooms }) => {
+const MyLocationsList = ({ user }) => {
   
   return (
     <Query query={GET_MY_LOCATIONS} variables={{ user }}>
@@ -31,8 +31,7 @@ const MyLocationsList = ({ user, filteredMushrooms }) => {
                               pathname: '/selectmushroom', 
                               state: { 
                                 location: location._id, 
-                                locationname: location.locationname,
-                                filteredMushrooms 
+                                locationname: location.locationname
                               } 
                             }}>
                               <h4>{location.locationname}</h4> 
