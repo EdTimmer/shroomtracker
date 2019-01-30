@@ -18,8 +18,7 @@ exports.typeDefs = `
     locationname: String!
     address: String!
     user: User!
-    sightings: [Sighting!]!
-    mushrooms: [Mushroom!]!
+    sightings: [Sighting!]!    
   }
 
   type Sighting {

@@ -17,7 +17,8 @@ class SightingEditPage extends React.Component {
     user: '',
     location: this.props.location.state.location,
     locationname: this.props.location.state.locationname,
-    mushroom: this.props.location.state.mushroom.commonname,
+    mushroom: this.props.location.state.mushroom,
+    commonname: this.props.location.state.commonname,
     date: this.props.location.state.date,
     latitude: this.props.location.state.latitude ? this.props.location.state.latitude : '',
     longitude: this.props.location.state.longitude ? this.props.location.state.longitude : ''
@@ -55,7 +56,7 @@ class SightingEditPage extends React.Component {
 
   render() {
     // console.log('state is:', this.state);
-    const { _id, location, user, mushroom, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
+    const { _id, location, user, mushroom, locationname, commonname, date, latitude, longitude } = this.state;
     const { handleChange, handleSubmit } = this;
     const locations = this.props.session.getCurrentUser.locations;
     const mushrooms = this.props.session.getCurrentUser.mushrooms;
@@ -90,8 +91,7 @@ class SightingEditPage extends React.Component {
                       <form
                         onSubmit={(event) => handleSubmit(event, updateSighting)}
                       >
-                        <h4>Edit Sighting</h4>
-        
+                        <h4>Edit Sighting</h4>        
         
                         <div style={{ color: 'black' }}>
                           <select
@@ -114,56 +114,15 @@ class SightingEditPage extends React.Component {
                             name="mushroom"
                             onChange={handleChange}
                           >
-                            <option value='-1'>{mushroom.commonname}</option>
+                            <option value='-1'>{commonname}</option>
                             {
-                              locations.map(location => (
-                                <option key={location._id} value={location.locationname}>
-                                  {location.locationname}
+                              mushrooms.map(mushroom => (
+                                <option key={mushroom._id} value={mushroom._id}>
+                                  {mushroom.commonname}
                                 </option>
                               ))
                             }
                           </select>
-                        </div>
-        
-        
-                        <div>
-                          <input
-                            type="text"
-                            name="commonname"
-                            placeholder={commonname}
-                            onChange={handleChange}
-                            value={commonname}
-                          />
-                        </div>
-        
-                        <div>
-                          <input
-                            type="text"
-                            name="latinname"
-                            placeholder={latinname}
-                            onChange={handleChange}
-                            value={latinname}
-                          />
-                        </div>
-        
-                        <div>
-                          <input
-                            type="text"
-                            name="imageUrl"
-                            placeholder={imageUrl}
-                            onChange={handleChange}
-                            value={imageUrl}
-                          />
-                        </div>
-        
-                        <div>
-                          <input
-                            type="text"
-                            name="imageCredit"
-                            placeholder={imageCredit}
-                            onChange={handleChange}
-                            value={imageCredit}
-                          />
                         </div>
         
                         <div>
@@ -205,7 +164,7 @@ class SightingEditPage extends React.Component {
                 </Mutation>
       
               <Mutation
-                mutation={DELETE_SIGHTING} variables={{ _id, user, location }}
+                mutation={DELETE_SIGHTING} variables={{ _id, user, location, mushroom }}
                 // refetchQueries={() => [
                 //   { query: GET_ALL_SIGHTINGS, variables: { username } }
                 // ]}

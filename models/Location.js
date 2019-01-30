@@ -20,12 +20,12 @@ const LocationSchema = new Schema({
       ref: 'Sighting'
     }
   ],
-  mushrooms: [
-    {
-      type: [Schema.Types.ObjectId],
-      ref: 'Mushroom'
-    }
-  ],
+  // mushrooms: [
+  //   {
+  //     type: [Schema.Types.ObjectId],
+  //     ref: 'Mushroom'
+  //   }
+  // ],
 });
 
 module.exports = mongoose.model('Location', LocationSchema);

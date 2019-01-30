@@ -74,11 +74,9 @@ const SightingPage = ({ match }) => {
                 pathname: `/sightingsedit/${_id}`, 
                 state: {                  
                   location: data.getSighting.location._id,
+                  mushroom: data.getSighting.mushroom._id,
                   locationname: data.getSighting.location.locationname,
-                  commonname: data.getSighting.commonname,
-                  latinname: data.getSighting.latinname,
-                  imageUrl: data.getSighting.imageUrl,
-                  imageCredit: data.getSighting.imageCredit,
+                  commonname: data.getSighting.mushroom.commonname,                  
                   date: data.getSighting.date,
                   latitude: data.getSighting.latitude,
                   longitude: data.getSighting.longitude

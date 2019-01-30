@@ -56,14 +56,14 @@ export const GET_LOCATION = gql`
         _id        
         date
         latitude
-        longitude          
-      }
-      mushrooms {
-        _id
-        commonname
-        latinname
-        imageUrl
-        imageCredit
+        longitude      
+        mushroom {
+          _id
+          commonname
+          latinname
+          imageUrl
+          imageCredit
+        }    
       }
       user {
         _id
