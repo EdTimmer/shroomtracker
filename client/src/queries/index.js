@@ -275,8 +275,8 @@ export const ADD_SIGHTING = gql`
 `;
 
 export const DELETE_SIGHTING = gql`
-  mutation($_id: ID!, $user: ID!, $location: ID!) {
-    deleteSighting(_id: $_id, user: $user, location: $location) {
+  mutation($_id: ID!, $user: ID!, $location: ID!, $mushroom: ID!) {
+    deleteSighting(_id: $_id, user: $user, location: $location, mushroom: $mushroom) {
       _id
     }
   }

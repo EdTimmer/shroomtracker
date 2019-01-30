@@ -29,8 +29,9 @@ class AllMushroomsPage extends Component {
       return null;
     }
     // console.log(this.props.session.getCurrentUser.username)
+    // backgroundRepeat: "repeat"
     return (
-      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, backgroundRepeat: "repeat" }}>
+      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, minHeight: "900px", backgroundRepeat: "repeat" }}>
         <h1 className="main-title">
           <strong>My Myshrooms</strong>
         </h1>
@@ -43,9 +44,11 @@ class AllMushroomsPage extends Component {
               
               <div className='all-mushrooms'>
                 {
-                  data.getMyMushrooms.map(mushroom => (
-                    <MushroomItem key={mushroom._id} imageUrl={mushroom.imageUrl} sightings={mushroom.sightings} commonname={mushroom.commonname} _id={mushroom._id} />
-                  ))
+                  data.getMyMushrooms.length ? (
+                    data.getMyMushrooms.map(mushroom => (
+                      <MushroomItem key={mushroom._id} imageUrl={mushroom.imageUrl} sightings={mushroom.sightings} commonname={mushroom.commonname} _id={mushroom._id} />
+                    ))
+                  ) : (<div><p>You have no saved mushrooms</p></div>)                  
                 }
               </div>
             )

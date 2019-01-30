@@ -82,7 +82,7 @@ exports.typeDefs = `
       longitude: String
     ): Sighting
 
-    deleteSighting(_id: ID, user: ID!, location: ID!, mushroom: ID!): Sighting
+    deleteSighting(_id: ID!, user: ID!, location: ID!, mushroom: ID!): Sighting
 
     updateSighting(
       _id: ID! 

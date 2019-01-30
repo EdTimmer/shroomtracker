@@ -206,17 +206,23 @@ exports.resolvers = {
 
       const userWithDeletedLocation = await User.findOneAndUpdate({ user }, { $pull: { locations: location._id }}).populate('locations').populate('mushrooms');
 
-      return sighting;
+      return location;
     },
 
     deleteSighting: async (root, { _id, user, location, mushroom }, { Sighting, User, Location, Mushroom }) => {
+      console.log('deleteSighting got called');
+      console.log('_id in deleteSighting is:', _id);
+      console.log('user in deleteSighting is:', user);
+      console.log('location in deleteSighting is:', location);
+      console.log('mushroom in deleteSighting is:', mushroom);
+
       const sighting = await Sighting.findOneAndRemove({ _id });
 
-      const userWithDeletedSighting = await User.findOneAndUpdate({ user }, { $pull: { sightings: _id }}).populate('sightings');
+      const userWithDeletedSighting = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $pull: { sightings: _id }}).populate('sightings');
 
-      const locationWithDeletedSighting = await Location.findOneAndUpdate({ location }, { $pull: { sightings: _id }}).populate('sightings');
+      const locationWithDeletedSighting = await Location.findOneAndUpdate({ _id: ObjectId(location) }, { $pull: { sightings: _id }}).populate('sightings');
 
-      const mushroomWithDeletedSighting = await Mushroom.findOneAndUpdate({ mushroom }, { $pull: { sightings: _id }}).populate('sightings');
+      const mushroomWithDeletedSighting = await Mushroom.findOneAndUpdate({ _id: ObjectId(mushroom) }, { $pull: { sightings: _id }}).populate('sightings');
       
       return sighting;
     },
