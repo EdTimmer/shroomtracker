@@ -26,6 +26,7 @@ export const GET_CURRENT_USER = gql`
         latinname
         imageUrl
         imageCredit
+        newMushroom
         user {
           _id
         }
@@ -63,6 +64,7 @@ export const GET_LOCATION = gql`
           latinname
           imageUrl
           imageCredit
+          newMushroom
         }    
       }
       user {
@@ -91,6 +93,7 @@ export const GET_SIGHTING = gql`
         latinname
         imageUrl
         imageCredit
+        newMushroom
       }
     }
   }  
@@ -113,6 +116,7 @@ export const GET_MY_SIGHTINGS = gql`
         latinname
         imageUrl
         imageCredit
+        newMushroom
       }
     }
   }
@@ -128,6 +132,7 @@ export const GET_MUSHROOM = gql`
       latinname
       imageUrl
       imageCredit
+      newMushroom
       sightings {
         _id
         date
@@ -149,6 +154,7 @@ export const GET_MY_MUSHROOMS = gql`
       latinname
       imageUrl
       imageCredit
+      newMushroom
       sightings {
         _id        
         date
@@ -317,7 +323,8 @@ export const ADD_MUSHROOM = gql`
     $commonname: String!,
     $latinname: String,
     $imageUrl: String!, 
-    $imageCredit: String   
+    $imageCredit: String,
+    $newMushroom: Boolean
   ) {
     addMushroom(
       user: $user,
@@ -325,13 +332,15 @@ export const ADD_MUSHROOM = gql`
       commonname: $commonname,
       latinname: $latinname,
       imageUrl: $imageUrl,  
-      imageCredit: $imageCredit    
+      imageCredit: $imageCredit,
+      newMushroom: $newMushroom  
     ) {
       _id,
       commonname
       latinname
       imageUrl
       imageCredit
+      newMushroom
     }
   }
 `;

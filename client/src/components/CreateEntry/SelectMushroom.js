@@ -6,40 +6,50 @@ import { Link } from 'react-router-dom';
 import templateMushrooms from '../templateMushrooms';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
+
 class SelectMushroom extends React.Component {
   state = {    
     locationname: this.props.location.state.locationname,
     location: this.props.location.state.location,
-    filteredMushrooms: [],
+    filteredMushrooms: templateMushrooms,
   }
 
-  filter() {
-    let myMushrooms = this.props.session.getCurrentUser.mushrooms;    
-    const combinedMushroomArrays =  myMushrooms.concat(templateMushrooms); 
-    
-    combinedMushroomArrays.filter(mushroom => {
-      if (myMushrooms[mushroom.commonname]) {
-        return false;
-      }
-      myMushrooms[mushroom.commonname] = true;
-      return true;
-    });
-    
-    this.setState({
-      filteredMushrooms: combinedMushroomArrays
-    })    
-  }
-  
-  componentDidMount() {
-      if (this.state.filteredMushrooms.length === 0) {
-        this.filter()
-      }
+  componentDidMount() { 
+      
+      let myMushrooms = this.props.session.getCurrentUser.mushrooms.filter(mushroom => {
+        return mushroom.newMushroom === true;
+      });
+      
+
+      let myMushroomsForList = myMushrooms ? myMushrooms : []
+      console.log('myMushroomsForList:', myMushroomsForList)
+          
+      const combined =  myMushroomsForList.concat(templateMushrooms); 
+      console.log('combined in SelectLocation is:', combined);
+      
+      this.setState({
+        filteredMushrooms: combined
+      }) 
+      // const filterFunc = async () => {
+      //   filtered = combinedMushroomArrays.filter(mushroom => {
+      //     if (myMushrooms[mushroom.commonname]) {
+      //       return false;
+      //     }
+      //     myMushrooms[mushroom.commonname] = true;
+      //     return true;
+      //   })  
+      //   return filtered;  
+      // }
+      // filterFunc().then(() => {
+      //   console.log('filterFunc run')
+      //   this.setState({
+      //     filteredMushrooms: filtered
+      //   }) 
+      // })
   }
 
   render() {
-    const { locationname, location, filteredMushrooms } = this.state;
-
-    console.log('location in SelectMushroom is:', location)
+    const { locationname, location, filteredMushrooms } = this.state;    
 
     return (
       <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, backgroundRepeat: "repeat" }}>
@@ -79,7 +89,7 @@ class SelectMushroom extends React.Component {
                   }
                 }}>
                   <img src={mushroom.imageUrl} style={{ height: '200px' }} alt="mushroom" />
-                  {mushroom.commonname}
+                  <p>{mushroom.commonname}</p>                  
                 </Link>    
               </li>
             )

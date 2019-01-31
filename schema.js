@@ -37,6 +37,7 @@ exports.typeDefs = `
     latinname: String!
     imageUrl: String
     imageCredit: String
+    newMushroom: Boolean
     user: User!
     sightings: [Sighting!]!    
   }
@@ -101,6 +102,7 @@ exports.typeDefs = `
       latinname: String
       imageUrl: String!
       imageCredit: String
+      newMushroom: Boolean
     ): Mushroom
 
     deleteMushroom(_id: ID, user: ID!, location: ID!, sighting: ID!): Mushroom

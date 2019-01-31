@@ -4,7 +4,7 @@ import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 
 import { Mutation } from 'react-apollo';
-import { ADD_SIGHTING, GET_MY_SIGHTINGS, GET_MY_MUSHROOMS } from '../../queries';
+import { ADD_SIGHTING, GET_MY_SIGHTINGS, GET_MY_MUSHROOMS, GET_LOCATION } from '../../queries';
 import Error from '../Error';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
@@ -99,7 +99,7 @@ class AddSighting extends React.Component {
 
 
     // console.log('state is:', this.state)
-    console.log('location is', location)
+    console.log('location in AddSighting is', location)
 
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
@@ -109,6 +109,7 @@ class AddSighting extends React.Component {
           refetchQueries={() => [
             { query: GET_MY_SIGHTINGS, variables: { user } },
             { query: GET_MY_MUSHROOMS, variables: { user } },
+            { query: GET_LOCATION, variables: { location } },
           ]}
           // update={this.updateCache}
         >

@@ -15,7 +15,8 @@ const initialState = {
   commonname: '',
   latinname: '', 
   imageUrl: '',
-  imageCredit: ''  
+  imageCredit: '',
+  newMushroom: false  
 }
 
 class AddMushroom extends React.Component {
@@ -82,14 +83,14 @@ class AddMushroom extends React.Component {
   // }
 
   render() {
-    const { commonname, latinname, imageUrl, imageCredit, user, location } = this.state;
+    const { commonname, latinname, imageUrl, imageCredit, user, location, newMushroom } = this.state;
     console.log('this.state in AddMushroom is:', this.state)
     console.log('location in AddMushroom is:', location)
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
         <Mutation
           mutation={ADD_MUSHROOM}
-          variables={{ commonname, latinname, imageUrl, imageCredit, user, location }}
+          variables={{ commonname, latinname, imageUrl, imageCredit, user, location, newMushroom }}
           refetchQueries={() => [
             { query: GET_MY_MUSHROOMS, variables: { user } },
             { query: GET_CURRENT_USER }

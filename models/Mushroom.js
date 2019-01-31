@@ -15,6 +15,10 @@ const MushroomSchema = new Schema({
   imageCredit: {
     type: String
   },
+  newMushroom: {
+    type: Boolean,
+    default: false
+  },
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User'

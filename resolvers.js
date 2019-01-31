@@ -169,25 +169,26 @@ exports.resolvers = {
       return newSighting;
     },
 
-    addMushroom: async (root, { user, location, commonname, latinname, imageUrl, imageCredit }, { User, Location, Mushroom }) => {
+    addMushroom: async (root, { user, location, commonname, latinname, imageUrl, imageCredit, newMushroom }, { User, Location, Mushroom }) => {
       console.log('addMushroom got called in the resolvers')
       console.log('user in addMushroom resolver is:', user)
       console.log('location in addMushroom resolver is:', location)
-      const newMushroom = await new Mushroom({
+      const addedMushroom = await new Mushroom({
         user,
         commonname,
         latinname,
         imageUrl,
-        imageCredit
+        imageCredit,
+        newMushroom
       }).save();
 
-      const userWithNewMushroom = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $addToSet: { mushrooms: newMushroom._id }}).populate('mushrooms');
+      const userWithAddedMushroom = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $addToSet: { mushrooms: addedMushroom._id }}).populate('mushrooms');
 
-      const locationWithNewMushroom = await Location.findOneAndUpdate({ _id: ObjectId(location) }, { $addToSet: { mushrooms: newMushroom._id }}).populate('mushrooms');
+      const locationWithAddedMushroom = await Location.findOneAndUpdate({ _id: ObjectId(location) }, { $addToSet: { mushrooms: addedMushroom._id }}).populate('mushrooms');
 
       // const updatedNewMushroom = await Mushroom.findOneAndUpdate({ _id: ObjectId(newMushroom._id)}, { $addToSet: { locations: ObjectId(location) }}).populate('locations');
 
-      return newMushroom;
+      return addedMushroom;
     },
 
 
