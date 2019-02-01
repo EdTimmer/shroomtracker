@@ -109,7 +109,7 @@ class AddSighting extends React.Component {
           refetchQueries={() => [
             { query: GET_MY_SIGHTINGS, variables: { user } },
             { query: GET_MY_MUSHROOMS, variables: { user } },
-            { query: GET_LOCATION, variables: { location } },
+            { query: GET_LOCATION, variables: { _id: location } },
           ]}
           // update={this.updateCache}
         >

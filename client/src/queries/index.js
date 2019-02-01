@@ -53,6 +53,9 @@ export const GET_LOCATION = gql`
       _id
       locationname
       address
+      user {
+        _id
+      }
       sightings {
         _id        
         date
@@ -66,9 +69,6 @@ export const GET_LOCATION = gql`
           imageCredit
           newMushroom
         }    
-      }
-      user {
-        _id
       }
     }
   }  

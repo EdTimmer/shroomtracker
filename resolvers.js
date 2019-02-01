@@ -57,10 +57,6 @@ exports.resolvers = {
             model: 'Mushroom'
           }
         });
-        // .populate({
-        //   path: 'mushrooms',
-        //   model: 'Mushroom'
-        // });
       return location;
     },
 
