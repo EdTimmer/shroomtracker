@@ -14,6 +14,7 @@ import { ApolloProvider } from 'react-apollo';
 import App from './components/App';
 import Navbar from './components/Navbar';
 import Signin from './components/Auth/Signin';
+import SigninExample from './components/Auth/SigninExample';
 import Signup from './components/Auth/Signup';
 import withSession from "./components/withSession";
 import SelectLocation from "./components/CreateEntry/SelectLocation";
@@ -88,6 +89,7 @@ const Root = ({ refetch, session }) => (
         <Route path="/mushroom/add" render={() => <AddMushroom session={session} />} />
         <Route path="/mushroom/newadd" render={() => <AddNewMushroom session={session} />} />
         <Route path="/signin" render={() => <Signin refetch={refetch} />} />
+        <Route path="/signinexample" render={() => <SigninExample refetch={refetch} />} />
         <Route path="/signup" render={() => <Signup refetch={refetch} />} />
         <Route path="/profile" render={() => <Profile session={session} />} />
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Link } from 'react-router-dom';
 // import fairy from '../images/fairy1.jpg'
 import mushrooms from '../images/mushrooms1.jpg'
 // import posed from 'react-pose';
@@ -27,8 +28,16 @@ class App extends Component {
       <div>
         <div className="App" style={{backgroundImage: `url(${mushrooms})`, height: '900px'}}>
           <h1 className="main-title">
-            <strong>Mushroom Tracker</strong>
-          </h1>          
+            <strong>Mushroom Tracker</strong>            
+          </h1> 
+
+          <Link to={'/signinexample'}>
+            <button
+              className="button-primary"
+            >
+              EXAMPLE
+            </button>
+          </Link>       
         </div>
       </div>
       
