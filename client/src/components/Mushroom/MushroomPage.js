@@ -32,15 +32,18 @@ const MushroomPage = ({ match }) => {
                   <h2 className="sighting-name">
                     <strong>{data.getMushroom.commonname}</strong>
                   </h2>
-                  <h5>
+                  <h5 style={{color: "brown"}}>
                     <strong><i>{data.getMushroom.latinname}</i></strong>
                   </h5>
                   {
                     data.getMushroom.sightings.map(sighting => (
                       <div key={sighting._id}>
-                        <Link to={`/locations/${sighting.location._id}`}>{sighting.location.locationname}</Link>
-                        on
-                        <Link to={`/sightings/${sighting._id}`}>{sighting.date}</Link>
+                        <p style={{color: "brown"}}>
+                          <Link to={`/locations/${sighting.location._id}`} style={{color: "brown"}}>{sighting.location.locationname}</Link>
+                          <span style={{paddingLeft: "5px", paddingRight: "5px"}}>on</span>
+                          
+                          <Link to={`/sightings/${sighting._id}`} style={{color: "brown"}}>{sighting.date}</Link>
+                        </p>                        
                       </div>
                       )
                     )

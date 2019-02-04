@@ -7,13 +7,19 @@ export default ({ _id, imageUrl, commonname, sightings }) => (
       <div>
         <img src={imageUrl} style={{height: '400px'}} alt="mushroom" />                    
       </div>
-      <Link to={`/mushrooms/${_id}`}>{commonname}</Link>          
+      <Link to={`/mushrooms/${_id}`} style={{color: "white"}}>
+        <p>
+          {commonname}
+        </p>        
+      </Link>          
         {
           sightings.map(sighting => (
             <div key={sighting._id}>
-              <Link to={`/locations/${sighting.location._id}`}>{sighting.location.locationname}</Link>
-              on
-              <Link to={`/sightings/${sighting._id}`}>{sighting.date}</Link>
+              <p style={{color: "white"}}>
+                <Link to={`/locations/${sighting.location._id}`} style={{color: "white"}}>{sighting.location.locationname}</Link>
+                <span style={{paddingLeft: "5px", paddingRight: "5px"}}>on</span>
+                <Link to={`/sightings/${sighting._id}`} style={{color: "white"}}>{sighting.date}</Link>
+              </p>              
             </div>
             )
           )
