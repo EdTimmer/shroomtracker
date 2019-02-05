@@ -21,7 +21,7 @@ const SightingPage = ({ match }) => {
           if (loading) return <Spinner />
           if (error) return <Error error={error} />
                    
-          console.log('data.getSighting is:', data.getSighting)
+          // console.log('data.getSighting is:', data.getSighting)
           return (
             <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px', color: 'brown'}}>
               <div className="container">

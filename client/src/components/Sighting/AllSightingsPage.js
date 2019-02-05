@@ -32,7 +32,7 @@ class AllSightingsPage extends Component {
               ({ data, loading, error }) => {
                 if (loading) return <Spinner />
                 if (error) return <Error error={error} />
-                console.log('data.getMySightings is:', data.getMySightings);
+                // console.log('data.getMySightings is:', data.getMySightings);
                 return (            
                     <div>
                       {

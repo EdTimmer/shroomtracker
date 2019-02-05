@@ -99,7 +99,7 @@ class AddSighting extends React.Component {
 
 
     // console.log('state is:', this.state)
-    console.log('location in AddSighting is', location)
+    // console.log('location in AddSighting is', location)
 
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>

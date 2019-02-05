@@ -58,6 +58,8 @@ exports.typeDefs = `
 
     getMyMushrooms(user: ID!): [Mushroom]
 
+    getSelectionMushrooms(user: ID!): [Mushroom]
+
   }
 
   type Token {

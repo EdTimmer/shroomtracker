@@ -5,7 +5,7 @@ import Spinner from '../Spinner';
 // import AddSighting from '../Sighting/AddSighting';
 
 import { Mutation } from 'react-apollo';
-import { ADD_MUSHROOM, GET_MY_MUSHROOMS, GET_CURRENT_USER } from '../../queries';
+import { ADD_MUSHROOM, GET_MY_MUSHROOMS, GET_CURRENT_USER, GET_SELECTION_MUSHROOMS } from '../../queries';
 import Error from '../Error';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
@@ -81,7 +81,7 @@ class AddNewMushroom extends React.Component {
   render() {
     const { commonname, latinname, imageUrl, imageCredit, user, location, newMushroom } = this.state;
     // console.log('this.state in AddNewMushroom is:', this.state)
-    console.log('location in AddNewMushroom is:', location)
+    // console.log('location in AddNewMushroom is:', location)
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
         <Mutation
@@ -89,7 +89,8 @@ class AddNewMushroom extends React.Component {
           variables={{ commonname, latinname, imageUrl, imageCredit, user, location, newMushroom }}
           refetchQueries={() => [
             { query: GET_MY_MUSHROOMS, variables: { user } },
-            { query: GET_CURRENT_USER }
+            { query: GET_CURRENT_USER },
+            { query: GET_SELECTION_MUSHROOMS, variables: { user } }
           ]}
           // update={this.updateCache}
         >

@@ -5,7 +5,7 @@ import Spinner from '../Spinner';
 // import AddSighting from '../Sighting/AddSighting';
 
 import { Mutation } from 'react-apollo';
-import { ADD_MUSHROOM, GET_MY_MUSHROOMS, GET_CURRENT_USER } from '../../queries';
+import { ADD_MUSHROOM, GET_MY_MUSHROOMS, GET_CURRENT_USER, GET_SELECTION_MUSHROOMS } from '../../queries';
 import Error from '../Error';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
@@ -16,7 +16,7 @@ const initialState = {
   latinname: '', 
   imageUrl: '',
   imageCredit: '',
-  newMushroom: false  
+  newMushroom: true  
 }
 
 class AddMushroom extends React.Component {
@@ -84,8 +84,8 @@ class AddMushroom extends React.Component {
 
   render() {
     const { commonname, latinname, imageUrl, imageCredit, user, location, newMushroom } = this.state;
-    console.log('this.state in AddMushroom is:', this.state)
-    console.log('location in AddMushroom is:', location)
+    // console.log('this.state in AddMushroom is:', this.state)
+    // console.log('location in AddMushroom is:', location)
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
         <Mutation
@@ -93,7 +93,8 @@ class AddMushroom extends React.Component {
           variables={{ commonname, latinname, imageUrl, imageCredit, user, location, newMushroom }}
           refetchQueries={() => [
             { query: GET_MY_MUSHROOMS, variables: { user } },
-            { query: GET_CURRENT_USER }
+            { query: GET_CURRENT_USER },
+            { query: GET_SELECTION_MUSHROOMS, variables: { user } }
           ]}
           // update={this.updateCache}
         >
@@ -118,38 +119,6 @@ class AddMushroom extends React.Component {
                     </div>
 
                   <form className="form" onSubmit={event => this.handleSubmit(event, addMushroom)}>
-
-                    {/*<input
-                      type="text"
-                      name="commonname"
-                      placeholder="Common Name"
-                      onChange={this.handleChange}
-                      value={commonname}
-                    />
-
-                    <input
-                      type="text"
-                      name="latinname"
-                      placeholder="Latin Name"
-                      onChange={this.handleChange}
-                      value={latinname}
-                    />
-
-                    <input
-                      type="text"
-                      name="imageUrl"
-                      placeholder="Mushroom Image"
-                      onChange={this.handleChange}
-                      value={imageUrl}
-                    />
-
-                    <input
-                      type="text"
-                      name="imageCredit"
-                      placeholder="Image Credit"
-                      onChange={this.handleChange}
-                      value={imageCredit}
-                    />*/}                  
 
                     <button
                       type="submit"

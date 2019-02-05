@@ -41,7 +41,7 @@ class AddLocation extends React.Component {
   handleSubmit = (event, addLocation) => {
     event.preventDefault();
     addLocation().then(({ data }) => {
-      console.log('data after saving location:', data);
+      // console.log('data after saving location:', data);
       // this.clearState();
       this.props.history.push({
         pathname: '/selectmushroom',

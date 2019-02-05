@@ -170,6 +170,30 @@ export const GET_MY_MUSHROOMS = gql`
   }
 `;
 
+export const GET_SELECTION_MUSHROOMS = gql`
+  query($user: ID!) {
+    getSelectionMushrooms(user: $user) {
+      _id
+      commonname
+      latinname
+      imageUrl
+      imageCredit
+      newMushroom
+      sightings {
+        _id        
+        date
+        location {
+          _id
+          locationname
+        }
+      }
+      user {
+        _id
+      }
+    }
+  }
+`;
+
 
 /*SEARCH*/
 // export const SEARCH_SIGHTINGS = gql`
