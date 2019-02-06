@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const mongoose = require('mongoose');
 
 const templateMushrooms = require('./templateMushrooms');
-// import templateMushrooms from './templateMushrooms';
 
 const { ObjectId } = mongoose.Types;
 ObjectId.prototype.valueOf = function () {
@@ -98,7 +97,7 @@ exports.resolvers = {
     },
 
     getMyMushrooms: async (root, { user }, { Mushroom }) => {
-      // console.log('getMyMushrooms got called in the resolvers')
+
       const myMushrooms = await Mushroom.find({ user }).sort({ commonname: 1 })
         .populate({
           path: 'user',
@@ -116,7 +115,7 @@ exports.resolvers = {
     },
 
     getSelectionMushrooms: async (root, { user }, { Mushroom }) => {
-      // console.log('getMyMushrooms got called in the resolvers')
+
       const myMushrooms = await Mushroom.find({ user }).sort({ commonname: 1 })
         .populate({
           path: 'user',
@@ -183,7 +182,7 @@ exports.resolvers = {
     },
 
     addSighting: async (root, { user, location, mushroom, date, latitude, longitude }, { User, Location, Sighting, Mushroom }) => {
-      // console.log('addSighting was called in the resolvers')
+
       const newSighting = await new Sighting({
         user,
         location,
@@ -203,9 +202,7 @@ exports.resolvers = {
     },
 
     addMushroom: async (root, { user, location, commonname, latinname, imageUrl, imageCredit, newMushroom }, { User, Location, Mushroom }) => {
-      // console.log('addMushroom got called in the resolvers')
-      // console.log('user in addMushroom resolver is:', user)
-      // console.log('location in addMushroom resolver is:', location)
+
       const addedMushroom = await new Mushroom({
         user,
         commonname,
@@ -224,17 +221,6 @@ exports.resolvers = {
       return addedMushroom;
     },
 
-
-    // addMushroom: async (root, { username, commonname, latinname, imageUrl }, { Mushroom }) => {
-    //   const newMushroom = await new Mushroom({
-    //     username,
-    //     commonname,
-    //     latinname,
-    //     imageUrl
-    //   }).save();
-    //   return newMushroom;
-    // },
-
     deleteLocation: async (root, { _id, user }, { User, Location }) => {
       const location = await Location.findOneAndRemove({ _id });
 
@@ -244,12 +230,6 @@ exports.resolvers = {
     },
 
     deleteSighting: async (root, { _id, user, location, mushroom }, { Sighting, User, Location, Mushroom }) => {
-      // console.log('deleteSighting got called');
-      // console.log('_id in deleteSighting is:', _id);
-      // console.log('user in deleteSighting is:', user);
-      // console.log('location in deleteSighting is:', location);
-      // console.log('mushroom in deleteSighting is:', mushroom);
-
       const sighting = await Sighting.findOneAndRemove({ _id });
 
       const userWithDeletedSighting = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $pull: { sightings: _id }}).populate('sightings');
@@ -261,12 +241,13 @@ exports.resolvers = {
       return sighting;
     },
 
-    updateSighting: async (root, { _id, location, mushroom, date, latitude, longitude }, { Sighting }) => {
+    updateSighting: async (root, { _id, date, latitude, longitude }, { Sighting }) => {
       const updatedSighting = await Sighting.findOneAndUpdate(
         { _id },
-        { $set: { location, date, latitude, longitude }},
+        { $set: { date, latitude, longitude }},
         { new: true }
       );
+
       return updatedSighting;
     },
 

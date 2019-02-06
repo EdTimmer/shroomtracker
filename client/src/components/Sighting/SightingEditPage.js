@@ -55,7 +55,7 @@ class SightingEditPage extends React.Component {
   };
 
   render() {
-    // console.log('state is:', this.state);
+    console.log('state is:', this.state);
     const { _id, location, user, mushroom, locationname, commonname, date, latitude, longitude } = this.state;
     const { handleChange, handleSubmit } = this;
     const locations = this.props.session.getCurrentUser.locations;

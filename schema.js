@@ -76,6 +76,12 @@ exports.typeDefs = `
 
     deleteLocation(_id: ID, user: ID!, mushroom: ID!): Location
 
+    updateLocation(
+      _id: ID! 
+      locationname: String!
+      address: String! 
+    ): Location
+
     addSighting(
       user: ID!
       location: ID! 
@@ -89,9 +95,6 @@ exports.typeDefs = `
 
     updateSighting(
       _id: ID! 
-      user: ID!
-      location: ID!
-      mushroom: ID!
       date: String!
       latitude: String
       longitude: String

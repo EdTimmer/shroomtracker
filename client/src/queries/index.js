@@ -315,16 +315,12 @@ export const DELETE_SIGHTING = gql`
 export const UPDATE_SIGHTING = gql`
   mutation(
     $_id: ID!, 
-    $location: ID!,
-    $mushroom: ID!,    
     $date: String!,
     $latitude: String,
     $longitude: String
   ) {
     updateSighting(
       _id: $_id, 
-      location: $location,
-      mushroom: $mushroom,      
       date: $date,
       latitude: $latitude,
       longitude: $longitude
