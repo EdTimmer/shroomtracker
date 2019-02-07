@@ -72,136 +72,130 @@ class SightingEditPage extends React.Component {
               if (error) return <Error error={error} />
               // console.log(data);
               return (
-                <div className="App">
-                
-                <Mutation
-                  mutation={UPDATE_SIGHTING}
-                  variables={{
-                    _id,
-                    location,
-                    mushroom,
-                    date,
-                    latitude,
-                    longitude
-                  }}
-                >
-                  {
-                    updateSighting => (
-        
-                      <form
-                        onSubmit={(event) => handleSubmit(event, updateSighting)}
-                      >
-                        <h4>Edit Sighting</h4>        
-        
-                        <div style={{ color: 'black' }}>
-                          <select
-                            name="location"
-                            onChange={handleChange}
-                          >
-                            <option value='-1'>{locationname}</option>
-                            {
-                              locations.map(location => (
-                                <option key={location._id} value={location.locationname}>
-                                  {location.locationname}
-                                </option>
-                              ))
-                            }
-                          </select>
-                        </div>
-        
-                        <div style={{ color: 'black' }}>
-                          <select
-                            name="mushroom"
-                            onChange={handleChange}
-                          >
-                            <option value='-1'>{commonname}</option>
-                            {
-                              mushrooms.map(mushroom => (
-                                <option key={mushroom._id} value={mushroom._id}>
-                                  {mushroom.commonname}
-                                </option>
-                              ))
-                            }
-                          </select>
-                        </div>
-        
-                        <div>
-                          <input
-                            type="text"
-                            name="date"
-                            placeholder={date}
-                            onChange={handleChange}
-                            value={date}
-                          />
-                        </div>
-        
-                        <div>
-                          <input
-                            type="text"
-                            name="latitude"
-                            placeholder={latitude}
-                            onChange={handleChange}
-                            value={latitude}
-                          />
-                        </div>
-        
-                        <div>
-                          <input
-                            type="text"
-                            name="longitude"
-                            placeholder={longitude}
-                            onChange={handleChange}
-                            value={longitude}
-                          />
-                        </div>
-        
-                        <button type="submit" className="button-primary">Update</button>
-        
-                      </form>
-        
-                    )
-                  }
-                </Mutation>
-      
-              <Mutation
-                mutation={DELETE_SIGHTING} 
-                variables={{ _id, user, location, mushroom }}
-                refetchQueries={() => [
-                  { query: GET_MY_SIGHTINGS, variables: { user } },
-                  { query: GET_LOCATION, variables: { _id: location } },
-                ]}
-              >
-                {
-                  (deleteSighting, attrs = {}) => {
-      
-                    return (
-                      <div>
-                        <button
-                          className="delete-button"
-                          onClick={() => this.handleDelete(deleteSighting)}
+                <div className="App">                
+                  <Mutation
+                    mutation={UPDATE_SIGHTING}
+                    variables={{
+                      _id,
+                      date,
+                      latitude,
+                      longitude
+                    }}
+                  >
+                    {
+                      updateSighting => (
+          
+                        <form
+                          onSubmit={(event) => handleSubmit(event, updateSighting)}
                         >
-                          Delete Sighting
-                        </button>
-                      </div>
-                    )
-                  }
-                }
-      
-              </Mutation>
-
+                          <h4>Edit Sighting</h4>        
+          
+                          {/*<div style={{ color: 'black' }}>
+                            <select
+                              name="location"
+                              onChange={handleChange}
+                            >
+                              <option value='-1'>{locationname}</option>
+                              {
+                                locations.map(location => (
+                                  <option key={location._id} value={location.locationname}>
+                                    {location.locationname}
+                                  </option>
+                                ))
+                              }
+                            </select>
+                          </div>
+          
+                          <div style={{ color: 'black' }}>
+                            <select
+                              name="mushroom"
+                              onChange={handleChange}
+                            >
+                              <option value='-1'>{commonname}</option>
+                              {
+                                mushrooms.map(mushroom => (
+                                  <option key={mushroom._id} value={mushroom._id}>
+                                    {mushroom.commonname}
+                                  </option>
+                                ))
+                              }
+                            </select>
+                            </div>*/}
+                          <div>
+                            <h4>{locationname}</h4>
+                            <h4>{commonname}</h4>                        
+                          </div>
+          
+                          <div>
+                            <input
+                              type="text"
+                              name="date"
+                              placeholder={date}
+                              onChange={handleChange}
+                              value={date}
+                            />
+                          </div>
+          
+                          <div>
+                            <input
+                              type="text"
+                              name="latitude"
+                              placeholder={latitude}
+                              onChange={handleChange}
+                              value={latitude}
+                            />
+                          </div>
+          
+                          <div>
+                            <input
+                              type="text"
+                              name="longitude"
+                              placeholder={longitude}
+                              onChange={handleChange}
+                              value={longitude}
+                            />
+                          </div>
+          
+                          <button type="submit" className="button-primary">Update</button>
+          
+                        </form>
+          
+                      )
+                    }
+                  </Mutation>
+        
+                  <Mutation
+                    mutation={DELETE_SIGHTING} 
+                    variables={{ _id, user, location, mushroom }}
+                    refetchQueries={() => [
+                      { query: GET_MY_SIGHTINGS, variables: { user } },
+                      { query: GET_LOCATION, variables: { _id: location } },
+                    ]}
+                  >
+                    {
+                      (deleteSighting, attrs = {}) => {
+          
+                        return (
+                          <div>
+                            <button
+                              className="delete-button"
+                              onClick={() => this.handleDelete(deleteSighting)}
+                            >
+                              Delete Sighting
+                            </button>
+                          </div>
+                        )
+                      }
+                    }          
+                  </Mutation>
                 </div>
               )
             }
           }
-        </Query>
-
-
-        
+        </Query>        
       </div>
-
     )
   }
-
 };
 
 export default withAuth(session => session && session.getCurrentUser)(withRouter(SightingEditPage));
