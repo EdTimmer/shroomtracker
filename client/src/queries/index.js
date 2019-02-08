@@ -277,6 +277,25 @@ export const DELETE_LOCATION = gql`
   }
 `;
 
+export const UPDATE_LOCATION = gql`
+  mutation(
+    $_id: ID!, 
+    $locationname: String!,
+    $address: String!,
+  ) {
+    updateLocation(
+      _id: $_id, 
+      locationname: $locationname,
+      address: $address,
+    )
+      {
+        _id        
+        locationname
+        address
+      }
+  }  
+`;
+
 /* Sighting Mutations */
 
 export const ADD_SIGHTING = gql`

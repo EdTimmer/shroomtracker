@@ -229,6 +229,15 @@ exports.resolvers = {
       return location;
     },
 
+    updateLocation: async (root, { _id, locationname, address }, { Location }) => {
+      const updatedLocation = await Location.findOneAndUpdate(
+        { _id },
+        { $set: { locationname, address }},
+        { new: true }
+      );
+      return updatedLocation;
+    },
+
     deleteSighting: async (root, { _id, user, location, mushroom }, { Sighting, User, Location, Mushroom }) => {
       const sighting = await Sighting.findOneAndRemove({ _id });
 
