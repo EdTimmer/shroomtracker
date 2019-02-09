@@ -221,6 +221,16 @@ exports.resolvers = {
       return addedMushroom;
     },
 
+    updateMushroom: async (root, { _id, commonname, latinname, imageUrl, imageCredit }, { Mushroom }) => {
+      console.log('updateMushroom got called in the resolvers');
+      const updatedMushroom = await Mushroom.findOneAndUpdate(
+        { _id },
+        { $set: { commonname, latinname, imageUrl, imageCredit }},
+        { new: true }
+      );
+      return updatedMushroom;
+    },
+
     deleteLocation: async (root, { _id, user }, { User, Location }) => {
       const location = await Location.findOneAndRemove({ _id });
 

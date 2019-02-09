@@ -44,7 +44,6 @@ const LocationPage = ({ match }) => {
                 <Link to={{
                   pathname: `/locationsedit/${_id}`, 
                   state: {                  
-                    // location: data.getLocation._id,
                     locationname: data.getLocation.locationname,
                     address: data.getLocation.address
                   }

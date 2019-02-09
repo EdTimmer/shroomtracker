@@ -34,8 +34,8 @@ exports.typeDefs = `
   type Mushroom {
     _id: ID!
     commonname: String!
-    latinname: String!
-    imageUrl: String
+    latinname: String
+    imageUrl: String!
     imageCredit: String
     newMushroom: Boolean
     user: User!
@@ -116,7 +116,7 @@ exports.typeDefs = `
       _id: ID! 
       commonname: String!
       latinname: String
-      imageUrl: String
+      imageUrl: String!
       imageCredit: String
     ): Mushroom
 

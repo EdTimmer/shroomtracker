@@ -391,3 +391,28 @@ export const DELETE_MUSHROOM = gql`
     }
   }
 `;
+
+export const UPDATE_MUSHROOM = gql`
+  mutation(
+    $_id: ID!, 
+    $commonname: String!,
+    $latinname: String,
+    $imageUrl: String!,
+    $imageCredit: String
+  ) {
+    updateMushroom(
+      _id: $_id, 
+      commonname: $commonname,
+      latinname: $latinname,
+      imageUrl: $imageUrl,
+      imageCredit: $imageCredit
+    )
+      {
+        _id        
+        commonname,
+        latinname,
+        imageUrl,
+        imageCredit
+      }
+  }  
+`;

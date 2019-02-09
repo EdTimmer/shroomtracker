@@ -49,10 +49,26 @@ const MushroomPage = ({ match }) => {
                     )
                   }      
                 </div>
-
-              </div>
+                
+              </div>       
+              
+              <Link to={{
+                pathname: `/mushroomsedit/${_id}`, 
+                state: {                  
+                  commonname: data.getMushroom.commonname,
+                  latinname: data.getMushroom.latinname,
+                  imageUrl: data.getMushroom.imageUrl,
+                  imageCredit: data.getMushroom.imageCredit
+                }
+              }}
+              >
+                <button>Edit</button>
+              </Link>
 
             </div>
+
+            
+            
           )
         }
       }
