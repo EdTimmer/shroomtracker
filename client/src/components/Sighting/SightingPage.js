@@ -83,7 +83,7 @@ const SightingPage = ({ match }) => {
                 }
               }}
               >
-                <button>Edit</button>
+                <button className="button-primary">Edit</button>
               </Link>
             </div>
           )
