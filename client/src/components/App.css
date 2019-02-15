@@ -129,7 +129,7 @@ nav a:link {
   padding: 0.2em;
 }
 
-.Lunch {
+/* .Lunch {
   width: 20%;
   margin: 20px;
   z-index: 1;
@@ -138,9 +138,9 @@ nav a:link {
   color: white;
   background: #24c6dc;
   background: linear-gradient(to right, #514a9d, #24c6dc);
-}
+} */
 
-.Snack {
+/* .Snack {
   width: 20%;
   margin: 20px;
   z-index: 1;
@@ -169,7 +169,7 @@ nav a:link {
   color: white;
   background: linear-gradient(to right, #b24592, #f15f79);
   border-radius: 50px 120px 120px;
-}
+} */
 
 /* Sighting Page */
 
@@ -277,7 +277,7 @@ nav a:link {
 
 /* User Sightings */
 
-.modal {
+/* .modal {
   position: fixed;
   left: 0;
   top: 0;
@@ -337,11 +337,9 @@ nav a:link {
 
 .modal-buttons button:first-child {
   margin-left: 0;
-}
+} */
 
 .container {
-  /* position: relative; */
-  /* text-align: center; */
   color: white;
 }
 

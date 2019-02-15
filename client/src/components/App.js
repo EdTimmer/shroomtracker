@@ -30,14 +30,16 @@ class App extends Component {
           <h1 className="main-title">
             <strong>Mushroom Tracker</strong>            
           </h1> 
-
-          <Link to={'/signinexample'}>
-            <button
-              className="button-primary"
-            >
-              EXAMPLE
-            </button>
-          </Link>       
+          <div style={{paddingTop: "40px"}}>
+            <Link to={'/signinexample'}>
+              <button              
+                className="button-primary"
+              >
+                EXAMPLE LOGIN
+              </button>
+            </Link>     
+          </div>
+            
         </div>
       </div>
       
