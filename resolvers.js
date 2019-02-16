@@ -231,12 +231,22 @@ exports.resolvers = {
       return updatedMushroom;
     },
 
-    deleteLocation: async (root, { _id, user }, { User, Location }) => {
-      const location = await Location.findOneAndRemove({ _id });
+    deleteLocation: async (root, { _id, user, mushroom }, { User, Location, Sighting, Mushroom }) => {
 
-      const userWithDeletedLocation = await User.findOneAndUpdate({ user }, { $pull: { locations: location._id }}).populate('locations').populate('mushrooms');
+      const locationFirst = await Location.findOne({ _id });
 
-      return location;
+      locationFirst.sightings.forEach(sighting => {
+        Sighting.findOneAndRemove({_id: sighting});
+        //this is more complicated, need to find each mushroom that has the sighting to be deleted
+        Mushroom.findOneAndUpdate({ _id: ObjectId(mushroom) }, { $pull: { sightings: sighting}}).populate('sightings');
+        User.findOneAndUpdate({ _id: ObjectId(user) }, { $pull: { sightings: sighting }}).populate('sightings');
+      });
+
+      const locationSecond = await Location.findOneAndRemove({ _id });
+
+      const userWithDeletedLocation = await User.findOneAndUpdate({ _id: ObjectId(user) }, { $pull: { locations: _id }}).populate('locations').populate('mushrooms');
+
+      return locationSecond;
     },
 
     updateLocation: async (root, { _id, locationname, address }, { Location }) => {

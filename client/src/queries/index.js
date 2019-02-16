@@ -270,8 +270,8 @@ export const ADD_LOCATION = gql`
 `;
 
 export const DELETE_LOCATION = gql`
-  mutation($_id: ID!, $user: ID!) {
-    deleteLocation(_id: $_id, user: $user) {
+  mutation($_id: ID!, $user: ID!, $mushroom: ID!) {
+    deleteLocation(_id: $_id, user: $user, mushroom: $mushroom) {
       _id
     }
   }

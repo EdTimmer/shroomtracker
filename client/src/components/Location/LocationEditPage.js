@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import withAuth from '../withAuth';
 
 import { Query, Mutation } from 'react-apollo';
-import { DELETE_SIGHTING, GET_SIGHTING, UPDATE_SIGHTING, GET_MY_SIGHTINGS, GET_LOCATION, UPDATE_LOCATION } from '../../queries';
+import { DELETE_SIGHTING, GET_SIGHTING, UPDATE_SIGHTING, GET_MY_SIGHTINGS, GET_LOCATION, UPDATE_LOCATION, DELETE_LOCATION } from '../../queries';
 import Spinner from '../Spinner';
 import Error from '../Error';
 // import { get } from 'https';
@@ -103,12 +103,12 @@ class LocationEditPage extends React.Component {
                     }
                   </Mutation>
         
-                  {/*<Mutation
-                    mutation={DELETE_SIGHTING} 
-                    variables={{ _id, user, location, mushroom }}
+                  <Mutation
+                    mutation={DELETE_LOCATION} 
+                    variables={{ _id, user }} //need mushroom id?
                     refetchQueries={() => [
                       { query: GET_MY_SIGHTINGS, variables: { user } },
-                      { query: GET_LOCATION, variables: { _id: location } },
+                      // { query: GET_LOCATION, variables: { _id: location } },
                     ]}
                   >
                     {
@@ -126,7 +126,7 @@ class LocationEditPage extends React.Component {
                         )
                       }
                     }          
-                  </Mutation>*/}
+                  </Mutation>
                 </div>
        
       </div>

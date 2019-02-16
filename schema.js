@@ -74,7 +74,7 @@ exports.typeDefs = `
       address: String!    
     ): Location
 
-    deleteLocation(_id: ID, user: ID!, mushroom: ID!): Location
+    deleteLocation(_id: ID!, user: ID!, mushroom: ID!): Location
 
     updateLocation(
       _id: ID! 
