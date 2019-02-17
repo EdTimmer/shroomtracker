@@ -104,7 +104,10 @@ class AddMushroom extends React.Component {
               if (error) return <Error error={error} />
               return (
                 <div className="App">
-                  <h2 className="App">Add Mushroom</h2>
+                  
+                  <h1 className="main-title">
+                    <strong>Add Myshroom</strong>
+                  </h1>
 
                     <div>
                       <img src={imageUrl} style={{width: '600px'}} alt="mushroom" />                    

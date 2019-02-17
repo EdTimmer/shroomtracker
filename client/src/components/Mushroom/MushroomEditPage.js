@@ -76,7 +76,10 @@ class MushroomEditPage extends React.Component {
                         <form
                           onSubmit={(event) => handleSubmit(event, updateMushroom)}
                         >
-                          <h4>Edit Location</h4>        
+                          
+                          <h1 className="main-title">
+                            <strong>Edit Mushroom</strong>
+                          </h1>     
           
                           <div>
                             <input

@@ -119,7 +119,10 @@ class AddSighting extends React.Component {
               if (error) return <Error error={error} />
               return (
                 <div className="App">
-                  <h2 className="App">Add Sighting</h2>
+                  
+                  <h1 className="main-title">
+                    <strong>Add Sighting</strong>
+                  </h1>
 
                   <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>
                     <div>

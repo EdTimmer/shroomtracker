@@ -88,7 +88,10 @@ class SightingEditPage extends React.Component {
                         <form
                           onSubmit={(event) => handleSubmit(event, updateSighting)}
                         >
-                          <h4>Edit Sighting</h4>        
+                            
+                          <h1 className="main-title">
+                            <strong>Edit Sighting</strong>
+                          </h1>     
           
                           {/*<div style={{ color: 'black' }}>
                             <select

@@ -72,7 +72,10 @@ class LocationEditPage extends React.Component {
                         <form
                           onSubmit={(event) => handleSubmit(event, updateLocation)}
                         >
-                          <h4>Edit Location</h4>        
+                          
+                          <h1 className="main-title">
+                            <strong>Edit Location</strong>
+                          </h1>        
           
                           <div>
                             <input
