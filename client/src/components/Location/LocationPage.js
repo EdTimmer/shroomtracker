@@ -10,7 +10,7 @@ import mushrooms4 from '../../images/mushrooms4.jpg';
 
 const LocationPage = ({ match }) => {
   const { _id } = match.params;
-  
+
   return (
     <div>
 
@@ -19,10 +19,10 @@ const LocationPage = ({ match }) => {
           ({ data, loading, error }) => {
             if (loading) return <Spinner />
             if (error) return <Error error={error} />
-            // console.log('data.getLocation is:', data.getLocation);
+
             return (
-              
-              <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
+
+              <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px' }}>
                 <div>
                   <h2>{data.getLocation.locationname}</h2>
                   <h5>{data.getLocation.address}</h5>
@@ -32,44 +32,44 @@ const LocationPage = ({ match }) => {
                 >
                   {
                     data.getLocation.sightings.map(sighting => (
-                      <SightingItemForLocation 
-                        key={sighting._id} 
-                        _id={sighting._id} 
-                        date={sighting.date} 
+                      <SightingItemForLocation
+                        key={sighting._id}
+                        _id={sighting._id}
+                        date={sighting.date}
                       />
                     ))
                   }
                 </div>
 
                 <Link to={{
-                  pathname: `/locationsedit/${_id}`, 
-                  state: {                  
+                  pathname: `/locationsedit/${_id}`,
+                  state: {
                     locationname: data.getLocation.locationname,
                     address: data.getLocation.address
                   }
                 }}
                 >
-                  <button className="button-primary">
+                  <button className="regular-button">
                     Edit
                   </button>
                 </Link>
 
-              </div>            
+              </div>
             )
           }
 
 
-          
+
         }
-        
-      </Query> 
+
+      </Query>
 
       <Link to={`/locationsedit/${_id}`}>
 
         <button>Edit</button>
-      </Link>  
+      </Link>
 
-    </div>    
+    </div>
   )
 }
 

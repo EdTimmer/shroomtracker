@@ -5,13 +5,10 @@ import '../App.css';
 
 import { Query } from 'react-apollo';
 import { GET_MY_LOCATIONS } from '../../queries';
-// import MyLocationsList from './MyLocationsList';
 
 import withAuth from '../withAuth';
-// import LocationItem from './LocationItem';
 import Spinner from '../Spinner';
 import Error from '../Error';
-// import mushrooms2 from '../../images/mushrooms2.jpg';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 class AllLocationsPage extends Component {
@@ -36,16 +33,16 @@ class AllLocationsPage extends Component {
     // }
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
-        <h1 className="main-title">
+        <h2 className="main-title">
           <strong>My Locations</strong>
-        </h1>
+        </h2>
 
         <Query query={GET_MY_LOCATIONS} variables={{ user }}>
           {
             ({ data, loading, error }) => {
               if (loading) return <Spinner />
               if (error) return <Error error={error} />
-              // console.log(data.getLocation.username);
+              
               return (            
                   <div>
                     {

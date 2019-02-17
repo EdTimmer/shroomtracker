@@ -3,11 +3,9 @@ import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Query } from 'react-apollo';
 import { GET_MY_LOCATIONS } from '../../queries';
-import withAuth from '../withAuth';
 import Spinner from '../Spinner';
 import Error from '../Error';
-// import SightingItemLocation from '../Sighting/SightingItemLocation';
-// import mushrooms4 from '../../images/mushrooms4.jpg';
+
 
 const MyLocationsList = ({ user }) => {
   
@@ -17,7 +15,7 @@ const MyLocationsList = ({ user }) => {
         ({ data, loading, error }) => {
           if (loading) return <Spinner />
           if (error) return <Error error={error} />
-          // console.log(data.getLocation.username);
+
           return (            
               <div>
                 {

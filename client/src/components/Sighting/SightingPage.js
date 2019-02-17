@@ -1,13 +1,11 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
-// import ReactHtmlParser from 'react-html-parser';
 import withAuth from '../withAuth';
 
 import { Query } from 'react-apollo';
 import { GET_SIGHTING } from '../../queries';
 import Spinner from '../Spinner';
 import Error from '../Error';
-// import { get } from 'https';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 const SightingPage = ({ match }) => {
@@ -17,13 +15,12 @@ const SightingPage = ({ match }) => {
     <Query query={GET_SIGHTING} variables={{ _id }}>
       {
         ({ data, loading, error }) => {
-           
+
           if (loading) return <Spinner />
           if (error) return <Error error={error} />
-                   
-          // console.log('data.getSighting is:', data.getSighting)
+
           return (
-            <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px', color: 'brown'}}>
+            <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px', color: 'brown' }}>
               <div className="container">
                 <div
                   style={{ background: `url(${data.getSighting.mushroom.imageUrl}) center center / cover no-repeat` }}
@@ -38,7 +35,7 @@ const SightingPage = ({ match }) => {
 
               <div className="sighting">
                 <div className="sighting-header">
-                  
+
                   <h2 className="sighting-name">
                     <strong>{data.getSighting.mushroom.commonname}</strong>
                   </h2>
@@ -71,19 +68,19 @@ const SightingPage = ({ match }) => {
 
               </div>
               <Link to={{
-                pathname: `/sightingsedit/${_id}`, 
-                state: {                  
+                pathname: `/sightingsedit/${_id}`,
+                state: {
                   location: data.getSighting.location._id,
                   mushroom: data.getSighting.mushroom._id,
                   locationname: data.getSighting.location.locationname,
-                  commonname: data.getSighting.mushroom.commonname,                  
+                  commonname: data.getSighting.mushroom.commonname,
                   date: data.getSighting.date,
                   latitude: data.getSighting.latitude,
                   longitude: data.getSighting.longitude
                 }
               }}
               >
-                <button className="button-primary">Edit</button>
+                <button className="regular-button">Edit</button>
               </Link>
             </div>
           )

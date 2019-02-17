@@ -1,13 +1,11 @@
 import React from 'react';
 import withAuth from '../withAuth';
 import { withRouter } from 'react-router-dom';
-// import { Link } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
-import MyLocationsList from '../Location/MyLocationsList'
-
+import MyLocationsList from '../Location/MyLocationsList';
 import mushrooms4 from '../../images/mushrooms4.jpg';
-import templateMushrooms from '../templateMushrooms';
+
 
 class SelectLocation extends React.Component {
   state = {
@@ -28,9 +26,9 @@ class SelectLocation extends React.Component {
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
       
-        <h1 className="main-title">
+        <h2 className="main-title">
           <strong>Select Location</strong>
-        </h1>
+        </h2>
         
         <h3>My Saved Locations:</h3>  
 

@@ -15,16 +15,16 @@ class AllSightingsPage extends Component {
 
   render() {
     const user = this.props.session.getCurrentUser._id;
-    // console.log(this.props.session.getCurrentUser.username)
+
     if (!user) {
       return null;
     }
 
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
-        <h1 className="main-title">
+        <h2 className="main-title">
           <strong>My Mushroom Sightings</strong> 
-        </h1>
+        </h2>
 
         
           <Query query={GET_MY_SIGHTINGS} variables={{ user }}>

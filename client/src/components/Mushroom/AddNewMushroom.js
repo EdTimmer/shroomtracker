@@ -13,10 +13,10 @@ const initialState = {
   user: '',
   location: '',
   commonname: '',
-  latinname: '', 
+  latinname: '',
   imageUrl: '',
   imageCredit: '',
-  newMushroom: true  
+  newMushroom: true
 }
 
 class AddNewMushroom extends React.Component {
@@ -83,7 +83,7 @@ class AddNewMushroom extends React.Component {
     // console.log('this.state in AddNewMushroom is:', this.state)
     // console.log('location in AddNewMushroom is:', location)
     return (
-      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
+      <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px' }}>
         <Mutation
           mutation={ADD_MUSHROOM}
           variables={{ commonname, latinname, imageUrl, imageCredit, user, location, newMushroom }}
@@ -92,7 +92,7 @@ class AddNewMushroom extends React.Component {
             { query: GET_CURRENT_USER },
             { query: GET_SELECTION_MUSHROOMS, variables: { user } }
           ]}
-          // update={this.updateCache}
+        // update={this.updateCache}
         >
           {
             (addMushroom, { data, loading, error }) => {
@@ -100,10 +100,10 @@ class AddNewMushroom extends React.Component {
               if (error) return <Error error={error} />
               return (
                 <div className="App">
-                  
-                  <h1 className="main-title">
-                    <strong>Add New Myshroom</strong>
-                  </h1>
+
+                  <h2 className="main-title">
+                    <strong>Add New Mushroom</strong>
+                  </h2>
 
                   <form className="form" onSubmit={event => this.handleSubmit(event, addMushroom)}>
 
@@ -137,12 +137,12 @@ class AddNewMushroom extends React.Component {
                       placeholder="Image Credit"
                       onChange={this.handleChange}
                       value={imageCredit}
-                    />                  
+                    />
 
                     <button
                       type="submit"
                       disabled={loading || this.validateForm()}
-                      className="button-primary"
+                      className="regular-button"
                     >
                       Submit
                     </button>

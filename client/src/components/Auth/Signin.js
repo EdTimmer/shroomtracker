@@ -26,14 +26,14 @@ class Signin extends React.Component {
   }
 
   handleSubmit = (event, signinUser) => {
-     event.preventDefault();
-     signinUser().then(async ({ data }) => {
+    event.preventDefault();
+    signinUser().then(async ({ data }) => {
       //  console.log('data.signinUser.token in handleSubmit of Sign in is:', data.signinUser.token);
-       localStorage.setItem('token', data.signinUser.token);
-       await this.props.refetch();
-       this.clearState();
-       this.props.history.push('/');
-     });
+      localStorage.setItem('token', data.signinUser.token);
+      await this.props.refetch();
+      this.clearState();
+      this.props.history.push('/');
+    });
   }
 
   validateForm = () => {
@@ -47,41 +47,45 @@ class Signin extends React.Component {
     const { username, password } = this.state;
 
     return (
-      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
-        <h2 className="App">Signin</h2>
+      <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px' }}>
+
+        <h2 className="main-title">
+          <strong>Singin</strong>
+        </h2>
+
         <Mutation mutation={SIGNIN_USER} variables={{ username, password }}>
-        {
-          ( signinUser, { data, loading, error }) => {
-            return (
-              <form className="form" onSubmit={event => this.handleSubmit(event, signinUser)}>
-                
-                <input 
-                  type="text" 
-                  name="username" 
-                  placeholder="Username"
-                  value={username} 
-                  onChange={this.handleChange} />
-                
-                <input 
-                  type="password" 
-                  name="password" 
-                  placeholder="Password"
-                  value={password} 
-                  onChange={this.handleChange} />
-                
-                <button 
-                  type="submit"
-                  disabled={loading || this.validateForm()}
-                  className="button-primary"
+          {
+            (signinUser, { data, loading, error }) => {
+              return (
+                <form className="form" onSubmit={event => this.handleSubmit(event, signinUser)}>
+
+                  <input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    value={username}
+                    onChange={this.handleChange} />
+
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={this.handleChange} />
+
+                  <button
+                    type="submit"
+                    disabled={loading || this.validateForm()}
+                    className="regular-button"
                   >
-                  Submit
+                    Submit
                 </button>
-                {error && <Error error={error}/>}
-              </form>
-            )
+                  {error && <Error error={error} />}
+                </form>
+              )
+            }
           }
-        }
-          
+
         </Mutation>
       </div>
     )

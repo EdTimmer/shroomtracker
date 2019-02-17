@@ -26,23 +26,23 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div className="App" style={{backgroundImage: `url(${mushrooms})`, height: '900px'}}>
+        <div className="App" style={{ backgroundImage: `url(${mushrooms})`, height: '900px' }}>
           <h1 className="main-title">
-            <strong>Mushroom Tracker</strong>            
-          </h1> 
-          <div style={{paddingTop: "40px"}}>
+            <strong>Mushroom Tracker</strong>
+          </h1>
+          <div style={{ paddingTop: "40px" }}>
             <Link to={'/signinexample'}>
-              <button              
-                className="button-primary"
+              <button
+                className="regular-button"
               >
                 EXAMPLE LOGIN
               </button>
-            </Link>     
+            </Link>
           </div>
-            
+
         </div>
       </div>
-      
+
     )
   }
 }

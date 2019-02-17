@@ -74,8 +74,6 @@ exports.typeDefs = `
       address: String!    
     ): Location
 
-    deleteLocation(_id: ID!, user: ID!, mushroom: ID!): Location
-
     updateLocation(
       _id: ID! 
       locationname: String!
@@ -109,8 +107,6 @@ exports.typeDefs = `
       imageCredit: String
       newMushroom: Boolean
     ): Mushroom
-
-    deleteMushroom(_id: ID, user: ID!, location: ID!, sighting: ID!): Mushroom
 
     updateMushroom(
       _id: ID! 

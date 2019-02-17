@@ -7,7 +7,6 @@ import { Query, Mutation } from 'react-apollo';
 import { DELETE_SIGHTING, GET_SIGHTING, UPDATE_SIGHTING, GET_MY_SIGHTINGS, GET_LOCATION } from '../../queries';
 import Spinner from '../Spinner';
 import Error from '../Error';
-// import { get } from 'https';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 
@@ -26,7 +25,7 @@ class SightingEditPage extends React.Component {
 
   componentDidMount() {
     this.setState({
-      user: this.props.session.getCurrentUser._id      
+      user: this.props.session.getCurrentUser._id
     });
   }
 
@@ -58,8 +57,6 @@ class SightingEditPage extends React.Component {
     console.log('state is:', this.state);
     const { _id, location, user, mushroom, locationname, commonname, date, latitude, longitude } = this.state;
     const { handleChange, handleSubmit } = this;
-    const locations = this.props.session.getCurrentUser.locations;
-    const mushrooms = this.props.session.getCurrentUser.mushrooms;
     return (
       <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px', color: 'white' }}
       >
@@ -72,7 +69,7 @@ class SightingEditPage extends React.Component {
               if (error) return <Error error={error} />
               // console.log(data);
               return (
-                <div className="App">                
+                <div className="App">
                   <Mutation
                     mutation={UPDATE_SIGHTING}
                     variables={{
@@ -84,15 +81,15 @@ class SightingEditPage extends React.Component {
                   >
                     {
                       updateSighting => (
-          
+
                         <form
                           onSubmit={(event) => handleSubmit(event, updateSighting)}
                         >
-                            
-                          <h1 className="main-title">
+
+                          <h2 className="main-title">
                             <strong>Edit Sighting</strong>
-                          </h1>     
-          
+                          </h2>
+
                           {/*<div style={{ color: 'black' }}>
                             <select
                               name="location"
@@ -126,9 +123,9 @@ class SightingEditPage extends React.Component {
                             </div>*/}
                           <div>
                             <h4>{locationname}</h4>
-                            <h4>{commonname}</h4>                        
+                            <h4>{commonname}</h4>
                           </div>
-          
+
                           <div>
                             <input
                               type="text"
@@ -138,7 +135,7 @@ class SightingEditPage extends React.Component {
                               value={date}
                             />
                           </div>
-          
+
                           <div>
                             <input
                               type="text"
@@ -148,7 +145,7 @@ class SightingEditPage extends React.Component {
                               value={latitude}
                             />
                           </div>
-          
+
                           <div>
                             <input
                               type="text"
@@ -158,17 +155,17 @@ class SightingEditPage extends React.Component {
                               value={longitude}
                             />
                           </div>
-          
-                          <button type="submit" className="button-primary">Update</button>
-          
+
+                          <button type="submit" className="regular-button">Update</button>
+
                         </form>
-          
+
                       )
                     }
                   </Mutation>
-        
+
                   <Mutation
-                    mutation={DELETE_SIGHTING} 
+                    mutation={DELETE_SIGHTING}
                     variables={{ _id, user, location, mushroom }}
                     refetchQueries={() => [
                       { query: GET_MY_SIGHTINGS, variables: { user } },
@@ -177,7 +174,7 @@ class SightingEditPage extends React.Component {
                   >
                     {
                       (deleteSighting, attrs = {}) => {
-          
+
                         return (
                           <div>
                             <button
@@ -189,13 +186,13 @@ class SightingEditPage extends React.Component {
                           </div>
                         )
                       }
-                    }          
+                    }
                   </Mutation>
                 </div>
               )
             }
           }
-        </Query>        
+        </Query>
       </div>
     )
   }

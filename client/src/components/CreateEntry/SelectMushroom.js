@@ -8,7 +8,6 @@ import { GET_SELECTION_MUSHROOMS } from '../../queries';
 import Spinner from '../Spinner';
 import Error from '../Error';
 
-// import templateMushrooms from '../templateMushrooms';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 
@@ -37,9 +36,9 @@ class SelectMushroom extends React.Component {
     return (
       <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, backgroundRepeat: "repeat" }}>
 
-        <h1 className="main-title">
+        <h2 className="main-title">
           <strong>Add To {locationname}</strong>
-        </h1>        
+        </h2>        
         
         <h3>
           <Link to={{

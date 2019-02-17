@@ -1,13 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-// import ReactHtmlParser from 'react-html-parser';
 import withAuth from '../withAuth';
 
-import { Query, Mutation } from 'react-apollo';
-import { DELETE_SIGHTING, GET_SIGHTING, UPDATE_SIGHTING, GET_MY_SIGHTINGS, GET_LOCATION, UPDATE_LOCATION, DELETE_LOCATION } from '../../queries';
-import Spinner from '../Spinner';
-import Error from '../Error';
-// import { get } from 'https';
+import { Mutation } from 'react-apollo';
+import { UPDATE_LOCATION } from '../../queries';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 
@@ -51,7 +47,7 @@ class LocationEditPage extends React.Component {
 
   render() {
     console.log('state is:', this.state);
-    const { _id, user, locationname, address } = this.state;
+    const { _id, locationname, address } = this.state;
     const { handleChange, handleSubmit } = this;
 
     return (
@@ -73,9 +69,9 @@ class LocationEditPage extends React.Component {
                           onSubmit={(event) => handleSubmit(event, updateLocation)}
                         >
                           
-                          <h1 className="main-title">
+                          <h2 className="main-title">
                             <strong>Edit Location</strong>
-                          </h1>        
+                          </h2>        
           
                           <div>
                             <input
@@ -98,7 +94,7 @@ class LocationEditPage extends React.Component {
                           </div>
           
                                     
-                          <button type="submit" className="button-primary">Update</button>
+                          <button type="submit" className="regular-button">Update</button>
           
                         </form>
           
@@ -106,30 +102,6 @@ class LocationEditPage extends React.Component {
                     }
                   </Mutation>
         
-                  <Mutation
-                    mutation={DELETE_LOCATION} 
-                    variables={{ _id, user }} //need mushroom id?
-                    refetchQueries={() => [
-                      { query: GET_MY_SIGHTINGS, variables: { user } },
-                      // { query: GET_LOCATION, variables: { _id: location } },
-                    ]}
-                  >
-                    {
-                      (deleteSighting, attrs = {}) => {
-          
-                        return (
-                          <div>
-                            <button
-                              className="delete-button"
-                              onClick={() => this.handleDelete(deleteSighting)}
-                            >
-                              Delete Sighting
-                            </button>
-                          </div>
-                        )
-                      }
-                    }          
-                  </Mutation>
                 </div>
        
       </div>

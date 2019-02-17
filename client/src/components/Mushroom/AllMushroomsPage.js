@@ -22,19 +22,18 @@ class AllMushroomsPage extends Component {
   }
   
   render() {
-    // const username = this.props.session.getCurrentUser.username;
+
     const {user} = this.state;
 
     if (!user) {
       return null;
     }
-    // console.log(this.props.session.getCurrentUser.username)
-    // backgroundRepeat: "repeat"
+
     return (
       <div className="App" style={{backgroundImage: `url(${mushrooms4})`, minHeight: "900px", backgroundRepeat: "repeat" }}>
-        <h1 className="main-title">
-          <strong>My Myshrooms</strong>
-        </h1>
+        <h2 className="main-title">
+          <strong>My Mushrooms</strong>
+        </h2>
         <Query query={GET_MY_MUSHROOMS} variables={{user}}>
           {({ data, loading, error }) => {
             if (loading) return <Spinner />

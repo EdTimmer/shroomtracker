@@ -9,10 +9,8 @@ import Error from '../Error';
 import mushrooms4 from '../../images/mushrooms4.jpg';
 
 class AddSighting extends React.Component {
-  state = { 
+  state = {
     user: '',
-    // location: this.props.location.state.location.state.location ? this.props.location.state.location.state.location : this.props.location.state.location,
-    // location: this.props.location.state.location,
     location: '',
     mushroom: this.props.location.state.mushroom,
     locationname: this.props.location.state.locationname,
@@ -24,21 +22,6 @@ class AddSighting extends React.Component {
     latitude: '',
     longitude: ''
   };
-
-  // clearState = () => {
-  //   this.setState({
-  //     user: '',
-  //     location: this.props.location.state.location,
-  //     locationname: this.props.location.state.locationname,
-  //     commonname: this.props.location.state.commonname,
-  //     latinname: this.props.location.state.latinname,
-  //     imageUrl: this.props.location.state.imageUrl,
-  //     imageCredit: this.props.location.state.imageCredit,
-  //     date: '',
-  //     latitude: '',
-  //     longitude: ''
-  //   });
-  // }
 
   componentDidMount() {
     this.setState({
@@ -55,7 +38,7 @@ class AddSighting extends React.Component {
   }
 
   // handleMushroomChange = event => {
-    
+
   //   const { value } = event.target;
   //   // console.log('value is', value);
   //   const valueArray = value.split(",")
@@ -95,14 +78,14 @@ class AddSighting extends React.Component {
   // }
 
   render() {
-    const { user, location, mushroom, locationname, commonname, latinname, imageUrl, imageCredit, date, latitude, longitude } = this.state;
+    const { user, location, mushroom, locationname, commonname, latinname, imageUrl, date, latitude, longitude } = this.state;
 
 
     // console.log('state is:', this.state)
     // console.log('location in AddSighting is', location)
 
     return (
-      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
+      <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px' }}>
         <Mutation
           mutation={ADD_SIGHTING}
           variables={{ user, location, mushroom, date, latitude, longitude }}
@@ -111,7 +94,7 @@ class AddSighting extends React.Component {
             { query: GET_MY_MUSHROOMS, variables: { user } },
             { query: GET_LOCATION, variables: { _id: location } },
           ]}
-          // update={this.updateCache}
+        // update={this.updateCache}
         >
           {
             (addSighting, { data, loading, error }) => {
@@ -119,14 +102,14 @@ class AddSighting extends React.Component {
               if (error) return <Error error={error} />
               return (
                 <div className="App">
-                  
-                  <h1 className="main-title">
+
+                  <h2 className="main-title">
                     <strong>Add Sighting</strong>
-                  </h1>
+                  </h2>
 
                   <form className="form" onSubmit={event => this.handleSubmit(event, addSighting)}>
                     <div>
-                      <img src={imageUrl} style={{width: '200px'}} alt="mushroom" />                    
+                      <img src={imageUrl} style={{ width: '200px' }} alt="mushroom" />
                     </div>
 
                     <div>
@@ -139,7 +122,7 @@ class AddSighting extends React.Component {
 
                     <div>
                       <h4>Latin Name: {latinname}</h4>
-                    </div>                  
+                    </div>
 
                     <input
                       type="text"
@@ -167,11 +150,11 @@ class AddSighting extends React.Component {
 
                     <button
                       disabled={loading || this.validateForm()}
-                      type="submit" className="button-primary"
+                      type="submit" className="regular-button"
                     >
                       Submit
                     </button>
-                    
+
                   </form>
                 </div>
               )

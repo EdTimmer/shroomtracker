@@ -26,8 +26,4 @@ const SightingSchema = new Schema({
   }
 });
 
-// SightingSchema.index({
-//   "$**": "text"
-// })
-
 module.exports = mongoose.model('Sighting', SightingSchema);

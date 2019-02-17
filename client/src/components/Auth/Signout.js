@@ -14,7 +14,7 @@ const Signout = ({ history, username }) => (
     {
       client => {
         return (
-          <button style={{color: 'white'}} onClick={() => handleSignout(client, history)}>Signout {username}</button>
+          <button style={{color: 'white', fontSize: "14px"}} onClick={() => handleSignout(client, history)}>Signout {username}</button>
         )
       }
     }

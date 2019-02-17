@@ -26,7 +26,7 @@ class AddLocation extends React.Component {
 
   componentDidMount() {
     this.setState({
-      user: this.props.session.getCurrentUser._id      
+      user: this.props.session.getCurrentUser._id
     });
   }
 
@@ -47,7 +47,7 @@ class AddLocation extends React.Component {
         pathname: '/selectmushroom',
         state: {
           locationname: this.state.locationname,
-          location: data.addLocation._id          
+          location: data.addLocation._id
         }
       });
 
@@ -85,15 +85,15 @@ class AddLocation extends React.Component {
           { query: GET_MY_LOCATIONS, variables: { user } },
           // { query: GET_ALL_LOCATIONS, variables: { username } }          
         ]}
-        // update={this.updateCache}
+      // update={this.updateCache}
       >
         {
           (addLocation, { data, loading, error }) => {
             if (loading) return <Spinner />
             if (error) return <Error error={error} />
             return (
-              <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
-                
+              <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px' }}>
+
                 <h2 className="main-title">
                   <strong>Add Location</strong>
                 </h2>
@@ -118,11 +118,11 @@ class AddLocation extends React.Component {
 
                   <button
                     disabled={loading || this.validateForm()}
-                    type="submit" className="button-primary"
-                    style={{color: 'white'}}
+                    type="submit" className="regular-button"
+                    style={{ color: 'white' }}
                   >
                     Submit
-                  </button>                  
+                  </button>
 
                 </form>
               </div>

@@ -2,7 +2,6 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import withAuth from '../withAuth';
 import Spinner from '../Spinner';
-// import AddSighting from '../Sighting/AddSighting';
 
 import { Mutation } from 'react-apollo';
 import { ADD_MUSHROOM, GET_MY_MUSHROOMS, GET_CURRENT_USER, GET_SELECTION_MUSHROOMS } from '../../queries';
@@ -13,10 +12,10 @@ const initialState = {
   user: '',
   location: '',
   commonname: '',
-  latinname: '', 
+  latinname: '',
   imageUrl: '',
   imageCredit: '',
-  newMushroom: true  
+  newMushroom: true
 }
 
 class AddMushroom extends React.Component {
@@ -31,7 +30,7 @@ class AddMushroom extends React.Component {
       user: this.props.session.getCurrentUser._id,
       location: this.props.location.state.location.state ? this.props.location.state.location.state.location : this.props.location.state.location,
       commonname: this.props.location.state ? this.props.location.state.commonname : '',
-      latinname: this.props.location.state ? this.props.location.state.latinname : '', 
+      latinname: this.props.location.state ? this.props.location.state.latinname : '',
       imageUrl: this.props.location.state ? this.props.location.state.imageUrl : '',
       imageCredit: this.props.location.state ? this.props.location.state.imageCredit : '',
     });
@@ -87,7 +86,7 @@ class AddMushroom extends React.Component {
     // console.log('this.state in AddMushroom is:', this.state)
     // console.log('location in AddMushroom is:', location)
     return (
-      <div className="App" style={{backgroundImage: `url(${mushrooms4})`, height: '900px'}}>
+      <div className="App" style={{ backgroundImage: `url(${mushrooms4})`, height: '900px' }}>
         <Mutation
           mutation={ADD_MUSHROOM}
           variables={{ commonname, latinname, imageUrl, imageCredit, user, location, newMushroom }}
@@ -96,7 +95,7 @@ class AddMushroom extends React.Component {
             { query: GET_CURRENT_USER },
             { query: GET_SELECTION_MUSHROOMS, variables: { user } }
           ]}
-          // update={this.updateCache}
+        // update={this.updateCache}
         >
           {
             (addMushroom, { data, loading, error }) => {
@@ -104,29 +103,29 @@ class AddMushroom extends React.Component {
               if (error) return <Error error={error} />
               return (
                 <div className="App">
-                  
-                  <h1 className="main-title">
-                    <strong>Add Myshroom</strong>
-                  </h1>
 
-                    <div>
-                      <img src={imageUrl} style={{width: '600px'}} alt="mushroom" />                    
-                    </div>
+                  <h2 className="main-title">
+                    <strong>Add Mushroom</strong>
+                  </h2>
 
-                    <div>
-                      <h4>Common Name: {commonname}</h4>
-                    </div>
+                  <div>
+                    <img src={imageUrl} style={{ width: '600px' }} alt="mushroom" />
+                  </div>
 
-                    <div>
-                      <h4>Latin Name: {latinname}</h4>
-                    </div>
+                  <div>
+                    <h4>Common Name: {commonname}</h4>
+                  </div>
+
+                  <div>
+                    <h4>Latin Name: {latinname}</h4>
+                  </div>
 
                   <form className="form" onSubmit={event => this.handleSubmit(event, addMushroom)}>
 
                     <button
                       type="submit"
-                      disabled={loading || this.validateForm()}                     
-                      className="button-primary"
+                      disabled={loading || this.validateForm()}
+                      className="regular-button"
                     >
                       Confirm Mushroom
                     </button>

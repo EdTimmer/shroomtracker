@@ -269,14 +269,6 @@ export const ADD_LOCATION = gql`
   }
 `;
 
-export const DELETE_LOCATION = gql`
-  mutation($_id: ID!, $user: ID!, $mushroom: ID!) {
-    deleteLocation(_id: $_id, user: $user, mushroom: $mushroom) {
-      _id
-    }
-  }
-`;
-
 export const UPDATE_LOCATION = gql`
   mutation(
     $_id: ID!, 
@@ -380,14 +372,6 @@ export const ADD_MUSHROOM = gql`
       imageUrl
       imageCredit
       newMushroom
-    }
-  }
-`;
-
-export const DELETE_MUSHROOM = gql`
-  mutation($_id: ID!, $user: ID!, $location: ID!, $sighting: ID!) {
-    deleteSighting(_id: $_id, user: $user, location: $location, sighting: $sighting) {
-      _id
     }
   }
 `;
