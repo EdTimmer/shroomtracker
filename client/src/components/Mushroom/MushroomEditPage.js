@@ -70,7 +70,7 @@ class MushroomEditPage extends React.Component {
                   </h2>
 
                   <div>
-                    <h4>Common name</h4>
+                    <h5>Common name (required)</h5>
                     <input
                       type="text"
                       name="commonname"
@@ -81,7 +81,7 @@ class MushroomEditPage extends React.Component {
                   </div>
 
                   <div>
-                    <h4>Latin name</h4>
+                    <h5>Latin name</h5>
                     <input
                       type="text"
                       name="latinname"
@@ -92,7 +92,7 @@ class MushroomEditPage extends React.Component {
                   </div>
 
                   <div>
-                    <h4>Image link</h4>
+                    <h5>Image link (required)</h5>
                     <input
                       type="text"
                       name="imageUrl"
@@ -103,7 +103,7 @@ class MushroomEditPage extends React.Component {
                   </div>
 
                   <div>
-                    <h4>Image credit</h4>
+                    <h5>Image credit</h5>
                     <input
                       type="text"
                       name="imageCredit"
