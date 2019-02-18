@@ -106,11 +106,11 @@ class AddNewMushroom extends React.Component {
                   </h2>
 
                   <form className="form" onSubmit={event => this.handleSubmit(event, addMushroom)}>
-
+                    
                     <input
                       type="text"
                       name="commonname"
-                      placeholder="Common Name"
+                      placeholder="Common Name (REQUIRED)"
                       onChange={this.handleChange}
                       value={commonname}
                     />
@@ -126,7 +126,7 @@ class AddNewMushroom extends React.Component {
                     <input
                       type="text"
                       name="imageUrl"
-                      placeholder="Mushroom Image"
+                      placeholder="Mushroom Image Link (REQUIRED)"
                       onChange={this.handleChange}
                       value={imageUrl}
                     />

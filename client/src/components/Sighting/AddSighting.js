@@ -127,7 +127,7 @@ class AddSighting extends React.Component {
                     <input
                       type="text"
                       name="date"
-                      placeholder="Date"
+                      placeholder="Date (REQUIRED)"
                       onChange={this.handleChange}
                       value={date}
                     />

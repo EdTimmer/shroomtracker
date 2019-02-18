@@ -103,7 +103,7 @@ class AddLocation extends React.Component {
                   <input
                     type="text"
                     name="locationname"
-                    placeholder="Location Name"
+                    placeholder="Location Name (REQUIRED)"
                     onChange={this.handleChange}
                     value={locationname}
                   />
@@ -111,7 +111,7 @@ class AddLocation extends React.Component {
                   <input
                     type="text"
                     name="address"
-                    placeholder="Address"
+                    placeholder="Address (REQUIRED)"
                     onChange={this.handleChange}
                     value={address}
                   />
