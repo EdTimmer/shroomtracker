@@ -74,6 +74,7 @@ class LocationEditPage extends React.Component {
                           </h2>        
           
                           <div>
+                            <h4>Locatin name</h4>
                             <input
                               type="text"
                               name="locationname"
@@ -84,6 +85,7 @@ class LocationEditPage extends React.Component {
                           </div>
           
                           <div>
+                            <h4>Location address</h4>
                             <input
                               type="text"
                               name="address"

@@ -70,6 +70,7 @@ class MushroomEditPage extends React.Component {
                   </h2>
 
                   <div>
+                    <h4>Common name</h4>
                     <input
                       type="text"
                       name="commonname"
@@ -80,6 +81,7 @@ class MushroomEditPage extends React.Component {
                   </div>
 
                   <div>
+                    <h4>Latin name</h4>
                     <input
                       type="text"
                       name="latinname"
@@ -90,6 +92,7 @@ class MushroomEditPage extends React.Component {
                   </div>
 
                   <div>
+                    <h4>Image link</h4>
                     <input
                       type="text"
                       name="imageUrl"
@@ -100,6 +103,7 @@ class MushroomEditPage extends React.Component {
                   </div>
 
                   <div>
+                    <h4>Image credit</h4>
                     <input
                       type="text"
                       name="imageCredit"
@@ -108,7 +112,6 @@ class MushroomEditPage extends React.Component {
                       value={imageCredit}
                     />
                   </div>
-
 
                   <button type="submit" className="regular-button">Update</button>
 

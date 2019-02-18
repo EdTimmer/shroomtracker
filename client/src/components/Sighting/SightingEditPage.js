@@ -127,6 +127,7 @@ class SightingEditPage extends React.Component {
                           </div>
 
                           <div>
+                            <h4>Date</h4>
                             <input
                               type="text"
                               name="date"
@@ -137,6 +138,7 @@ class SightingEditPage extends React.Component {
                           </div>
 
                           <div>
+                            <h4>Latitude</h4>
                             <input
                               type="text"
                               name="latitude"
@@ -147,6 +149,7 @@ class SightingEditPage extends React.Component {
                           </div>
 
                           <div>
+                            <h4>Longitude</h4>
                             <input
                               type="text"
                               name="longitude"
